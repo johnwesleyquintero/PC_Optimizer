@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.formatOnSave": true,
+		"files.trimTrailingWhitespace": true,
+		"files.insertFinalNewline": true,
+        "javascript.format.enable": true,
+        "typescript.format.enable": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"recommendations": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript",
+        "ms-vscode.vscode-javascript-language-features"
+	]
+}
