@@ -1,0 +1,10 @@
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I", "UP", "C4", "B"]
+ignore = []
+
+[tool.ruff.lint]
+# Add specific lint configurations here
+
+[tool.ruff.format]
+# Add specific format configurations here

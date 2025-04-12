@@ -1,4 +1,4 @@
-# PC Optimizer
+# SENTINEL PC Optimizer
 
 This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It includes both a command-line interface (CLI) and a graphical user interface (GUI) for accessibility.
 
@@ -115,10 +115,16 @@ This project is licensed under the MIT License - see the `LICENSE` file (to be c
 
 The `clean_temp_files` function in `src/core/performance_optimizer_v2.py` has been enhanced with more specific error handling. It now distinguishes between `OSError` exceptions, which are common during file system operations, and other unexpected exceptions. This allows for more targeted logging and debugging in case of issues during temporary file cleaning.
 
+### Consolidated Configuration Management
+
+Configuration management has been consolidated by merging `config_manager.py` into `config_manager_v2.py`.
+
 ### Added Logging in `config_manager_v2.py`
 
 Logging has been added to the `save_config` function in `src/core/config_manager_v2.py`. This provides better visibility into the configuration saving process, logging both successful saves and any exceptions that may occur. This is useful for debugging and ensuring that configuration changes are properly persisted.
 
 ## Future Enhancements
 
-- [List potential future enhancements]
+- Refactor `environment_manager.py` to use `EnvironmentConfig` from `src.core.config_manager_v2`.
+- Review and refactor `performance_optimizer_v2.py`.
+- Implement visual design recommendations in the GUI.

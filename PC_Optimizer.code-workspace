@@ -8,14 +8,26 @@
 		"editor.formatOnSave": true,
 		"files.trimTrailingWhitespace": true,
 		"files.insertFinalNewline": true,
-        "javascript.format.enable": true,
-        "typescript.format.enable": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.fixAll": "explicit",
+				"source.organizeImports": "explicit"
+			}
+		},
+		"ruff.lint.run": "onSave",
+		"python.analysis.typeCheckingMode": "basic",
+		"python.analysis.autoImportCompletions": true,
+		"python.analysis.diagnosticMode": "workspace"
 	},
 	"recommendations": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "ms-vscode.vscode-typescript",
-        "ms-vscode.vscode-javascript-language-features"
+		"ms-python.python",
+		"charliermarsh.ruff",
+		"njpwerner.autodocstring",
+		"ms-python.debugpy",
+		"kevinrose.vsc-python-indent",
+		"ms-vscode-remote.remote-containers",
+		"github.vscode-pull-request-github"
 	]
 }

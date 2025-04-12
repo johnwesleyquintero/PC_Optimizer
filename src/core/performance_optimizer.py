@@ -1,5 +1,5 @@
 import logging
-from config_manager import EnvironmentConfig, DARK_THEME, WINDOWS_SYSTEM, MEMORY_THRESHOLD_2GB
+from src.core.config_manager_v2 import EnvironmentConfig, DARK_THEME, WINDOWS_SYSTEM, MEMORY_THRESHOLD_2GB
 import multiprocessing
 import platform
 import os

@@ -15,12 +15,14 @@ class PerformanceOptimizerV2:
         self.config = EnvironmentConfig()
 
     def optimize_system(self):
+        logging.info("optimize_system: Starting system optimization")
         if self.config.theme == 'dark':
             self._apply_dark_mode_performance()
 
         thread_count = self.config.max_threads
         with multiprocessing.Pool(thread_count) as pool:
             pool.map(self._optimize_task, self._get_tasks())
+        logging.info("optimize_system: System optimization completed")
 
     def _apply_dark_mode_performance(self):
         # Windows-specific dark mode optimizations
@@ -37,19 +39,24 @@ class PerformanceOptimizerV2:
         return []
 
     def _optimize_task(self, task):
+        logging.info(f"_optimize_task: Starting task {task}")
         # PC optimization task implementation
         pass
+        logging.info(f"_optimize_task: Completed task {task}")
 
     def adjust_memory_usage(self):
+        logging.info("adjust_memory_usage: Adjusting memory usage")
         system_memory = psutil.virtual_memory().available
         if system_memory < 2 * 1024**3:  # Less than 2GB available
             self.config.config.set('Performance', 'max_threads', '2')
             self.config.save_config()
+        logging.info("adjust_memory_usage: Memory usage adjusted")
 
     def get_log_path(self):
         return self.config.output_dir / 'optimization_logs' / f'{platform.node()}.log'
 
     def clean_temp_files(self):
+        logging.info("clean_temp_files: Cleaning temporary files")
         temp_dir = os.environ.get("TEMP") or os.environ.get("TMP")
         if not temp_dir:
             temp_dir = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Temp")
@@ -79,4 +86,5 @@ class PerformanceOptimizerV2:
             return False
         else:
             logging.info(f"Successfully cleaned {cleaned_files_count} temporary files.")
+            logging.info("clean_temp_files: Temporary files cleaning completed")
             return True
