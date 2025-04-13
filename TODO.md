@@ -34,14 +34,15 @@
 ## Phase 1: Foundation & Consolidation (Remaining Tasks)
 
 *These tasks focus on solidifying the consolidated `SentinelPC` structure.*
+*(Update: Key Phase 1 tasks completed based on user confirmation)*
 
-*   [ ] **Refactor `environment_manager.py`:** Update to use `EnvironmentConfig` from the consolidated config manager. (Medium, `src/core/environment_manager.py`)
-*   [ ] **Add Initial Tests for Core Modules:**
-    *   [ ] Add basic unit tests for `config_manager.py`. (Small, `tests/`)
-    *   [ ] Add basic unit tests for `performance_optimizer.py`. (Small, `tests/`)
-    *   [ ] Add logs to `config_manager.py` (track loading, saving, validation). (Small, `src/core/config_manager.py`) - *Verify if covered by Centralized Logging task*
-    *   [ ] Add logs to `performance_optimizer.py` (track function calls, parameters, results). (Small, `src/core/performance_optimizer.py`) - *Verify if covered by Centralized Logging task*
-*   [ ] **Setup Basic CI Pipeline:** Implement GitHub Actions to run linters (`flake8`), formatters (`black`), and initial unit tests on push/PR. (Medium)
+*   [x] **Refactor `environment_manager.py`:** Update to use `EnvironmentConfig` from the consolidated config manager. (Medium, `src/core/environment_manager.py`) - *Confirmed complete.*
+*   [x] **Add Initial Tests for Core Modules:** *(Confirmed complete)*
+    *   [x] Add basic unit tests for `config_manager.py`. (Small, `tests/`) - *Verified.*
+    *   [x] Add basic unit tests for `performance_optimizer.py`. (Small, `tests/`) - *Verified.*
+    *   [x] Add logs to `config_manager.py` (track loading, saving, validation). (Small, `src/core/config_manager.py`) - *Verified & Enhanced.*
+    *   [x] Add logs to `performance_optimizer.py` (track function calls, parameters, results). (Small, `src/core/performance_optimizer.py`) - *Verified & Enhanced.*
+*   [x] **Setup Basic CI Pipeline:** Implement GitHub Actions to run linters (`flake8`), formatters (`black`), and initial unit tests on push/PR. (Medium) - *Confirmed complete (`.github/workflows/ci.yml`).*
 
 ---
 
@@ -55,7 +56,7 @@
 
 ### Code Quality & Refactoring
 *   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture. (Medium, `src/core/performance_optimizer.py`)
-*   [ ] **Enforce Code Style:** Run `flake8` and `black` across the codebase and fix violations. Integrate into CI (if not already done in Phase 1). (Small, Multiple files)
+*   [ ] **Enforce Code Style:** Run `flake8` and `black` across the codebase and fix violations. Integrate into CI (if not already done in Phase 1). (Small, Multiple files) - *Note: CI now runs checks, but manual fixes might still be needed.*
 *   [ ] **Improve Error Handling:** Define custom exceptions, catch specific errors, provide user-friendly GUI error messages. (Medium, Multiple files)
 
 ### Testing Expansion
@@ -113,4 +114,3 @@
 *   [ ] **Consider More Robust Temp File Cleaning:** Consider using a more targeted approach for temporary file cleaning in `src/core/performance_optimizer.py`.
 *   [ ] **Refactor `adjust_memory_usage`:** Refactor the `adjust_memory_usage` function in `src/core/performance_optimizer.py` to use a more centralized configuration management approach.
 *   [ ] **Consider More Robust Directory Creation:** Ensure the existence of other required directories in `src/core/environment_manager.py`.
-
