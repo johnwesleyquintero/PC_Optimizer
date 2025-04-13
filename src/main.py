@@ -7,6 +7,7 @@ handling both CLI and GUI modes.
 import sys
 import argparse
 from typing import Optional
+from queue import Queue
 from .core.sentinel_core import SentinelCore
 from .core.logging_manager import LoggingManager
 

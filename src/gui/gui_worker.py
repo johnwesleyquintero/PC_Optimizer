@@ -51,7 +51,7 @@ class GUIWorker:
                     self.result_queue.put((callback, result))
                 except Exception as e:
                     self.result_queue.put((callback, e))
-            except Queue.Empty:
+            except queue.Empty:
                 continue
     
     def process_results(self, root: tk.Tk) -> None:
@@ -67,6 +67,6 @@ class GUIWorker:
                     callback(None, error=str(result))
                 else:
                     callback(result)
-        except Queue.Empty:
+        except queue.Empty:
             if self.running:
                 root.after(100, lambda: self.process_results(root))

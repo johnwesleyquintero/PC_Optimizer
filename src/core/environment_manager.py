@@ -140,7 +140,16 @@ class EnvironmentManager:
         """Save the current configuration to file."""
         try:
             self._config.save_config()
-            logging.info("EnvironmentManager: Configuration saved successfully")
+            self.logger.info("EnvironmentManager: Configuration saved successfully")
         except Exception as e:
-            logging.error(f"EnvironmentManager: Failed to save configuration: {e}")
+            self.logger.error(f"EnvironmentManager: Failed to save configuration: {e}")
+            raise
+
+    def cleanup(self):
+        """Cleanup resources and save configuration before shutdown."""
+        try:
+            self.save_config()
+            self.logger.info("EnvironmentManager: Cleanup completed successfully")
+        except Exception as e:
+            self.logger.error(f"EnvironmentManager: Cleanup failed: {e}")
             raise

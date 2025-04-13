@@ -98,6 +98,26 @@ class PerformanceOptimizer:
 
     def _apply_dark_mode_performance(self):
         # Windows-specific dark mode optimizations
+        pass
+
+    def cleanup(self):
+        """Clean up resources and perform graceful shutdown.
+        
+        This method ensures proper cleanup of resources including thread pools
+        and system handles before shutdown.
+        
+        Returns:
+            bool: True if cleanup was successful, False otherwise
+        """
+        try:
+            self.logger.info("Cleaning up performance optimizer resources")
+            # Ensure thread pool is properly shutdown if it exists
+            if hasattr(self, '_executor') and self._executor:
+                self._executor.shutdown(wait=True)
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to cleanup performance optimizer: {e}")
+            return False
         if self.config.system == 'Windows':
             self._adjust_windows_theme_performance()
 
