@@ -28,11 +28,11 @@ jobs:
 
       - name: Publish executables
         run: |
-          mkdir -p wwwroot/publish
-          cp dist/SentinelPC.exe wwwroot/publish/
+          mkdir -p _wwwroot/publish
+          cp dist/SentinelPC.exe _wwwroot/publish/
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: executables
-          path: wwwroot/publish
+          path: _wwwroot/publish
