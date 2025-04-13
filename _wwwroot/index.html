@@ -10,17 +10,17 @@
 
     <!-- SEO - Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.yourwebsite.com/"> <!-- TODO: Replace with actual URL -->
+    <meta property="og:url" content="https://sentinelpc.netlify.app/"> <!-- TODO: Replace with actual LIVE URL -->
     <meta property="og:title" content="Sentinel PC - Workspace Management & Optimization">
     <meta property="og:description" content="SentinelPC: The ultimate solution for advanced workspace management, secure backups, and PC performance optimization.">
-    <meta property="og:image" content="https://www.yourwebsite.com/Assets/Branding/og-image.png"> <!-- TODO: Create and replace with actual OG image URL -->
+    <meta property="og:image" content="Assets/Branding/og-image.png"> <!-- TODO: Create and place og-image.png (1200x630) in Assets/Branding/ -->
 
     <!-- SEO - Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.yourwebsite.com/"> <!-- TODO: Replace with actual URL -->
+    <meta property="twitter:url" content="https://sentinelpc.netlify.app/"> <!-- TODO: Replace with actual LIVE URL -->
     <meta property="twitter:title" content="Sentinel PC - Workspace Management & Optimization">
     <meta property="twitter:description" content="SentinelPC: The ultimate solution for advanced workspace management, secure backups, and PC performance optimization.">
-    <meta property="twitter:image" content="https://www.yourwebsite.com/Assets/Branding/og-image.png"> <!-- TODO: Create and replace with actual Twitter image URL -->
+    <meta property="twitter:image" content="Assets/Branding/og-image.png"> <!-- TODO: Use the same og-image.png URL -->
 
     <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -32,8 +32,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" sizes="any"> <!-- TODO: Create favicon.ico and place in _wwwroot -->
     <link rel="icon" type="image/svg+xml" href="Assets/Branding/favicon.svg">
-    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png"> <!-- Optional: Add apple touch icon -->
+    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png"> <!-- TODO: Create apple-touch-icon.png (180x180) and place in Assets/Branding/ -->
 
     <style>
         body {
@@ -91,34 +92,55 @@
             opacity: 0;
             transition: opacity 0.7s ease-out;
         }
+        /* Add explicit focus styles for accessibility */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5); /* Cyan focus ring */
+        }
+        /* Specific focus styles for buttons with background */
+        .download-button:focus-visible, .get-started-button:focus-visible {
+             box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5), 0 4px 8px rgba(0, 151, 178, 0.3);
+        }
+         /* Specific focus styles for nav links */
+        nav a:focus-visible {
+            background-color: #f3f4f6; /* Light gray background on focus */
+            box-shadow: none; /* Remove default ring if background is enough */
+        }
+        /* Specific focus styles for footer links */
+        footer a:focus-visible {
+            text-decoration: underline;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
 
     <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#" class="flex items-center" aria-label="Sentinel PC Home">
+            <a href="#" class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
                 <img src="Assets/Branding/logo.svg" alt="Sentinel PC Logo" class="h-8">
             </a>
             <div class="hidden md:flex items-center space-x-2"> <!-- Hide on small screens, adjust spacing -->
-                <a href="#features" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300">Features</a>
-                <a href="#testimonials" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300">Testimonials</a>
-                <a href="#download" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300">Download</a>
-                <a href="#download" class="get-started-button text-white font-semibold py-2 px-5 rounded-lg text-sm ml-4">Get Started</a>
+                <a href="#features" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Features</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Testimonials</a>
+                <a href="#download" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Download</a>
+                <a href="#download" class="get-started-button text-white font-semibold py-2 px-5 rounded-lg text-sm ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">Get Started</a>
             </div>
-            <!-- TODO: Add Mobile Menu Button and Logic -->
+            <!-- Mobile Menu Button -->
              <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-600 hover:text-cyan-600 focus:outline-none">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500 rounded" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span> <!-- Screen reader text -->
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
          <!-- Mobile Menu (hidden by default) -->
         <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
-            <a href="#features" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600">Features</a>
-            <a href="#testimonials" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600">Testimonials</a>
-            <a href="#download" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600">Download</a>
-            <a href="#download" class="block px-6 py-4 text-center get-started-button text-white font-semibold rounded-none">Get Started</a>
+            <a href="#features" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Features</a>
+            <a href="#testimonials" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Testimonials</a>
+            <a href="#download" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Download</a>
+            <a href="#download" class="block px-6 py-4 text-center get-started-button text-white font-semibold rounded-none focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Get Started</a>
         </div>
     </nav>
 
@@ -128,40 +150,48 @@
                 <div class="md:w-1/2 text-center md:text-left">
                     <h1 class="text-4xl lg:text-5xl font-bold mb-5 leading-tight animate__animated animate__fadeInLeft text-shadow-dark">Elevate Your Workflow with SentinelPC</h1>
                     <p class="text-xl lg:text-2xl text-white opacity-90 mb-10 animate__animated animate__fadeInLeft animate__delay-1s">The ultimate solution for advanced workspace management, secure backups, and performance optimization.</p>
-                    <a href="#download" class="download-button text-white font-bold py-3 px-8 rounded-lg inline-block text-lg animate__animated animate__fadeInUp animate__delay-2s">Download Now</a>
+                    <!-- Corrected Download Link to GitHub Releases -->
+                    <a href="https://github.com/johnwesleyquintero/SentinelPC/releases/latest/download/SentinelPC.exe"
+                       class="download-button text-white font-bold py-3 px-8 rounded-lg inline-block text-lg animate__animated animate__fadeInUp animate__delay-2s focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-cyan-900 focus:ring-white">
+                       Download Now
+                    </a>
                 </div>
                 <div class="md:w-1/2 mt-10 md:mt-0 animate__animated animate__fadeInRight">
-                    <img src="Assets/Branding/hero-image.svg" alt="Sentinel PC Interface Mockup showing workspace management features" class="w-full rounded-lg shadow-2xl"> <!-- Enhanced Alt Text -->
+                    <!-- Hero image should NOT be lazy loaded as it's above the fold -->
+                    <img src="Assets/Branding/hero-image.svg" alt="Sentinel PC Interface Mockup showing workspace management features" class="w-full rounded-lg shadow-2xl">
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Added fade-in-section class for animation observer -->
+    <!-- Features Section -->
     <section id="features" class="py-20 bg-white fade-in-section">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800">Core Features</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <!-- Feature 1: Secure Backups -->
                 <div class="feature-card p-8 bg-gray-50 rounded-lg shadow-sm text-center md:text-left">
-                    <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Secure Backups Icon"> <!-- Accessibility -->
-                        <img src="Assets/Branding/backup.svg" alt="" class="w-10 h-10" aria-hidden="true"> <!-- Hide decorative img from screen readers -->
+                    <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Secure Backups Icon">
+                        <!-- Added loading="lazy" -->
+                        <img src="Assets/Branding/backup.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy">
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Secure Backups</h3>
                     <p class="text-gray-600 leading-relaxed">Protect your critical workspace data with automated, enterprise-grade encrypted backups.</p>
                 </div>
                 <!-- Feature 2: Intelligent Monitoring -->
                 <div class="feature-card p-8 bg-gray-50 rounded-lg shadow-sm text-center md:text-left">
-                     <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Intelligent Monitoring Icon"> <!-- Accessibility -->
-                         <img src="Assets/Branding/security.svg" alt="" class="w-10 h-10" aria-hidden="true"> <!-- Hide decorative img -->
+                     <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Intelligent Monitoring Icon">
+                         <!-- Added loading="lazy" -->
+                         <img src="Assets/Branding/security.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy">
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Intelligent Monitoring</h3>
                     <p class="text-gray-600 leading-relaxed">Gain insights with real-time workspace monitoring, proactive alerts, and optimization suggestions.</p>
                 </div>
                 <!-- Feature 3: Performance Boost -->
                 <div class="feature-card p-8 bg-gray-50 rounded-lg shadow-sm text-center md:text-left">
-                     <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Performance Boost Icon"> <!-- Accessibility -->
-                         <img src="Assets/Branding/settings.svg" alt="" class="w-10 h-10" aria-hidden="true"> <!-- Hide decorative img -->
+                     <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Performance Boost Icon">
+                         <!-- Added loading="lazy" -->
+                         <img src="Assets/Branding/settings.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy">
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Performance Boost</h3>
                     <p class="text-gray-600 leading-relaxed">Maximize your system's efficiency through automated cleanup and resource optimization.</p>
@@ -170,17 +200,17 @@
         </div>
     </section>
 
-    <!-- Added fade-in-section class for animation observer -->
+    <!-- Testimonials Section -->
     <section id="testimonials" class="py-20 bg-gray-100 fade-in-section">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-800">What Our Users Say</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200 flex flex-col"> <!-- Flex col for structure -->
-                    <blockquote class="text-gray-600 italic mb-6 flex-grow"> <!-- Flex grow pushes footer down -->
+                <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200 flex flex-col">
+                    <blockquote class="text-gray-600 italic mb-6 flex-grow">
                         <p>"Sentinel PC has revolutionized how we manage our development environments. The automated backups are a lifesaver!"</p>
                     </blockquote>
-                    <footer class="flex items-center mt-auto"> <!-- Footer sticks to bottom -->
+                    <footer class="flex items-center mt-auto">
                         <div class="w-12 h-12 rounded-full bg-cyan-100 mr-4 flex items-center justify-center text-cyan-700 font-semibold" aria-hidden="true">JD</div>
                         <div>
                             <p class="font-semibold text-gray-800">Jane Doe</p>
@@ -218,7 +248,7 @@
         </div>
     </section>
 
-    <!-- Added fade-in-section class for animation observer -->
+    <!-- Download Section -->
     <section id="download" class="py-20 bg-gradient-to-b from-white to-gray-100 fade-in-section">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-10 text-gray-800">Get Started with Sentinel PC Today</h2>
@@ -233,15 +263,18 @@
                     </ul>
                      <p class="text-sm text-gray-500 mt-2">Note: .NET Runtime will be installed automatically if not present.</p>
                 </div>
-                <!-- Ensure the href path is correct relative to where index.html is served -->
-                <a id="main-download-link" href="publish\SentinelPC.exe" download class="download-button text-white font-bold py-4 px-10 rounded-lg inline-flex items-center text-lg"> <!-- Added download attribute -->
+                <!-- Corrected Download Link to GitHub Releases -->
+                <a id="main-download-link"
+                   href="https://github.com/johnwesleyquintero/SentinelPC/releases/latest/download/SentinelPC.exe"
+                   download="SentinelPC.exe" <!-- Keep download attribute for filename suggestion -->
+                   class="download-button text-white font-bold py-4 px-10 rounded-lg inline-flex items-center text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
                     Download for Windows
                 </a>
                 <!-- TODO: Update version and file size dynamically or before release -->
-                <p class="text-sm text-gray-500 mt-5">Version 1.0.0 | File size: ~25MB</p>
+                <p class="text-sm text-gray-500 mt-5">Version 1.0.0 | File size: ~XX MB</p> <!-- Placeholder Size -->
             </div>
         </div>
     </section>
@@ -250,86 +283,90 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0 text-center md:text-left">
-                     <a href="#" class="flex items-center justify-center md:justify-start mb-2" aria-label="Sentinel PC Home">
-                        <img src="Assets/Branding/favicon.svg" alt="" class="h-6 mr-2" aria-hidden="true"> <!-- Hide decorative img -->
+                     <a href="#" class="flex items-center justify-center md:justify-start mb-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
+                        <img src="Assets/Branding/favicon.svg" alt="" class="h-6 mr-2" aria-hidden="true">
                         <span class="text-lg font-semibold text-gray-200">SentinelPC</span>
                     </a>
-                    <!-- Dynamically updated copyright year -->
                     <p class="text-sm">&copy; <span id="copyright-year">2024</span> SentinelPC. All rights reserved.</p>
                 </div>
                 <div class="flex space-x-6">
-                    <!-- TODO: Replace # with actual links to policy pages -->
-                    <a href="privacy.html" class="hover:text-white transition duration-300 text-sm">Privacy Policy</a>
-                    <a href="terms.html" class="hover:text-white transition duration-300 text-sm">Terms of Service</a>
-                    <a href="contact.html" class="hover:text-white transition duration-300 text-sm">Contact Us</a>
+                    <!-- TODO: Create these pages or remove links -->
+                    <a href="privacy.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Terms of Service</a>
+                    <a href="contact.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Contact Us</a>
                 </div>
             </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll logic (unchanged, seems fine)
+        // Smooth scroll logic
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                if (this.getAttribute('href').startsWith('#') && this.getAttribute('href').length > 1) {
-                    const targetElement = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                if (href.startsWith('#') && href.length > 1) {
+                    const targetElement = document.querySelector(href);
                     if (targetElement) {
                         e.preventDefault();
-                        // Optional: Close mobile menu if open when clicking a link
                         const mobileMenu = document.getElementById('mobile-menu');
+                        const menuButton = document.getElementById('mobile-menu-button');
+                        // Close mobile menu if open
                         if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                             mobileMenu.classList.add('hidden');
+                            menuButton.setAttribute('aria-expanded', 'false'); // Update ARIA state
                         }
-                        // Scroll smoothly
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                 }
             });
         });
 
-        // Intersection Observer for fade-in animation (Refined)
+        // Intersection Observer for fade-in animation
         const sectionsToAnimate = document.querySelectorAll('.fade-in-section');
-        const options = { threshold: 0.1 };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Make section visible
-                    entry.target.style.opacity = 1;
-                    // Add animation classes from Animate.css
-                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
-                    // Stop observing the element after animation triggers once
-                    observer.unobserve(entry.target);
-                }
+        if ("IntersectionObserver" in window) { // Check for browser support
+            const options = { threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+            sectionsToAnimate.forEach(section => {
+                observer.observe(section);
             });
-        }, options);
+        } else { // Fallback for older browsers
+             sectionsToAnimate.forEach(section => {
+                section.style.opacity = 1; // Just make them visible
+            });
+        }
 
-        sectionsToAnimate.forEach(section => {
-            observer.observe(section);
-        });
 
         // Dynamic Copyright Year
         document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-        // Basic Mobile Menu Toggle
+        // Mobile Menu Toggle
         const menuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
         if (menuButton && mobileMenu) {
             menuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                const isExpanded = mobileMenu.classList.toggle('hidden');
+                menuButton.setAttribute('aria-expanded', !isExpanded); // Toggle ARIA state
             });
         }
 
-        // Optional: Close mobile menu if clicking outside of it
+        // Close mobile menu if clicking outside
         document.addEventListener('click', function(event) {
-            const isClickInsideMenu = mobileMenu.contains(event.target);
-            const isClickOnButton = menuButton.contains(event.target);
-
-            if (!isClickInsideMenu && !isClickOnButton && !mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
+            if (mobileMenu && menuButton && !mobileMenu.classList.contains('hidden')) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnButton = menuButton.contains(event.target);
+                if (!isClickInsideMenu && !isClickOnButton) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false'); // Update ARIA state
+                }
             }
         });
 

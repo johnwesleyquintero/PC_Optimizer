@@ -31,8 +31,23 @@ jobs:
           mkdir -p _wwwroot/publish
           cp dist/SentinelPC.exe _wwwroot/publish/
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: executables
-          path: _wwwroot/publish
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: _wwwroot/publish/SentinelPC.exe
+          asset_name: SentinelPC.exe
+          asset_content_type: application/octet-stream
