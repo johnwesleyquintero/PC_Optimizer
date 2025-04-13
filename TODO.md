@@ -10,7 +10,7 @@
     - [x] Removed pc_optimizer_cli_v2.py and pc_optimizer_gui_v2.py
     - [x] Update import statements in all files to use new names
     - [x] Update build scripts to use consolidated files
-    - [ ] Test consolidated application functionality
+    - [x] Test consolidated application functionality
 2.  **Implement Semantic Versioning:** Adopt SemVer (e.g., `v1.0.0`) across the project for clear version tracking, remove informal version suffixes (like `_v2`) from filenames, and use Git tags.
 
 ---
@@ -38,7 +38,7 @@
 *   [x] **Implement Semantic Versioning:**
     *   [x] Adopt SemVer (`v1.0.0`). (Small)
     *   [x] Remove `_v2` suffixes from all relevant filenames (e.g., `pc_optimizer_cli.py`, `config_manager.py`). (Medium, Multiple files)
-    *   [ ] Establish process for version bumping (e.g., manual, `bump2version`) and Git tagging. (Small)
+    *   [x] Establish process for version bumping (e.g., manual, `bump2version`) and Git tagging. (Small)
 *   [x] **Rename & Reorganize:** Rename folders/files/modules to reflect the `SentinelPC` name and the defined architecture. (Medium, Multiple files)
 *   [x] **Update Entry Points:** Modify/Create main script(s) for running `SentinelPC` (handling CLI vs GUI modes). (Medium, `src/`)
 *   [x] **Update Build Process:** Modify `build.bat` and `.spec` files to build the consolidated `SentinelPC` application (CLI/GUI variants if needed, or a single entry point). (Medium, `scripts/`, `spec/`)

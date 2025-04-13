@@ -1,10 +1,75 @@
+[tool.poetry]
+name = "sentinelpc"
+version = "1.0.0"
+description = "Advanced system optimization and monitoring tool"
+authors = ["SentinelPC Team"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+psutil = "^5.9.0"
+typing-extensions = "^4.7.0"
+pydantic = "^2.4.0"
+click = "^8.1.0"
+rich = "^13.6.0"
+tqdm = "^4.66.0"
+PyQt6 = "^6.5.0"
+darkdetect = "^0.8.0"
+requests = "^2.31.0"
+aiohttp = "^3.8.0"
+asyncio = "^3.4.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+black = "^23.9.0"
+ruff = "^0.0.291"
+mypy = "^1.5.0"
+sphinx = "^7.2.0"
+sphinx-rtd-theme = "^1.3.0"
+mkdocs = "^1.5.0"
+mkdocs-material = "^9.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
 [tool.ruff]
 line-length = 88
 select = ["E", "F", "W", "I", "UP", "C4", "B"]
 ignore = []
 
 [tool.ruff.lint]
-# Add specific lint configurations here
+extend-select = ["C4", "SIM", "TCH"]
 
 [tool.ruff.format]
-# Add specific format configurations here
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.mypy]
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "--cov=src --cov-report=term-missing -v"
+asyncio_mode = "auto"
+
+[tool.poetry.scripts]
+sentinelpc = "src.main:main"
+sentinelpc-gui = "src.gui.sentinel_gui:main"
+sentinelpc-cli = "src.cli.sentinel_cli:main"

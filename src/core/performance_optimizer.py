@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from concurrent.futures import ThreadPoolExecutor
 import multiprocessing
 import psutil
@@ -13,6 +13,18 @@ class OptimizationError(Exception):
     """Custom exception for optimization-related errors."""
     pass
 
+class TaskExecutionError(OptimizationError):
+    """Exception raised when a specific optimization task fails."""
+    pass
+
+class MemoryOptimizationError(OptimizationError):
+    """Exception raised when memory optimization fails."""
+    pass
+
+class FileCleanupError(OptimizationError):
+    """Exception raised when temporary file cleanup fails."""
+    pass
+
 class PerformanceOptimizer:
     def __init__(self):
         self.config = EnvironmentConfig()
@@ -23,9 +35,13 @@ class PerformanceOptimizer:
 
         Returns:
             bool: True if optimization was successful, False otherwise.
+
+        Raises:
+            OptimizationError: If optimization process fails.
+            TaskExecutionError: If specific tasks fail during execution.
         """
         try:
-            self.logger.info("optimize_system: Starting system optimization")
+            self.logger.info("Starting system optimization")
             
             # Adjust system based on theme
             if self.config.theme == 'dark':
@@ -38,21 +54,31 @@ class PerformanceOptimizer:
                 return True
 
             # Execute tasks using thread pool
-            thread_count = min(self.config.max_threads, len(tasks))
-            with ThreadPoolExecutor(max_workers=thread_count) as executor:
-                results = list(executor.map(self._optimize_task, tasks))
+            thread_count = min(self.config.max_threads or multiprocessing.cpu_count(), len(tasks))
+            failed_tasks = []
             
-            # Check results
-            if not all(results):
-                logging.warning("Some optimization tasks failed")
-                return False
+            with ThreadPoolExecutor(max_workers=thread_count) as executor:
+                future_to_task = {executor.submit(self._optimize_task, task): task for task in tasks}
+                for future in future_to_task:
+                    task = future_to_task[future]
+                    try:
+                        if not future.result():
+                            failed_tasks.append(task['name'])
+                    except Exception as e:
+                        self.logger.error(f"Task {task['name']} failed with error: {str(e)}")
+                        failed_tasks.append(task['name'])
+            
+            if failed_tasks:
+                error_msg = f"Failed tasks: {', '.join(failed_tasks)}"
+                self.logger.error(error_msg)
+                raise TaskExecutionError(error_msg)
                 
-            logging.info("optimize_system: System optimization completed successfully")
+            self.logger.info("System optimization completed successfully")
             return True
             
         except Exception as e:
-            logging.error(f"optimize_system: Failed to optimize system: {e}")
-            raise OptimizationError(f"Failed to optimize system: {e}")
+            self.logger.error(f"Failed to optimize system: {str(e)}")
+            raise OptimizationError(f"Failed to optimize system: {str(e)}")
 
     def _apply_dark_mode_performance(self):
         # Windows-specific dark mode optimizations
@@ -107,22 +133,34 @@ class PerformanceOptimizer:
 
         Returns:
             bool: True if adjustment was successful, False otherwise.
+
+        Raises:
+            MemoryOptimizationError: If memory adjustment fails.
         """
         try:
-            logging.info("adjust_memory_usage: Adjusting memory usage")
-            system_memory = psutil.virtual_memory().available
+            self.logger.info("Adjusting memory usage")
+            system_memory = psutil.virtual_memory()
             
-            if system_memory < 2 * 1024**3:  # Less than 2GB available
+            # Calculate memory thresholds
+            critical_threshold = 2 * 1024**3  # 2GB
+            warning_threshold = 4 * 1024**3   # 4GB
+            
+            if system_memory.available < critical_threshold:
                 self.config.config.set('Performance', 'max_threads', '2')
                 self.config.save_config()
-                logging.info("Memory usage adjusted: reduced max threads to 2")
+                self.logger.warning(f"Critical memory condition: {system_memory.percent}% used. Reduced max threads to 2")
+            elif system_memory.available < warning_threshold:
+                self.config.config.set('Performance', 'max_threads', '4')
+                self.config.save_config()
+                self.logger.info(f"Low memory condition: {system_memory.percent}% used. Adjusted max threads to 4")
             else:
-                logging.info("Memory usage is within acceptable range")
+                self.logger.info(f"Memory usage is optimal: {system_memory.percent}% used")
             
             return True
         except Exception as e:
-            logging.error(f"adjust_memory_usage: Failed to adjust memory usage: {e}")
-            return False
+            error_msg = f"Failed to adjust memory usage: {str(e)}"
+            self.logger.error(error_msg)
+            raise MemoryOptimizationError(error_msg)
 
     def get_log_path(self) -> Path:
         """Get the path for optimization logs.
@@ -134,36 +172,56 @@ class PerformanceOptimizer:
         log_path.parent.mkdir(parents=True, exist_ok=True)
         return log_path
 
-    def clean_temp_files(self):
-        logging.info("clean_temp_files: Cleaning temporary files")
-        temp_dir = os.environ.get("TEMP") or os.environ.get("TMP")
-        if not temp_dir:
-            temp_dir = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Temp")
+    def clean_temp_files(self) -> bool:
+        """Clean temporary files from system temporary directories.
 
-        logging.info(f"Cleaning temporary files from: {temp_dir}")
+        Returns:
+            bool: True if cleanup was successful, False otherwise.
+
+        Raises:
+            FileCleanupError: If cleanup process encounters critical errors.
+        """
+        self.logger.info("Starting temporary files cleanup")
+        temp_dirs = []
+
+        # Get all possible temp directories
+        for env_var in ["TEMP", "TMP"]:
+            if path := os.environ.get(env_var):
+                temp_dirs.append(Path(path))
+        
+        if not temp_dirs:
+            temp_dirs.append(Path(os.environ["USERPROFILE"]) / "AppData" / "Local" / "Temp")
+
         cleaned_files_count = 0
         errors = []
-        if os.path.isdir(temp_dir):
-            for filename in os.listdir(temp_dir):
-                file_path = os.path.join(temp_dir, filename)
-                try:
-                    if os.path.isfile(file_path) or os.path.islink(file_path):
-                        os.unlink(file_path)
-                        cleaned_files_count += 1
-                    elif os.path.isdir(file_path):
-                        shutil.rmtree(file_path)
-                        cleaned_files_count += 1
-                except OSError as e:
-                    errors.append(f"Error deleting {file_path}: {e}")
-                    logging.error(f"OSError deleting {file_path}: {e}")
-                except Exception as e:
-                    errors.append(f"Unexpected error deleting {file_path}: {e}")
-                    logging.exception(f"Unexpected error deleting {file_path}: {e}")
+
+        for temp_dir in temp_dirs:
+            if not temp_dir.is_dir():
+                continue
+
+            self.logger.info(f"Cleaning temporary files from: {temp_dir}")
+            try:
+                for item in temp_dir.iterdir():
+                    try:
+                        if item.is_file() or item.is_symlink():
+                            item.unlink(missing_ok=True)
+                            cleaned_files_count += 1
+                        elif item.is_dir():
+                            shutil.rmtree(item, ignore_errors=True)
+                            cleaned_files_count += 1
+                    except PermissionError as e:
+                        self.logger.debug(f"Permission denied for {item}: {str(e)}")
+                    except OSError as e:
+                        errors.append(f"Error processing {item}: {str(e)}")
+                        self.logger.warning(f"Failed to remove {item}: {str(e)}")
+            except Exception as e:
+                error_msg = f"Critical error while cleaning {temp_dir}: {str(e)}"
+                self.logger.error(error_msg)
+                raise FileCleanupError(error_msg)
 
         if errors:
-            logging.warning(f"Errors occurred during temporary file cleaning: {errors}")
+            self.logger.warning(f"Completed with {len(errors)} non-critical errors")
             return False
-        else:
-            logging.info(f"Successfully cleaned {cleaned_files_count} temporary files.")
-            logging.info("clean_temp_files: Temporary files cleaning completed")
-            return True
+
+        self.logger.info(f"Successfully cleaned {cleaned_files_count} temporary items")
+        return True
