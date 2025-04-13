@@ -66,13 +66,24 @@ def main() -> None:
     try:
         # Parse command line arguments
         args = parse_args()
-        
+:start_line:81
+:end_line:81
+-------
+        try:
         # Show version if requested
         if args.version:
             core = SentinelCore()
             print(f"SentinelPC v{core.version}")
             sys.exit(0)
+:start_line:90
+:end_line:93
+-------
         
+:start_line:89
+:end_line:90
+-------
+            core.shutdown()
+            
         # Initialize core
         core = SentinelCore()
         if not core.initialize():
@@ -92,5 +103,8 @@ def main() -> None:
         logger.error("Fatal error: %s", str(e))
         sys.exit(1)
 
+:start_line:95
+:end_line:96
+-------
 if __name__ == "__main__":
     main()

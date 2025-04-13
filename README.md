@@ -6,6 +6,8 @@
 
 > This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It features a unified interface with both CLI and GUI capabilities, internationalization support, and advanced monitoring systems.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/56e76301-0db4-4551-9120-abf76d6c8cc1/deploy-status)](https://app.netlify.com/sites/sentinelpc/deploys)
+
 ## Project Structure
 
 The project is organized into several directories based on functionality:
