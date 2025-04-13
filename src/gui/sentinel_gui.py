@@ -542,7 +542,7 @@ class SentinelGUI:
         if "optimizations" in results and isinstance(results["optimizations"], list):
             self.results_text.insert(tk.END, "\nOptimizations Performed:\n")
             if not results["optimizations"]:
-                 self.results_text.insert(tk.END", "  (No specific optimizations listed)\n")
+                 self.results_text.insert(tk.END, "  (No specific optimizations listed)\n")
             else:
                 for opt in results["optimizations"]:
                      # Check if opt is a dict with details or just a string
@@ -562,7 +562,7 @@ class SentinelGUI:
         if "final_state" in results and isinstance(results["final_state"], dict):
             self.results_text.insert(tk.END, "\nFinal State:\n")
             if not results["final_state"]:
-                 self.results_text.insert(tk.END", "  (No final state data provided)\n")
+                 self.results_text.insert(tk.END, "  (No final state data provided)\n")
             else:
                 for key, value in results["final_state"].items():
                     self.results_text.insert(tk.END, f"  {key.replace('_', ' ').title()}: {value}\n")

@@ -1040,3 +1040,66 @@ src.core.performance_optimizer.OptimizationError: Failed to optimize system: Fai
 2025-04-13 14:44:46,621 - root - INFO - GUIWorker thread started
 2025-04-13 14:45:06,816 - root - ERROR - Error in task <lambda>: 'SentinelCore' object has no attribute 'optimize_system'
 2025-04-13 14:45:32,936 - root - ERROR - Error in task <lambda>: 'SentinelCore' object has no attribute 'optimize_system'
+2025-04-13 21:44:36,900 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 21:44:36,901 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 21:44:36,901 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 21:44:36,974 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 21:44:36,979 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 21:44:36,999 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 21:44:37,001 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 21:44:37,001 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 21:44:37,020 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 21:44:37,021 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 21:44:37,026 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 21:44:37,029 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 21:44:37,030 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 21:44:37,031 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 21:44:37,032 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 21:44:37,033 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 21:44:37,034 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 21:44:37,034 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 21:44:37,034 - root - INFO - SentinelCore initialized (Version: 1.0.0).
+2025-04-13 21:44:37,036 - root - INFO - Initializing SentinelGUI...
+2025-04-13 21:44:37,037 - src.gui.sentinel_gui - INFO - Initializing SentinelGUI...
+2025-04-13 21:44:38,198 - src.gui.gui_worker - INFO - GUIWorkerThread: Initialized (Max Queue: 100)
+2025-04-13 21:44:38,263 - src.gui.gui_worker - INFO - GUIWorkerThread: Worker loop started.
+2025-04-13 21:44:38,263 - src.gui.gui_worker - INFO - GUIWorkerThread: Worker thread started.
+2025-04-13 21:44:38,312 - src.gui.sentinel_gui - WARNING - Icon file not found: C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\assets\shield_icon_small.png
+2025-04-13 21:44:40,827 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:40,829 - src.gui.sentinel_gui - INFO - SentinelGUI initialized successfully.
+2025-04-13 21:44:40,829 - root - INFO - SentinelGUI initialized.
+2025-04-13 21:44:40,829 - root - INFO - Starting GUI main loop...
+2025-04-13 21:44:40,830 - src.gui.sentinel_gui - INFO - Starting SentinelGUI main loop...
+2025-04-13 21:44:40,981 - src.core.sentinel_core - ERROR - Failed to get system info: 'EnvironmentManager' object has no attribute 'get_system_info'
+2025-04-13 21:44:41,034 - src.gui.sentinel_gui - ERROR - SentinelCore does not have 'get_startup_programs' method.
+2025-04-13 21:44:42,839 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:44,841 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:46,845 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:48,854 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:50,855 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:52,886 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:52,967 - src.gui.sentinel_gui - ERROR - SentinelCore does not have 'get_startup_programs' method.
+2025-04-13 21:44:54,892 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:56,895 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:44:58,015 - src.core.sentinel_core - ERROR - Failed to get system info: 'EnvironmentManager' object has no attribute 'get_system_info'
+2025-04-13 21:44:58,902 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:00,912 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:02,920 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:04,933 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:06,934 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:08,940 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:10,948 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:12,950 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:14,965 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:16,979 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:18,982 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:20,994 - src.gui.sentinel_gui - WARNING - SentinelCore does not have 'get_system_metrics' method. Metrics update skipped.
+2025-04-13 21:45:22,838 - src.gui.sentinel_gui - INFO - GUI main loop finished. Stopping worker thread...
+2025-04-13 21:45:22,839 - src.gui.gui_worker - INFO - GUIWorkerThread: Stop requested. Signaling worker thread...
+2025-04-13 21:45:22,839 - src.gui.gui_worker - INFO - GUIWorkerThread: Waiting up to 2.0s for worker thread to join...
+2025-04-13 21:45:22,853 - src.gui.gui_worker - INFO - GUIWorkerThread: Worker loop finished.
+2025-04-13 21:45:22,854 - src.gui.gui_worker - INFO - GUIWorkerThread: Worker thread joined successfully.
+2025-04-13 21:45:22,854 - src.gui.gui_worker - INFO - GUIWorkerThread: Cleaning up queues...
+2025-04-13 21:45:22,855 - src.gui.gui_worker - INFO - GUIWorkerThread: Worker stopped.
+2025-04-13 21:45:22,855 - src.gui.sentinel_gui - INFO - Worker thread stopped.
+2025-04-13 21:45:22,855 - root - INFO - SentinelPC application shutting down.
