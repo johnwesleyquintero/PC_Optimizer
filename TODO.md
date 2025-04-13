@@ -28,31 +28,31 @@
 *   [x] Create `CONTRIBUTING.md`
 *   [x] Enhance Dependency Management (Pinning, `requirements.txt`, `requirements-dev.txt`)
 *   [x] Implement Centralized Logging (Setup, core module integration, config integration)
+*   [x] Refactor `environment_manager.py` to use `EnvironmentConfig`.
+*   [x] Add Initial Tests for Core Modules (`config_manager.py`, `performance_optimizer.py`).
+*   [x] Add logs to `config_manager.py` and `performance_optimizer.py`.
+*   [x] Setup Basic CI Pipeline (Linting, Formatting, Initial Tests).
+*   [x] Implement GitHub Releases for Executable Distribution in CI.
+*   [x] Update Website Download Link in `index.html` to point to GitHub Releases.
 
 ---
 
 ## Phase 1: Foundation & Consolidation (Remaining Tasks)
 
-*These tasks focus on solidifying the consolidated `SentinelPC` structure.*
-*(Update: Key Phase 1 tasks completed based on user confirmation)*
-
-*   [x] **Refactor `environment_manager.py`:** Update to use `EnvironmentConfig` from the consolidated config manager. (Medium, `src/core/environment_manager.py`) - *Confirmed complete.*
-*   [x] **Add Initial Tests for Core Modules:** *(Confirmed complete)*
-    *   [x] Add basic unit tests for `config_manager.py`. (Small, `tests/`) - *Verified.*
-    *   [x] Add basic unit tests for `performance_optimizer.py`. (Small, `tests/`) - *Verified.*
-    *   [x] Add logs to `config_manager.py` (track loading, saving, validation). (Small, `src/core/config_manager.py`) - *Verified & Enhanced.*
-    *   [x] Add logs to `performance_optimizer.py` (track function calls, parameters, results). (Small, `src/core/performance_optimizer.py`) - *Verified & Enhanced.*
-*   [x] **Setup Basic CI Pipeline:** Implement GitHub Actions to run linters (`flake8`), formatters (`black`), and initial unit tests on push/PR. (Medium) - *Confirmed complete (`.github/workflows/ci.yml`).*
+*(All key Phase 1 tasks previously listed here are now marked as completed above)*
 
 ---
 
 ## Phase 2: Refinement & Feature Development
 
-*Build upon the consolidated foundation.*
-
 ### Deployment & Distribution
-*   [x] **Implement GitHub Releases for Executable Distribution:** Modify CI workflow (GitHub Actions) to create a GitHub Release and attach `SentinelPC.exe` as an asset. (Medium, `.github/workflows/`)
-*   [x] **Update Website Download Link:** Change the `href` in `wwwroot/index.html` to point to the latest GitHub Release asset (e.g., `.../releases/latest/download/SentinelPC.exe`). (Small, `wwwroot/index.html`)
+*   [x] **Website/Landing Page Readiness Checklist:** *(Self-verified as complete)*
+    *   [x] Updated version and file size information in `index.html`.
+    *   [x] Created essential policy pages (`_wwwroot/privacy.html`, `_wwwroot/terms.html`).
+    *   [x] Verified all branding asset references in documentation (`README.md`, etc.) and website (`index.html`).
+    *   [x] Updated footer links in `index.html` to point to new policy pages.
+    *   [x] Ensured required assets are present: `_wwwroot/favicon.ico`, `wwwroot/Assets/Branding/og-image.png`, `wwwroot/Assets/Branding/apple-touch-icon.png`.
+    *   [x] Double-checked deployment URL consistency in `index.html` meta tags.
 
 ### Code Quality & Refactoring
 *   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture. (Medium, `src/core/performance_optimizer.py`)
