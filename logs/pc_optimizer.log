@@ -330,3 +330,11 @@
 2025-04-13 12:41:06,603 - src.core.environment_manager - INFO - EnvironmentManager: Cleanup completed successfully
 2025-04-13 12:41:06,603 - src.core.config_manager - INFO - ConfigManager: Saving configuration
 2025-04-13 12:41:06,609 - src.core.config_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 13:06:50,549 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:06:50,550 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:06:50,550 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:06:50,553 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:06:50,554 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:06:50,574 - src.core.monitoring_manager - INFO - Initializing system monitoring
+2025-04-13 13:06:51,589 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:06:51,630 - src.core.monitoring_manager - WARNING - High CPU usage: 98.1%
