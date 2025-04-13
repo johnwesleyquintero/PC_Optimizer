@@ -29,6 +29,22 @@ class PerformanceOptimizer:
     def __init__(self):
         self.config = EnvironmentConfig()
         self.logger = LoggingManager().get_logger(__name__)
+        
+    def initialize(self, profile: Optional[str] = None) -> bool:
+        """Initialize the performance optimizer.
+        
+        Args:
+            profile: Optional optimization profile to use
+            
+        Returns:
+            bool: True if initialization was successful, False otherwise
+        """
+        try:
+            self.logger.info("Initializing performance optimizer")
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to initialize performance optimizer: {e}")
+            return False
 
     def optimize_system(self) -> bool:
         """Optimize system performance using multiple optimization strategies.
@@ -89,6 +105,60 @@ class PerformanceOptimizer:
         # Placeholder for Windows theme perf. adjustments
         pass
 
+
+    def get_disk_usage(self) -> Dict[str, Any]:
+        """Get disk usage information for all drives.
+
+        Returns:
+            Dict[str, Any]: Dictionary containing disk usage information
+        """
+        try:
+            disk_info = {}
+            for partition in psutil.disk_partitions(all=False):
+                if partition.fstype:
+                    usage = psutil.disk_usage(partition.mountpoint)
+                    disk_info[partition.device] = {
+                        'total': usage.total,
+                        'used': usage.used,
+                        'free': usage.free,
+                        'percent': usage.percent
+                    }
+            return {'success': True, 'data': disk_info}
+        except Exception as e:
+            self.logger.error(f"Failed to get disk usage: {str(e)}")
+            return {'success': False, 'error': str(e)}
+
+    def manage_startup_programs(self, action: str, program: str) -> Dict[str, bool]:
+        """Manage startup programs.
+
+        Args:
+            action: Either 'enable' or 'disable'
+            program: Name of the startup program
+
+        Returns:
+            Dict[str, bool]: Success status and any error message
+        """
+        try:
+            # Implementation depends on OS
+            if platform.system() == 'Windows':
+                import winreg
+                key_path = r"Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+                try:
+                    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, key_path, 0, 
+                                        winreg.KEY_ALL_ACCESS)
+                    if action == 'disable':
+                        winreg.DeleteValue(key, program)
+                    elif action == 'enable' and 'path' in program:
+                        winreg.SetValueEx(key, program, 0, winreg.REG_SZ, program['path'])
+                    winreg.CloseKey(key)
+                    return {'success': True}
+                except WindowsError as e:
+                    return {'success': False, 'error': str(e)}
+            else:
+                return {'success': False, 'error': 'Operation not supported on this OS'}
+        except Exception as e:
+            self.logger.error(f"Failed to manage startup programs: {str(e)}")
+            return {'success': False, 'error': str(e)}
 
     def _get_tasks(self) -> List[Dict[str, Any]]:
         """Get list of optimization tasks to perform.
@@ -225,3 +295,26 @@ class PerformanceOptimizer:
 
         self.logger.info(f"Successfully cleaned {cleaned_files_count} temporary items")
         return True
+
+    def cleanup(self) -> bool:
+        """Clean up resources and perform graceful shutdown.
+
+        Returns:
+            bool: True if cleanup was successful, False otherwise
+        """
+        try:
+            self.logger.info("Starting performance optimizer cleanup")
+            # Save any pending configuration changes
+            self.config.save_config()
+            
+            # Ensure all tasks are completed
+            if hasattr(self, '_tasks') and self._tasks:
+                for task in self._tasks:
+                    if hasattr(task, 'cleanup') and callable(task.cleanup):
+                        task.cleanup()
+            
+            self.logger.info("Performance optimizer cleanup completed successfully")
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to cleanup performance optimizer: {e}")
+            return False

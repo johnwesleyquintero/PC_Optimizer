@@ -1,0 +1,130 @@
+2025-04-13 11:20:22,134 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 11:20:22,142 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 11:20:22,144 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:20:22,147 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:20:22,158 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 11:20:22,165 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:20:22,166 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:20:22,166 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:20:22,167 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:20:22,168 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:20:22,174 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 11:20:22,174 - __main__ - ERROR - Fatal error: name 'BaseEnvironmentConfig' is not defined
+2025-04-13 11:21:09,919 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 11:21:09,968 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 11:21:10,032 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:21:10,055 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:21:10,060 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 11:21:10,080 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:21:10,096 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:21:10,100 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:21:10,106 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:21:10,118 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:21:10,145 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 11:21:10,195 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:21:10,203 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:21:10,211 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:21:10,220 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:21:10,227 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:21:10,284 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:21:10,295 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 11:21:10,314 - src.core.sentinel_core - INFO - Initializing SentinelPC Core v1.0.0
+2025-04-13 11:21:10,323 - src.core.sentinel_core - ERROR - Failed to initialize SentinelPC Core: 'ConfigManager' object has no attribute 'load_config'
+2025-04-13 11:21:10,334 - __main__ - ERROR - Failed to initialize SentinelPC Core
+2025-04-13 11:21:52,102 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 11:21:52,319 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 11:21:52,550 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:21:52,638 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:21:52,778 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 11:21:52,896 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:21:52,897 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:21:52,897 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:21:52,898 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:21:52,899 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:21:52,908 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 11:21:52,911 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:21:52,914 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:21:52,915 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:21:52,916 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:21:52,916 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:21:52,917 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:21:52,918 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 11:21:52,919 - src.core.sentinel_core - INFO - Initializing SentinelPC Core v1.0.0
+2025-04-13 11:21:52,920 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:21:52,923 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:21:52,924 - src.core.sentinel_core - ERROR - Failed to initialize SentinelPC Core: 'EnvironmentManager' object has no attribute 'initialize'
+2025-04-13 11:21:52,925 - __main__ - ERROR - Failed to initialize SentinelPC Core
+2025-04-13 11:22:36,529 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 11:22:36,530 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 11:22:36,530 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:22:36,531 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:22:36,531 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 11:22:36,536 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:22:36,537 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:22:36,538 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:22:36,539 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:22:36,540 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:22:36,548 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 11:22:36,550 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:22:36,551 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:22:36,551 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:22:36,552 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:22:36,555 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:22:36,557 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:22:36,557 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 11:22:36,558 - src.core.sentinel_core - INFO - Initializing SentinelPC Core v1.0.0
+2025-04-13 11:22:36,558 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:22:36,560 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:22:36,562 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:22:36,563 - src.core.sentinel_core - ERROR - Failed to initialize SentinelPC Core: 'PerformanceOptimizer' object has no attribute 'initialize'
+2025-04-13 11:22:36,565 - __main__ - ERROR - Failed to initialize SentinelPC Core
+2025-04-13 11:23:27,198 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 11:23:27,199 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 11:23:27,200 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:23:27,201 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:23:27,202 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 11:23:27,207 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:23:27,211 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:23:27,214 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:23:27,219 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:23:27,227 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:23:27,237 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 11:23:27,243 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:23:27,248 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:23:27,261 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:23:27,321 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:23:27,352 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:23:27,360 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:23:27,362 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 11:23:27,403 - src.core.sentinel_core - INFO - Initializing SentinelPC Core v1.0.0
+2025-04-13 11:23:27,429 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:23:27,521 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:23:27,624 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:23:27,682 - src.core.sentinel_core - ERROR - Failed to initialize SentinelPC Core: PerformanceOptimizer.initialize() takes 1 positional argument but 2 were given
+2025-04-13 11:23:27,698 - __main__ - ERROR - Failed to initialize SentinelPC Core
+2025-04-13 11:24:33,459 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 11:24:33,505 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 11:24:33,555 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:24:33,655 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:24:33,734 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 11:24:33,841 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:24:33,906 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:24:33,934 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:24:33,972 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:24:34,146 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:24:34,240 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 11:24:34,253 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 11:24:34,283 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 11:24:34,365 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 11:24:34,391 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 11:24:34,440 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 11:24:34,446 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:24:34,486 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 11:24:34,555 - src.core.sentinel_core - INFO - Initializing SentinelPC Core v1.0.0
+2025-04-13 11:24:34,640 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 11:24:34,650 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 11:24:34,660 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 11:24:34,710 - src.core.performance_optimizer - INFO - Initializing performance optimizer
+2025-04-13 11:24:35,380 - src.core.sentinel_core - INFO - Shutting down SentinelPC Core
+2025-04-13 11:24:35,383 - src.core.sentinel_core - ERROR - Error during shutdown: 'PerformanceOptimizer' object has no attribute 'cleanup'
+2025-04-13 11:24:35,384 - __main__ - ERROR - Fatal error: type object 'Queue' has no attribute 'Empty'

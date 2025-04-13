@@ -89,9 +89,22 @@ class EnvironmentManager:
         """
         self.logger = LoggingManager().get_logger(__name__)
         self.logger.info("EnvironmentManager: Initializing environment manager")
-        self._config = BaseEnvironmentConfig(config_file)
+        self._config = EnvironmentConfig(config_file)
         self._ensure_directories()
         self.logger.info("EnvironmentManager: Environment manager initialized successfully")
+
+    def initialize(self) -> bool:
+        """Initialize the environment manager.
+        
+        Returns:
+            bool: True if initialization was successful, False otherwise
+        """
+        try:
+            self._ensure_directories()
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to initialize environment: {e}")
+            return False
 
     def _ensure_directories(self):
         """Ensure all required directories exist."""

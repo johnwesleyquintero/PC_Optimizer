@@ -97,6 +97,19 @@ class ConfigManager:
         if self.config['Paths']['output_dir'] == 'auto':
             return self._default_output_dir()
         return Path(self.config['Paths']['output_dir'])
+        
+    def load_config(self) -> bool:
+        """Load configuration from file.
+        
+        Returns:
+            True if configuration was loaded successfully, False otherwise
+        """
+        try:
+            self.config = self._load_config()
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to load configuration: {e}")
+            return False
 
     def get_default_profile(self) -> str:
         """Get default optimization profile.

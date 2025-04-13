@@ -7,8 +7,8 @@ handling both CLI and GUI modes.
 import sys
 import argparse
 from typing import Optional
-from src.core.sentinel_core import SentinelCore
-from src.core.logging_manager import LoggingManager
+from .core.sentinel_core import SentinelCore
+from .core.logging_manager import LoggingManager
 
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments.
@@ -43,7 +43,7 @@ def run_cli_mode(core: SentinelCore, profile: Optional[str] = None) -> None:
         core: Initialized SentinelCore instance
         profile: Optional optimization profile to use
     """
-    from src.cli.sentinel_cli import SentinelCLI
+    from .cli.sentinel_cli import SentinelCLI
     cli = SentinelCLI(core)
     cli.run(profile)
 
@@ -53,7 +53,7 @@ def run_gui_mode(core: SentinelCore) -> None:
     Args:
         core: Initialized SentinelCore instance
     """
-    from src.gui.sentinel_gui import SentinelGUI
+    from .gui.sentinel_gui import SentinelGUI
     gui = SentinelGUI(core)
     gui.run()
 
