@@ -338,3 +338,705 @@
 2025-04-13 13:06:50,574 - src.core.monitoring_manager - INFO - Initializing system monitoring
 2025-04-13 13:06:51,589 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
 2025-04-13 13:06:51,630 - src.core.monitoring_manager - WARNING - High CPU usage: 98.1%
+2025-04-13 13:08:50,965 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:08:50,965 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:08:50,966 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:08:50,967 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:08:50,967 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:08:50,969 - src.core.monitoring_manager - INFO - Initializing system monitoring
+2025-04-13 13:08:51,977 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:09:00,758 - src.core.performance_optimizer - INFO - Initializing performance optimizer
+2025-04-13 13:09:00,759 - src.core.performance_optimizer - INFO - Starting system optimization
+2025-04-13 13:09:00,761 - src.core.performance_optimizer - ERROR - Task memory_optimization failed with error: name 'logging' is not defined
+2025-04-13 13:09:00,762 - src.core.performance_optimizer - ERROR - Task temp_cleanup failed with error: name 'logging' is not defined
+2025-04-13 13:09:00,762 - src.core.performance_optimizer - ERROR - Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:00,763 - src.core.performance_optimizer - ERROR - Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:00,765 - root - ERROR - ERR-20250413-130900: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 90, in optimize_system
+    raise TaskExecutionError(error_msg)
+src.core.performance_optimizer.TaskExecutionError: Failed tasks: memory_optimization, temp_cleanup
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\main.py", line 126, in optimize_system
+    if self.performance_optimizer.optimize_system():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 97, in optimize_system
+    raise OptimizationError(f"Failed to optimize system: {str(e)}")
+src.core.performance_optimizer.OptimizationError: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+
+2025-04-13 13:09:35,239 - src.core.performance_optimizer - INFO - Initializing performance optimizer
+2025-04-13 13:09:35,239 - src.core.performance_optimizer - INFO - Starting system optimization
+2025-04-13 13:09:35,240 - src.core.performance_optimizer - ERROR - Task memory_optimization failed with error: name 'logging' is not defined
+2025-04-13 13:09:35,242 - src.core.performance_optimizer - ERROR - Task temp_cleanup failed with error: name 'logging' is not defined
+2025-04-13 13:09:35,243 - src.core.performance_optimizer - ERROR - Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:35,243 - src.core.performance_optimizer - ERROR - Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:35,245 - root - ERROR - ERR-20250413-130935: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 90, in optimize_system
+    raise TaskExecutionError(error_msg)
+src.core.performance_optimizer.TaskExecutionError: Failed tasks: memory_optimization, temp_cleanup
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\main.py", line 126, in optimize_system
+    if self.performance_optimizer.optimize_system():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 97, in optimize_system
+    raise OptimizationError(f"Failed to optimize system: {str(e)}")
+src.core.performance_optimizer.OptimizationError: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+
+2025-04-13 13:09:37,428 - src.core.performance_optimizer - INFO - Initializing performance optimizer
+2025-04-13 13:09:37,429 - src.core.performance_optimizer - INFO - Starting system optimization
+2025-04-13 13:09:37,430 - src.core.performance_optimizer - ERROR - Task memory_optimization failed with error: name 'logging' is not defined
+2025-04-13 13:09:37,430 - src.core.performance_optimizer - ERROR - Task temp_cleanup failed with error: name 'logging' is not defined
+2025-04-13 13:09:37,431 - src.core.performance_optimizer - ERROR - Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:37,432 - src.core.performance_optimizer - ERROR - Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:37,434 - root - ERROR - ERR-20250413-130937: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 90, in optimize_system
+    raise TaskExecutionError(error_msg)
+src.core.performance_optimizer.TaskExecutionError: Failed tasks: memory_optimization, temp_cleanup
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\main.py", line 126, in optimize_system
+    if self.performance_optimizer.optimize_system():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 97, in optimize_system
+    raise OptimizationError(f"Failed to optimize system: {str(e)}")
+src.core.performance_optimizer.OptimizationError: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+
+2025-04-13 13:09:45,807 - src.core.performance_optimizer - INFO - Initializing performance optimizer
+2025-04-13 13:09:45,808 - src.core.performance_optimizer - INFO - Starting system optimization
+2025-04-13 13:09:45,809 - src.core.performance_optimizer - ERROR - Task memory_optimization failed with error: name 'logging' is not defined
+2025-04-13 13:09:45,809 - src.core.performance_optimizer - ERROR - Task temp_cleanup failed with error: name 'logging' is not defined
+2025-04-13 13:09:45,810 - src.core.performance_optimizer - ERROR - Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:45,810 - src.core.performance_optimizer - ERROR - Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+2025-04-13 13:09:45,812 - root - ERROR - ERR-20250413-130945: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 90, in optimize_system
+    raise TaskExecutionError(error_msg)
+src.core.performance_optimizer.TaskExecutionError: Failed tasks: memory_optimization, temp_cleanup
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\main.py", line 126, in optimize_system
+    if self.performance_optimizer.optimize_system():
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\core\performance_optimizer.py", line 97, in optimize_system
+    raise OptimizationError(f"Failed to optimize system: {str(e)}")
+src.core.performance_optimizer.OptimizationError: Failed to optimize system: Failed tasks: memory_optimization, temp_cleanup
+
+2025-04-13 13:23:20,238 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:23:20,242 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:23:20,243 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:23:20,245 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:23:20,246 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:23:20,248 - src.core.monitoring_manager - INFO - Initializing system monitoring
+2025-04-13 13:23:21,270 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:23:21,299 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:23:22,470 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:23:22,511 - src.core.monitoring_manager - WARNING - High CPU usage: 92.6%
+2025-04-13 13:23:23,522 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:23:24,560 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:23:25,587 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:23:26,721 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:23:26,874 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:31,364 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:25:31,372 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:25:31,373 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:25:31,375 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:25:31,376 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:25:31,382 - src.core.monitoring_manager - INFO - Initializing system monitoring
+2025-04-13 13:25:32,522 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:32,595 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:33,764 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:34,089 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:35,113 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:36,138 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:37,164 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:38,232 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:38,316 - src.core.monitoring_manager - WARNING - High CPU usage: 99.6%
+2025-04-13 13:25:39,327 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:39,416 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:40,427 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:40,637 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:41,650 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:41,724 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:42,736 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:42,754 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:43,766 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:43,783 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:44,799 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:44,846 - src.core.monitoring_manager - WARNING - High CPU usage: 95.5%
+2025-04-13 13:25:45,861 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:46,890 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:47,931 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:49,064 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:49,264 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:50,277 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:50,475 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:51,489 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:51,665 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:52,680 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:52,735 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:53,751 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:53,827 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:25:54,842 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:54,857 - src.core.monitoring_manager - WARNING - High CPU usage: 98.8%
+2025-04-13 13:25:55,871 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:56,907 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:57,936 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:59,042 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:25:59,113 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:00,126 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:00,191 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:01,204 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:01,253 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:02,281 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:02,325 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:03,339 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:03,355 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:04,370 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:04,387 - src.core.monitoring_manager - WARNING - High CPU usage: 98.1%
+2025-04-13 13:26:05,401 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:05,416 - src.core.monitoring_manager - WARNING - High CPU usage: 97.7%
+2025-04-13 13:26:06,436 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:07,465 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:08,493 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:08,653 - src.core.monitoring_manager - WARNING - High CPU usage: 98.5%
+2025-04-13 13:26:09,666 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:09,992 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:11,005 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:11,078 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:12,093 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:12,263 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:13,278 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:13,302 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:14,315 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:14,331 - src.core.monitoring_manager - WARNING - High CPU usage: 92.7%
+2025-04-13 13:26:15,344 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:16,386 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:17,415 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:18,490 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:18,709 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:19,723 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:19,876 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:20,891 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:20,957 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:21,973 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:22,002 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:23,015 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:23,047 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:24,062 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:24,077 - src.core.monitoring_manager - WARNING - High CPU usage: 99.6%
+2025-04-13 13:26:25,093 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:26,148 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:27,180 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:28,276 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:28,440 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:29,454 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:29,665 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:30,678 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:30,695 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:31,708 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:31,751 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:32,764 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:32,784 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:33,797 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:33,813 - src.core.monitoring_manager - WARNING - High CPU usage: 90.5%
+2025-04-13 13:26:34,826 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:35,855 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:35,871 - src.core.monitoring_manager - WARNING - High CPU usage: 98.4%
+2025-04-13 13:26:36,886 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:37,914 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:38,963 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:39,113 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:40,126 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:40,176 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:41,190 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:41,285 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:42,301 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:42,317 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:43,332 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:43,363 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:44,376 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:45,407 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:46,435 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:47,466 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:48,553 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:48,775 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:49,788 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:49,873 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:50,888 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:50,984 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:52,000 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:52,153 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:53,167 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:53,188 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:54,203 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:54,259 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:55,273 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:55,288 - src.core.monitoring_manager - WARNING - High CPU usage: 91.3%
+2025-04-13 13:26:56,300 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:57,327 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:58,434 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:58,541 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:26:59,554 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:26:59,614 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:00,627 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:00,703 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:01,719 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:01,825 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:02,838 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:02,929 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:03,943 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:03,959 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:04,973 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:06,004 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:07,048 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:08,073 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:09,186 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:09,357 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:10,369 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:10,438 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:11,449 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:11,614 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:12,625 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:12,725 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:13,736 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:13,772 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:14,785 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:14,869 - src.core.monitoring_manager - WARNING - High CPU usage: 97.0%
+2025-04-13 13:27:15,881 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:16,914 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:17,941 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:19,007 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:19,775 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:20,906 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:21,086 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:22,205 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:22,557 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:23,667 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:23,745 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:24,778 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:24,799 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:25,825 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:25,865 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:27,217 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:27,306 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:28,335 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:28,370 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:29,384 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:29,398 - src.core.monitoring_manager - WARNING - High CPU usage: 99.2%
+2025-04-13 13:27:30,410 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:31,535 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:32,799 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:33,056 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:34,388 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:34,525 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:35,675 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:35,806 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:36,925 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:36,968 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:37,996 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:38,057 - src.core.monitoring_manager - WARNING - High CPU usage: 99.6%
+2025-04-13 13:27:39,105 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:27:39,162 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:27:40,180 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:47,323 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:29:47,349 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:29:47,370 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:29:47,422 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:29:47,464 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:29:47,527 - src.core.monitoring_manager - INFO - Initializing system monitoring
+2025-04-13 13:29:48,806 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:49,080 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:50,308 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:50,432 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:51,488 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:51,834 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:53,211 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:53,533 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:54,551 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:54,770 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:55,787 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:55,902 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:56,914 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:57,032 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:58,044 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:58,142 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:29:59,199 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:29:59,338 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:30:00,352 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:30:00,455 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:30:01,469 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:30:01,521 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:30:02,540 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:30:03,590 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:30:03,624 - src.core.monitoring_manager - WARNING - High CPU usage: 90.5%
+2025-04-13 13:34:18,525 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:34:18,526 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:34:18,527 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:34:18,529 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:34:18,529 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:34:18,534 - src.core.monitoring_manager - INFO - Initializing system monitoring
+2025-04-13 13:34:19,546 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:20,759 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:20,986 - src.core.monitoring_manager - WARNING - High CPU usage: 98.8%
+2025-04-13 13:34:21,997 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:22,129 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:23,140 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:23,158 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:24,168 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:24,183 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:25,214 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:25,235 - src.core.monitoring_manager - WARNING - High CPU usage: 96.6%
+2025-04-13 13:34:26,254 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:27,283 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:28,316 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:28,904 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:29,967 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:29,983 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:30,996 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:31,014 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:32,024 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:33,048 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:34,081 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:35,340 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:35,544 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:36,572 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:36,589 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:37,599 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:37,618 - src.core.monitoring_manager - WARNING - High CPU usage: 91.4%
+2025-04-13 13:34:38,628 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:39,671 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:40,982 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:41,029 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:42,040 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:42,057 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:43,073 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:43,088 - src.core.monitoring_manager - WARNING - High CPU usage: 93.4%
+2025-04-13 13:34:44,113 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:45,137 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:46,202 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:47,690 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:48,321 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:49,464 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:49,594 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:50,662 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:50,687 - src.core.monitoring_manager - WARNING - High CPU usage: 99.6%
+2025-04-13 13:34:51,811 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:52,935 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:53,962 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:55,242 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:55,579 - src.core.monitoring_manager - WARNING - High CPU usage: 94.3%
+2025-04-13 13:34:56,792 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:56,982 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:34:58,187 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:34:58,225 - src.core.monitoring_manager - WARNING - High CPU usage: 93.2%
+2025-04-13 13:34:59,246 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:00,288 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:01,320 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:02,642 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:03,045 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:04,199 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:04,227 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:05,243 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:05,259 - src.core.monitoring_manager - WARNING - High CPU usage: 91.0%
+2025-04-13 13:35:06,269 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:07,297 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:08,329 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:09,491 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:09,957 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:11,380 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:11,412 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:12,432 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:13,501 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:14,552 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:15,587 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:16,873 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:16,938 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:17,978 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:18,032 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:19,073 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:19,171 - src.core.monitoring_manager - WARNING - High CPU usage: 91.2%
+2025-04-13 13:35:20,293 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:21,333 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:22,430 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:24,163 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:24,375 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:25,559 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:25,647 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:26,718 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:26,760 - src.core.monitoring_manager - WARNING - High CPU usage: 95.2%
+2025-04-13 13:35:27,776 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:28,813 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:30,042 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:31,419 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:31,580 - src.core.monitoring_manager - WARNING - High CPU usage: 99.7%
+2025-04-13 13:35:32,739 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:32,840 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:33,891 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:34,999 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:36,046 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:37,198 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:38,543 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:38,776 - src.core.monitoring_manager - WARNING - High CPU usage: 99.4%
+2025-04-13 13:35:39,903 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:39,926 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:40,948 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:41,977 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:43,003 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:44,218 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:45,323 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:45,341 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:46,386 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:46,426 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:47,490 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:47,706 - src.core.monitoring_manager - WARNING - High CPU usage: 95.9%
+2025-04-13 13:35:48,724 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:49,749 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:50,841 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:53,501 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:53,657 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:54,743 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:54,789 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:55,809 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:55,843 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:35:56,860 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:57,920 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:35:59,033 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:00,389 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:00,460 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:01,519 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:01,570 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:02,629 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:03,724 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:04,758 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:05,820 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:07,116 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:07,424 - src.core.monitoring_manager - WARNING - High CPU usage: 99.4%
+2025-04-13 13:36:08,455 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:08,481 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:09,498 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:09,517 - src.core.monitoring_manager - WARNING - High CPU usage: 90.6%
+2025-04-13 13:36:10,529 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:11,563 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:12,717 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:14,373 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:14,474 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:15,708 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:15,729 - src.core.monitoring_manager - WARNING - High CPU usage: 92.2%
+2025-04-13 13:36:16,750 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:17,774 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:18,917 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:20,147 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:20,364 - src.core.monitoring_manager - WARNING - High CPU usage: 99.7%
+2025-04-13 13:36:21,647 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:21,673 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:22,721 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:23,758 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:24,783 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:25,849 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:27,118 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:27,141 - src.core.monitoring_manager - WARNING - High CPU usage: 99.6%
+2025-04-13 13:36:28,369 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:28,443 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:29,493 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:29,512 - src.core.monitoring_manager - WARNING - High CPU usage: 93.5%
+2025-04-13 13:36:30,522 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:31,548 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:32,619 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:33,745 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:33,892 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:35,221 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:35,263 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:36,282 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:37,340 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:38,368 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:39,534 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:40,977 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:40,995 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:42,035 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:42,062 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:43,082 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:43,099 - src.core.monitoring_manager - WARNING - High CPU usage: 91.4%
+2025-04-13 13:36:44,109 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:45,134 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:46,523 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:48,073 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:48,378 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:49,437 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:50,529 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:51,558 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:52,624 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:53,733 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:53,818 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:55,013 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:55,047 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:36:56,065 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:57,097 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:58,123 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:36:59,271 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:01,353 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:01,464 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:37:02,500 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:03,592 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:04,619 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:05,808 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:07,602 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:07,701 - src.core.monitoring_manager - WARNING - High CPU usage: 99.3%
+2025-04-13 13:37:08,832 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:09,856 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:10,882 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:12,193 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:13,292 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:13,429 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:37:14,464 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:14,543 - src.core.monitoring_manager - WARNING - High CPU usage: 100.0%
+2025-04-13 13:37:15,554 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:15,572 - src.core.monitoring_manager - WARNING - High CPU usage: 97.7%
+2025-04-13 13:37:16,582 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:17,606 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:18,631 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:19,686 - src.core.monitoring_manager - WARNING - Failed to get disk usage for C:\: argument 1 (impossible<bad format char>)
+2025-04-13 13:37:19,872 - src.core.monitoring_manager - WARNING - High CPU usage: 98.5%
+2025-04-13 13:39:50,745 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 13:39:50,745 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 13:39:50,745 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 13:39:50,747 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 13:39:50,747 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 13:39:50,749 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:39:50,749 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:39:50,750 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:39:50,752 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:39:50,755 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:39:50,759 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 13:39:50,765 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 13:39:50,767 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 13:39:50,767 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 13:39:50,768 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 13:39:50,769 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 13:39:50,770 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 13:39:50,770 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:08:36,958 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 14:08:36,960 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 14:08:36,961 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 14:08:36,962 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 14:08:36,963 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 14:08:36,965 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:08:36,965 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:08:36,965 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:08:36,967 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:08:36,967 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:08:36,973 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 14:08:36,976 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:08:36,976 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:08:36,976 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:08:36,977 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:08:36,978 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:08:36,980 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 14:08:36,982 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:11:01,016 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 14:11:01,017 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 14:11:01,017 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 14:11:01,018 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 14:11:01,019 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 14:11:01,021 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:11:01,021 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:11:01,021 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:11:01,024 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:11:01,025 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:11:01,029 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 14:11:01,031 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:11:01,031 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:11:01,031 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:11:01,035 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:11:01,036 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:11:01,037 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 14:11:01,037 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:12:28,990 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 14:12:28,992 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 14:12:28,994 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 14:12:28,997 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 14:12:28,997 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 14:12:28,999 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:12:29,000 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:12:29,000 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:12:29,002 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:12:29,002 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:12:29,007 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 14:12:29,010 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:12:29,012 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:12:29,013 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:12:29,023 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:12:29,031 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:12:29,069 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 14:12:29,088 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:18:35,488 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 14:18:35,490 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 14:18:35,490 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 14:18:35,491 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 14:18:35,492 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 14:18:35,494 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:18:35,494 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:18:35,494 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:18:35,497 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:18:35,498 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:18:35,502 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 14:18:35,505 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:18:35,506 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:18:35,507 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:18:35,508 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:18:35,508 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:18:35,509 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 14:18:35,510 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:29:14,155 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 14:29:14,157 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 14:29:14,158 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 14:29:14,160 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 14:29:14,160 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 14:29:14,162 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:29:14,164 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:29:14,165 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:29:14,166 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:29:14,167 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:29:14,171 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 14:29:14,175 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:29:14,179 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:29:14,180 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:29:14,181 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:29:14,182 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:29:14,183 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 14:29:14,184 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:29:14,561 - root - INFO - GUIWorker thread started
+2025-04-13 14:29:41,216 - root - ERROR - Error in task <lambda>: 'SentinelCore' object has no attribute 'optimize_system'
+2025-04-13 14:29:50,911 - root - ERROR - Error in task <lambda>: 'SentinelCore' object has no attribute 'optimize_system'
+2025-04-13 14:44:46,143 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 14:44:46,144 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 14:44:46,145 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 14:44:46,146 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 14:44:46,146 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 14:44:46,148 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:44:46,150 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:44:46,151 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:44:46,153 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:44:46,155 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:44:46,158 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 14:44:46,162 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 14:44:46,163 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 14:44:46,163 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 14:44:46,165 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 14:44:46,165 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 14:44:46,166 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 14:44:46,167 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 14:44:46,621 - root - INFO - GUIWorker thread started
+2025-04-13 14:45:06,816 - root - ERROR - Error in task <lambda>: 'SentinelCore' object has no attribute 'optimize_system'
+2025-04-13 14:45:32,936 - root - ERROR - Error in task <lambda>: 'SentinelCore' object has no attribute 'optimize_system'
