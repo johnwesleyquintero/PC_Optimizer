@@ -34,6 +34,13 @@
 *   [x] Setup Basic CI Pipeline (Linting, Formatting, Initial Tests).
 *   [x] Implement GitHub Releases for Executable Distribution in CI.
 *   [x] Update Website Download Link in `index.html` to point to GitHub Releases.
+*   [x] Website/Landing Page Readiness Checklist: *(Self-verified as complete)*
+    *   [x] Updated version and file size information in `index.html`.
+    *   [x] Created essential policy pages (`_wwwroot/privacy.html`, `_wwwroot/terms.html`).
+    *   [x] Verified all branding asset references in documentation (`README.md`, etc.) and website (`index.html`).
+    *   [x] Updated footer links in `index.html` to point to new policy pages.
+    *   [x] Ensured required assets are present: `_wwwroot/favicon.ico`, `wwwroot/Assets/Branding/og-image.png`, `wwwroot/Assets/Branding/apple-touch-icon.png`.
+    *   [x] Double-checked deployment URL consistency in `index.html` meta tags.
 
 ---
 
@@ -46,13 +53,12 @@
 ## Phase 2: Refinement & Feature Development
 
 ### Deployment & Distribution
-*   [x] **Website/Landing Page Readiness Checklist:** *(Self-verified as complete)*
-    *   [x] Updated version and file size information in `index.html`.
-    *   [x] Created essential policy pages (`_wwwroot/privacy.html`, `_wwwroot/terms.html`).
-    *   [x] Verified all branding asset references in documentation (`README.md`, etc.) and website (`index.html`).
-    *   [x] Updated footer links in `index.html` to point to new policy pages.
-    *   [x] Ensured required assets are present: `_wwwroot/favicon.ico`, `wwwroot/Assets/Branding/og-image.png`, `wwwroot/Assets/Branding/apple-touch-icon.png`.
-    *   [x] Double-checked deployment URL consistency in `index.html` meta tags.
+*   **Executable Distribution Verification:**
+    *   [ ] **Verify Build Output Directory:** Confirm the `build_unified.py` script creates a designated directory (e.g., `dist/`) for the executable. If not, update the script to create this directory. (Small, `build_unified.py`)
+    *   [ ] **Verify Executable Creation:** Manually run the build process (`build_unified.py`) and confirm that the `SentinelPC.exe` is created correctly in the output directory. (Small, `build_unified.py`)
+    *   [ ] **Test `SentinelPC.exe`:** Manually run the created `SentinelPC.exe` on a clean Windows machine (without Python or dependencies) to ensure it runs correctly and the CLI/GUI entry points work. (Medium, multiple)
+    *   [ ] **Verify GitHub Release Upload:** Confirm that the CI pipeline correctly uploads `SentinelPC.exe` to GitHub Releases on each release. Double check if the correct files are attached to the release. (Small, CI config)
+    *   [ ] **Validate GitHub Release Link:** Test the `https://github.com/johnwesleyquintero/SentinelPC/releases/latest/download/SentinelPC.exe` link after a CI release to ensure it downloads the correct file. (Small)
 
 ### Code Quality & Refactoring
 *   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture. (Medium, `src/core/performance_optimizer.py`)
