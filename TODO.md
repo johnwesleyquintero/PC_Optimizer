@@ -1,5 +1,9 @@
 # SENTINEL PC ROADMAP
 
+## Goal 
+- [ ] Consolidate configuration management and functionality into one app called `SentinelPC`. This will simplify the user experience and make it easier to manage configurations and performance settings.
+- [ ] Implement Semantic Versioning (e.g., v1.0 e.
+
 ## Completed
 - [x] Create a virtual environment
 - [x] Install the required packages
