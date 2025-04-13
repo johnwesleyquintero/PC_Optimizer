@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <!-- Updated Gradient: Vertical, using logo colors -->
+    <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00C8E0"/> <!-- Logo's brighter top -->
+      <stop offset="100%" style="stop-color:#0097B2"/> <!-- Logo's darker bottom -->
+    </linearGradient>
+  </defs>
+
+  <!-- Refined Shield Shape - Adapted for 256x256 -->
+  <!-- Stroke added, width adjusted for scale -->
+  <path d="M 128 16 
+           L 208 64 
+           V 160 
+           C 208 200, 176 240, 128 240 
+           C 80 240, 48 200, 48 160 
+           V 64 
+           L 128 16 z" 
+        fill="url(#shield-gradient)" 
+        stroke="#007A8D" stroke-width="3" /> 
+
+  <!-- Eye Symbol - Scaled and Centered for 256x256 -->
+  <!-- Outer ring -->
+  <circle cx="128" cy="128" r="40" fill="#0097B2" /> 
+  <!-- Pupil -->
+  <circle cx="128" cy="128" r="17" fill="#00E1FF" /> 
+  <!-- Highlight/Glint (position scaled proportionally) -->
+  <circle cx="139" cy="117" r="6" fill="#FFFFFF" opacity="0.9"/> 
+
+</svg>

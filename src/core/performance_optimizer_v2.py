@@ -1,28 +1,64 @@
 import logging
-from src.core.config_manager_v2 import EnvironmentConfig
+from pathlib import Path
+from typing import List, Dict, Any
+from concurrent.futures import ThreadPoolExecutor
 import multiprocessing
 import psutil
 import platform
 import os
 import shutil
+from src.core.config_manager_v2 import EnvironmentConfig
 
 # Configure logging
-logging.basicConfig(filename='pc_optimizer.log', level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    filename='pc_optimizer.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+class OptimizationError(Exception):
+    """Custom exception for optimization-related errors."""
+    pass
 
 class PerformanceOptimizerV2:
     def __init__(self):
         self.config = EnvironmentConfig()
 
-    def optimize_system(self):
-        logging.info("optimize_system: Starting system optimization")
-        if self.config.theme == 'dark':
-            self._apply_dark_mode_performance()
+    def optimize_system(self) -> bool:
+        """Optimize system performance using multiple optimization strategies.
 
-        thread_count = self.config.max_threads
-        with multiprocessing.Pool(thread_count) as pool:
-            pool.map(self._optimize_task, self._get_tasks())
-        logging.info("optimize_system: System optimization completed")
+        Returns:
+            bool: True if optimization was successful, False otherwise.
+        """
+        try:
+            logging.info("optimize_system: Starting system optimization")
+            
+            # Adjust system based on theme
+            if self.config.theme == 'dark':
+                self._apply_dark_mode_performance()
+            
+            # Get optimization tasks
+            tasks = self._get_tasks()
+            if not tasks:
+                logging.warning("No optimization tasks found")
+                return True
+
+            # Execute tasks using thread pool
+            thread_count = min(self.config.max_threads, len(tasks))
+            with ThreadPoolExecutor(max_workers=thread_count) as executor:
+                results = list(executor.map(self._optimize_task, tasks))
+            
+            # Check results
+            if not all(results):
+                logging.warning("Some optimization tasks failed")
+                return False
+                
+            logging.info("optimize_system: System optimization completed successfully")
+            return True
+            
+        except Exception as e:
+            logging.error(f"optimize_system: Failed to optimize system: {e}")
+            raise OptimizationError(f"Failed to optimize system: {e}")
 
     def _apply_dark_mode_performance(self):
         # Windows-specific dark mode optimizations
@@ -34,26 +70,75 @@ class PerformanceOptimizerV2:
         pass
 
 
-    def _get_tasks(self):
-        # Placeholder for fetching tasks
-        return []
+    def _get_tasks(self) -> List[Dict[str, Any]]:
+        """Get list of optimization tasks to perform.
 
-    def _optimize_task(self, task):
-        logging.info(f"_optimize_task: Starting task {task}")
-        # PC optimization task implementation
-        pass
-        logging.info(f"_optimize_task: Completed task {task}")
+        Returns:
+            List[Dict[str, Any]]: List of task configurations
+        """
+        tasks = [
+            {
+                'name': 'memory_optimization',
+                'function': self.adjust_memory_usage,
+                'priority': 1
+            },
+            {
+                'name': 'temp_cleanup',
+                'function': self.clean_temp_files,
+                'priority': 2
+            }
+        ]
+        return sorted(tasks, key=lambda x: x['priority'])
 
-    def adjust_memory_usage(self):
-        logging.info("adjust_memory_usage: Adjusting memory usage")
-        system_memory = psutil.virtual_memory().available
-        if system_memory < 2 * 1024**3:  # Less than 2GB available
-            self.config.config.set('Performance', 'max_threads', '2')
-            self.config.save_config()
-        logging.info("adjust_memory_usage: Memory usage adjusted")
+    def _optimize_task(self, task: Dict[str, Any]) -> bool:
+        """Execute a single optimization task.
 
-    def get_log_path(self):
-        return self.config.output_dir / 'optimization_logs' / f'{platform.node()}.log'
+        Args:
+            task (Dict[str, Any]): Task configuration
+
+        Returns:
+            bool: True if task completed successfully, False otherwise
+        """
+        try:
+            logging.info(f"_optimize_task: Starting task {task['name']}")
+            result = task['function']()
+            logging.info(f"_optimize_task: Completed task {task['name']}")
+            return result
+        except Exception as e:
+            logging.error(f"_optimize_task: Failed to execute task {task['name']}: {e}")
+            return False
+
+    def adjust_memory_usage(self) -> bool:
+        """Adjust system memory usage based on available memory.
+
+        Returns:
+            bool: True if adjustment was successful, False otherwise.
+        """
+        try:
+            logging.info("adjust_memory_usage: Adjusting memory usage")
+            system_memory = psutil.virtual_memory().available
+            
+            if system_memory < 2 * 1024**3:  # Less than 2GB available
+                self.config.config.set('Performance', 'max_threads', '2')
+                self.config.save_config()
+                logging.info("Memory usage adjusted: reduced max threads to 2")
+            else:
+                logging.info("Memory usage is within acceptable range")
+            
+            return True
+        except Exception as e:
+            logging.error(f"adjust_memory_usage: Failed to adjust memory usage: {e}")
+            return False
+
+    def get_log_path(self) -> Path:
+        """Get the path for optimization logs.
+
+        Returns:
+            Path: Path to the log file
+        """
+        log_path = self.config.output_dir / 'optimization_logs' / f'{platform.node()}.log'
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        return log_path
 
     def clean_temp_files(self):
         logging.info("clean_temp_files: Cleaning temporary files")

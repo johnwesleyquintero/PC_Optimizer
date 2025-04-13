@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00E1FF"/>
+      <stop offset="100%" style="stop-color:#0097B2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Group to scale the entire icon -->
+  <!-- Scales the content to 90% around the center (128, 128) -->
+  <g transform="translate(128 128) scale(0.9) translate(-128 -128)">
+
+    <!-- Main Shield - Using the adjusted path data that fits before scaling -->
+    <path d="M128 16 
+             L32 64 
+             v80 
+             C 32 192, 80 240, 128 240 
+             C 176 240, 224 192, 224 144 
+             V64 
+             L128 16 z" 
+          fill="url(#shield-gradient)"/>
+
+    <!-- Checkmark in Circle Path - Original path kept -->
+    <!-- Stroke width increased (16 / 0.9 ≈ 17.78) to compensate for scaling -->
+    <path d="M88 128a40 40 0 1 1 80 0 40 40 0 0 1-80 0zm56 0l-24 24-8-8" 
+          stroke="#F5F5F5" stroke-width="17.78" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  </g>
+</svg>
