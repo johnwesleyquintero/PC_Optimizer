@@ -2,6 +2,29 @@
 
 import PyInstaller.__main__
 import os
+import sys
+from pathlib import Path
+import shutil
+
+def verify_environment():
+    """Verify build environment requirements"""
+    try:
+        # Check for required directories
+        required_dirs = ['src', 'config', 'locales']
+        for dir_name in required_dirs:
+            if not os.path.isdir(dir_name):
+                print(f"Error: Required directory '{dir_name}' not found")
+                return False
+        
+        # Check for main script
+        if not os.path.isfile('src/main.py'):
+            print("Error: src/main.py not found")
+            return False
+            
+        return True
+    except Exception as e:
+        print(f"Environment verification failed: {str(e)}")
+        return False
 
 ICON_PATH = os.path.join('_wwwroot', 'Assets', 'Branding', 'icon.ico')
 
