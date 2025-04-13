@@ -223,3 +223,110 @@
 2025-04-13 11:48:45,334 - src.core.config_manager - INFO - ConfigManager: Saving configuration
 2025-04-13 11:48:45,336 - src.core.config_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
 2025-04-13 11:48:45,342 - __main__ - ERROR - Fatal error: name 'queue' is not defined
+2025-04-13 12:03:58,098 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 12:03:58,099 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 12:03:58,099 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 12:03:58,120 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 12:03:58,121 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 12:03:58,126 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 12:03:58,127 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 12:03:58,128 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 12:03:58,130 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 12:03:58,131 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:03:58,139 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 12:03:58,141 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 12:03:58,142 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 12:03:58,147 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 12:03:58,149 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 12:03:58,149 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:03:58,150 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 12:03:58,150 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 12:04:25,746 - root - INFO - Starting system optimization
+2025-04-13 12:04:26,756 - root - ERROR - System optimization failed: name 'multiprocessing' is not defined
+2025-04-13 12:04:37,641 - root - INFO - Starting system optimization
+2025-04-13 12:04:38,648 - root - ERROR - System optimization failed: name 'multiprocessing' is not defined
+2025-04-13 12:14:19,685 - root - INFO - Starting system optimization
+2025-04-13 12:14:20,693 - root - ERROR - System optimization failed: name 'multiprocessing' is not defined
+2025-04-13 12:14:26,273 - src.core.sentinel_core - INFO - Shutting down SentinelPC Core
+2025-04-13 12:14:26,274 - src.core.performance_optimizer - INFO - Starting performance optimizer cleanup
+2025-04-13 12:14:26,275 - src.core.environment_manager - INFO - EnvironmentConfig: Saving configuration
+2025-04-13 12:14:26,276 - src.core.environment_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:14:26,277 - src.core.performance_optimizer - INFO - Performance optimizer cleanup completed successfully
+2025-04-13 12:14:26,278 - src.core.environment_manager - INFO - EnvironmentConfig: Saving configuration
+2025-04-13 12:14:26,281 - src.core.environment_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:14:26,281 - src.core.environment_manager - INFO - EnvironmentManager: Configuration saved successfully
+2025-04-13 12:14:26,282 - src.core.environment_manager - INFO - EnvironmentManager: Cleanup completed successfully
+2025-04-13 12:14:26,283 - src.core.config_manager - INFO - ConfigManager: Saving configuration
+2025-04-13 12:14:26,285 - src.core.config_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 12:14:28,638 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 12:14:28,695 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 12:14:28,744 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 12:14:28,766 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 12:14:28,819 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 12:14:28,849 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 12:14:28,883 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 12:14:28,945 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 12:14:29,056 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 12:14:29,174 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:14:29,215 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 12:14:29,317 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 12:14:29,376 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 12:14:29,443 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 12:14:29,477 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 12:14:29,527 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:14:29,609 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 12:14:29,709 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 12:15:48,561 - root - INFO - Starting system optimization
+2025-04-13 12:15:49,656 - root - INFO - Executing task: cpu
+2025-04-13 12:17:46,559 - src.core.sentinel_core - INFO - Shutting down SentinelPC Core
+2025-04-13 12:17:46,684 - src.core.performance_optimizer - INFO - Starting performance optimizer cleanup
+2025-04-13 12:17:46,802 - src.core.environment_manager - INFO - EnvironmentConfig: Saving configuration
+2025-04-13 12:17:46,825 - src.core.environment_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:17:46,849 - src.core.performance_optimizer - INFO - Performance optimizer cleanup completed successfully
+2025-04-13 12:17:47,020 - src.core.environment_manager - INFO - EnvironmentConfig: Saving configuration
+2025-04-13 12:17:47,110 - src.core.environment_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:17:47,193 - src.core.environment_manager - INFO - EnvironmentManager: Configuration saved successfully
+2025-04-13 12:17:47,290 - src.core.environment_manager - INFO - EnvironmentManager: Cleanup completed successfully
+2025-04-13 12:17:47,331 - src.core.config_manager - INFO - ConfigManager: Saving configuration
+2025-04-13 12:17:47,389 - src.core.config_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 12:36:53,415 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-13 12:36:53,420 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-13 12:36:53,421 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-13 12:36:53,423 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-13 12:36:53,423 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-13 12:36:53,426 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 12:36:53,430 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 12:36:53,431 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 12:36:53,434 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 12:36:53,434 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:36:53,442 - src.core.environment_manager - INFO - EnvironmentManager: Initializing environment manager
+2025-04-13 12:36:53,445 - src.core.environment_manager - INFO - EnvironmentConfig: Initializing configuration
+2025-04-13 12:36:53,446 - src.core.environment_manager - INFO - EnvironmentConfig: Config directory is C:\Users\johnw\AppData\Roaming\PC_Optimizer
+2025-04-13 12:36:53,450 - src.core.environment_manager - INFO - EnvironmentConfig: Loading configuration
+2025-04-13 12:36:53,451 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loading completed
+2025-04-13 12:36:53,452 - src.core.environment_manager - INFO - EnvironmentConfig: Configuration loaded from C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:36:53,453 - src.core.environment_manager - INFO - EnvironmentManager: Created output directory at C:\Users\johnw\Documents\PC_Optimizer
+2025-04-13 12:36:53,453 - src.core.environment_manager - INFO - EnvironmentManager: Environment manager initialized successfully
+2025-04-13 12:38:03,741 - root - INFO - Starting system optimization
+2025-04-13 12:38:04,748 - root - INFO - Executing task: cpu
+2025-04-13 12:40:50,309 - root - INFO - Starting system optimization
+2025-04-13 12:40:51,392 - root - INFO - Executing task: cpu
+2025-04-13 12:40:56,932 - root - INFO - Starting system optimization
+2025-04-13 12:40:57,940 - root - INFO - Executing task: cpu
+2025-04-13 12:40:59,892 - root - INFO - Starting system optimization
+2025-04-13 12:41:00,900 - root - INFO - Executing task: cpu
+2025-04-13 12:41:00,906 - root - INFO - Starting system optimization
+2025-04-13 12:41:01,921 - root - INFO - Executing task: cpu
+2025-04-13 12:41:02,206 - root - INFO - Starting system optimization
+2025-04-13 12:41:03,213 - root - INFO - Executing task: cpu
+2025-04-13 12:41:06,581 - src.core.sentinel_core - INFO - Shutting down SentinelPC Core
+2025-04-13 12:41:06,593 - src.core.performance_optimizer - INFO - Starting performance optimizer cleanup
+2025-04-13 12:41:06,597 - src.core.environment_manager - INFO - EnvironmentConfig: Saving configuration
+2025-04-13 12:41:06,598 - src.core.environment_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:41:06,599 - src.core.performance_optimizer - INFO - Performance optimizer cleanup completed successfully
+2025-04-13 12:41:06,599 - src.core.environment_manager - INFO - EnvironmentConfig: Saving configuration
+2025-04-13 12:41:06,601 - src.core.environment_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\PC_Optimizer\config.ini
+2025-04-13 12:41:06,602 - src.core.environment_manager - INFO - EnvironmentManager: Configuration saved successfully
+2025-04-13 12:41:06,603 - src.core.environment_manager - INFO - EnvironmentManager: Cleanup completed successfully
+2025-04-13 12:41:06,603 - src.core.config_manager - INFO - ConfigManager: Saving configuration
+2025-04-13 12:41:06,609 - src.core.config_manager - INFO - Configuration saved successfully to C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini

@@ -7,6 +7,7 @@ import platform
 import os
 import configparser
 import darkdetect
+import multiprocessing
 
 class SentinelPC:
     """Main class for SentinelPC application that consolidates configuration and performance management."""

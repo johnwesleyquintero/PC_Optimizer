@@ -1,110 +1,74 @@
-"""SentinelPC Main Entry Point
-
-This script serves as the unified entry point for SentinelPC,
-handling both CLI and GUI modes.
-"""
-
-import sys
 import argparse
-from typing import Optional
-from queue import Queue
+import sys
+import tkinter as tk
+from tkinter import ttk
+import logging
+from src.core.sentinel_pc import SentinelPC
 from .core.sentinel_core import SentinelCore
-from .core.logging_manager import LoggingManager
 
-def parse_args() -> argparse.Namespace:
-    """Parse command line arguments.
-    
-    Returns:
-        Parsed command line arguments
-    """
-    parser = argparse.ArgumentParser(
-        description="SentinelPC - Advanced PC Optimization Tool"
-    )
-    parser.add_argument(
-        "--cli",
-        action="store_true",
-        help="Run in CLI mode (default is GUI mode)"
-    )
-    parser.add_argument(
-        "--profile",
-        type=str,
-        help="Optimization profile to use"
-    )
-    parser.add_argument(
-        "--version",
-        action="store_true",
-        help="Show version information"
-    )
-    return parser.parse_args()
+class SentinelPCApp:
+    def __init__(self, root, core):
+        self.root = root
+        self.core = core
+        self.sentinel = SentinelPC()
+        self.root.title(f"SentinelPC v{SentinelPC.VERSION}")
+        self.setup_ui()
 
-def run_cli_mode(core: SentinelCore, profile: Optional[str] = None) -> None:
-    """Run SentinelPC in CLI mode.
-    
-    Args:
-        core: Initialized SentinelCore instance
-        profile: Optional optimization profile to use
-    """
-    from .cli.sentinel_cli import SentinelCLI
-    cli = SentinelCLI(core)
-    cli.run(profile)
+    def setup_ui(self):
+        # Configure grid
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_rowconfigure(1, weight=1)
 
-def run_gui_mode(core: SentinelCore) -> None:
-    """Run SentinelPC in GUI mode.
-    
-    Args:
-        core: Initialized SentinelCore instance
-    """
-    from .gui.sentinel_gui import SentinelGUI
-    gui = SentinelGUI(core)
-    gui.run()
+        # Header
+        header = ttk.Label(
+            self.root,
+            text="SentinelPC System Optimizer",
+            font=("Helvetica", 16)
+        )
+        header.grid(row=0, column=0, pady=10, sticky="ew")
 
-def main() -> None:
-    """Main entry point for SentinelPC."""
-    # Initialize logging
-    logger = LoggingManager().get_logger(__name__)
-    
-    try:
-        # Parse command line arguments
-        args = parse_args()
-:start_line:81
-:end_line:81
--------
+        # Main frame
+        main_frame = ttk.Frame(self.root)
+        main_frame.grid(row=1, column=0, padx=10, pady=5, sticky="nsew")
+
+        # Optimize button
+        optimize_btn = ttk.Button(
+            main_frame,
+            text="Optimize System",
+            command=self.optimize_system
+        )
+        optimize_btn.pack(pady=10)
+
+        # Status label
+        self.status_label = ttk.Label(main_frame, text="Ready")
+        self.status_label.pack(pady=5)
+
+    def optimize_system(self):
         try:
-        # Show version if requested
-        if args.version:
-            core = SentinelCore()
-            print(f"SentinelPC v{core.version}")
-            sys.exit(0)
-:start_line:90
-:end_line:93
--------
-        
-:start_line:89
-:end_line:90
--------
-            core.shutdown()
+            self.status_label.config(text="Optimizing...")
+            self.root.update()
             
-        # Initialize core
-        core = SentinelCore()
-        if not core.initialize():
-            logger.error("Failed to initialize SentinelPC Core")
-            sys.exit(1)
-        
-        # Run in appropriate mode
-        try:
-            if args.cli:
-                run_cli_mode(core, args.profile)
+            if self.sentinel.optimize_system():
+                self.status_label.config(text="Optimization completed successfully!")
             else:
-                run_gui_mode(core)
-        finally:
-            core.shutdown()
-            
-    except Exception as e:
-        logger.error("Fatal error: %s", str(e))
-        sys.exit(1)
+                self.status_label.config(text="Optimization completed with some issues.")
+        except Exception as e:
+            logging.error(f"Optimization failed: {str(e)}")
+            self.status_label.config(text=f"Error: {str(e)}")
 
-:start_line:95
-:end_line:96
--------
+def main():
+    parser = argparse.ArgumentParser(description='SentinelPC - System Optimization Tool')
+    parser.add_argument('--version', action='version', version=f'SentinelPC {SentinelPC.VERSION}')
+    
+    args = parser.parse_args()
+    
+    core = SentinelCore()
+    root = tk.Tk()
+    app = SentinelPCApp(root, core)
+    try:
+        root.mainloop()
+    finally:
+        core.shutdown()
+
 if __name__ == "__main__":
     main()
