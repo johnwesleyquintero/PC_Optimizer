@@ -10,17 +10,17 @@
 
     <!-- SEO - Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sentinelpc.netlify.app/"> <!-- TODO: Replace with actual LIVE URL -->
+    <meta property="og:url" content="https://sentinelpc.netlify.app/"> <!-- Assumed Live URL -->
     <meta property="og:title" content="Sentinel PC - Workspace Management & Optimization">
     <meta property="og:description" content="SentinelPC: The ultimate solution for advanced workspace management, secure backups, and PC performance optimization.">
-    <meta property="og:image" content="Assets/Branding/og-image.png"> <!-- TODO: Create and place og-image.png (1200x630) in Assets/Branding/ -->
+    <meta property="og:image" content="Assets/Branding/og-image.png"> <!-- Ensure og-image.png (1200x630) exists in Assets/Branding/ -->
 
     <!-- SEO - Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://sentinelpc.netlify.app/"> <!-- TODO: Replace with actual LIVE URL -->
+    <meta property="twitter:url" content="https://sentinelpc.netlify.app/"> <!-- Assumed Live URL -->
     <meta property="twitter:title" content="Sentinel PC - Workspace Management & Optimization">
     <meta property="twitter:description" content="SentinelPC: The ultimate solution for advanced workspace management, secure backups, and PC performance optimization.">
-    <meta property="twitter:image" content="Assets/Branding/og-image.png"> <!-- TODO: Use the same og-image.png URL -->
+    <meta property="twitter:image" content="Assets/Branding/og-image.png"> <!-- Ensure og-image.png exists in Assets/Branding/ -->
 
     <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -32,9 +32,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" sizes="any"> <!-- TODO: Create favicon.ico and place in _wwwroot -->
+    <link rel="icon" href="favicon.ico" sizes="any"> <!-- Ensure favicon.ico exists in the root (_wwwroot) -->
     <link rel="icon" type="image/svg+xml" href="Assets/Branding/favicon.svg">
-    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png"> <!-- TODO: Create apple-touch-icon.png (180x180) and place in Assets/Branding/ -->
+    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png"> <!-- Ensure apple-touch-icon.png (180x180) exists in Assets/Branding/ -->
 
     <style>
         body {
@@ -119,7 +119,7 @@
     <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
-                <img src="Assets/Branding/logo.svg" alt="Sentinel PC Logo" class="h-8">
+                <img src="Assets/Branding/logo.svg" alt="Sentinel PC Logo" class="h-8"> <!-- Ensure Assets/Branding/logo.svg exists -->
             </a>
             <div class="hidden md:flex items-center space-x-2"> <!-- Hide on small screens, adjust spacing -->
                 <a href="#features" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Features</a>
@@ -158,7 +158,7 @@
                 </div>
                 <div class="md:w-1/2 mt-10 md:mt-0 animate__animated animate__fadeInRight">
                     <!-- Hero image should NOT be lazy loaded as it's above the fold -->
-                    <img src="Assets/Branding/hero-image.svg" alt="Sentinel PC Interface Mockup showing workspace management features" class="w-full rounded-lg shadow-2xl">
+                    <img src="Assets/Branding/hero-image.svg" alt="Sentinel PC Interface Mockup showing workspace management features" class="w-full rounded-lg shadow-2xl"> <!-- Ensure Assets/Branding/hero-image.svg exists -->
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
                 <div class="feature-card p-8 bg-gray-50 rounded-lg shadow-sm text-center md:text-left">
                     <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Secure Backups Icon">
                         <!-- Added loading="lazy" -->
-                        <img src="Assets/Branding/backup.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy">
+                        <img src="Assets/Branding/backup.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy"> <!-- Ensure Assets/Branding/backup.svg exists -->
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Secure Backups</h3>
                     <p class="text-gray-600 leading-relaxed">Protect your critical workspace data with automated, enterprise-grade encrypted backups.</p>
@@ -182,7 +182,7 @@
                 <div class="feature-card p-8 bg-gray-50 rounded-lg shadow-sm text-center md:text-left">
                      <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Intelligent Monitoring Icon">
                          <!-- Added loading="lazy" -->
-                         <img src="Assets/Branding/security.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy">
+                         <img src="Assets/Branding/security.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy"> <!-- Ensure Assets/Branding/security.svg exists -->
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Intelligent Monitoring</h3>
                     <p class="text-gray-600 leading-relaxed">Gain insights with real-time workspace monitoring, proactive alerts, and optimization suggestions.</p>
@@ -191,7 +191,7 @@
                 <div class="feature-card p-8 bg-gray-50 rounded-lg shadow-sm text-center md:text-left">
                      <div class="inline-block feature-icon-bg p-3 rounded-full mb-5" role="img" aria-label="Performance Boost Icon">
                          <!-- Added loading="lazy" -->
-                         <img src="Assets/Branding/settings.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy">
+                         <img src="Assets/Branding/settings.svg" alt="" class="w-10 h-10" aria-hidden="true" loading="lazy"> <!-- Ensure Assets/Branding/settings.svg exists -->
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Performance Boost</h3>
                     <p class="text-gray-600 leading-relaxed">Maximize your system's efficiency through automated cleanup and resource optimization.</p>
@@ -273,8 +273,8 @@
                     </svg>
                     Download for Windows
                 </a>
-                <!-- TODO: Update version and file size dynamically or before release -->
-                <p class="text-sm text-gray-500 mt-5">Version 1.0.0 | File size: ~XX MB</p> <!-- Placeholder Size -->
+                <!-- *** ACTION REQUIRED: Update file size and verify version! *** -->
+                <p class="text-sm text-gray-500 mt-5">Version 1.0.0 | File size: ~55.3 MB</p> <!-- Placeholder Size - UPDATE ME! -->
             </div>
         </div>
     </section>
@@ -284,16 +284,16 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0 text-center md:text-left">
                      <a href="#" class="flex items-center justify-center md:justify-start mb-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
-                        <img src="Assets/Branding/favicon.svg" alt="" class="h-6 mr-2" aria-hidden="true">
+                        <img src="Assets/Branding/favicon.svg" alt="" class="h-6 mr-2" aria-hidden="true"> <!-- Ensure Assets/Branding/favicon.svg exists -->
                         <span class="text-lg font-semibold text-gray-200">SentinelPC</span>
                     </a>
                     <p class="text-sm">&copy; <span id="copyright-year">2024</span> SentinelPC. All rights reserved.</p>
                 </div>
                 <div class="flex space-x-6">
-                    <!-- TODO: Create these pages or remove links -->
-                    <a href="privacy.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Privacy Policy</a>
-                    <a href="terms.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Terms of Service</a>
-                    <a href="contact.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Contact Us</a>
+                    <!-- Temporary links - Update href when pages are created -->
+                    <a href="#" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Contact Us</a>
                 </div>
             </div>
         </div>

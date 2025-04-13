@@ -51,8 +51,8 @@
 *Build upon the consolidated foundation.*
 
 ### Deployment & Distribution
-*   [ ] **Implement GitHub Releases for Executable Distribution:** Modify CI workflow (GitHub Actions) to create a GitHub Release and attach `SentinelPC.exe` as an asset. (Medium, `.github/workflows/`)
-*   [ ] **Update Website Download Link:** Change the `href` in `wwwroot/index.html` to point to the latest GitHub Release asset (e.g., `.../releases/latest/download/SentinelPC.exe`). (Small, `wwwroot/index.html`)
+*   [x] **Implement GitHub Releases for Executable Distribution:** Modify CI workflow (GitHub Actions) to create a GitHub Release and attach `SentinelPC.exe` as an asset. (Medium, `.github/workflows/`)
+*   [x] **Update Website Download Link:** Change the `href` in `wwwroot/index.html` to point to the latest GitHub Release asset (e.g., `.../releases/latest/download/SentinelPC.exe`). (Small, `wwwroot/index.html`)
 
 ### Code Quality & Refactoring
 *   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture. (Medium, `src/core/performance_optimizer.py`)
