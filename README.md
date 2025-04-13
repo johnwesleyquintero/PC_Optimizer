@@ -4,23 +4,34 @@
 
 <h1 align="center">Your Ultimate Workspace Guardian 🛡️</h1>
 
-> This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It includes both a command-line interface (CLI) and a graphical user interface (GUI) for accessibility.
+> This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It features a unified interface with both CLI and GUI capabilities, internationalization support, and advanced monitoring systems.
 
 ## Project Structure
 
 The project is organized into several directories based on functionality:
 
 - `src/`: Contains the source code for the application.
-  - `cli/`: Contains modules for the command-line interface (CLI). `pc_optimizer_cli_v2.py` is the main CLI script.
-  - `gui/`: Contains modules for the graphical user interface (GUI). `pc_optimizer_gui_v2.py` is the main GUI script.
-  - `core/`: Core functionality used across the application. Includes modules for data analysis (`data_analyzer.py`), configuration management (`config_manager_v2.py`), environment management (`environment_manager.py`), and performance optimization (`performance_optimizer_v2.py`).
-- `build/`: Stores build artifacts (auto-generated).
-- `dist/`: Contains distribution outputs.
-- `config/`: Holds configuration files (`config.ini`).
-- `scripts/`: Includes build and deployment scripts (`build.bat`).
-- `spec/`: Contains PyInstaller spec files for building executables (`PC_Optimizer_CLI_v2.spec`, `PC_Optimizer_GUI_v2.spec`, `PCOptimizerGUI.spec`, `sysopt.spec`).
-- `docs/`: Documentation for the project.
-- `venv/`: Virtual environment for managing project dependencies (should be added to `.gitignore`).
+  - `cli/`: Command-line interface modules (`sentinel_cli.py`, `build_cli.py`).
+  - `gui/`: Graphical user interface modules (`sentinel_gui.py`).
+  - `core/`: Core functionality including:
+    - Data analysis (`data_analyzer.py`)
+    - Configuration management (`config_manager.py`)
+    - Environment management (`environment_manager.py`)
+    - Performance optimization (`performance_optimizer.py`)
+    - Internationalization (`i18n_manager.py`)
+    - Accessibility features (`accessibility_manager.py`)
+    - Monitoring systems (`monitoring_manager.py`)
+    - Feature flags (`feature_flags.py`)
+    - Service layer (`service_layer.py`)
+- `build/`: Stores build artifacts (auto-generated)
+- `dist/`: Contains distribution outputs
+- `config/`: Configuration files (`config.ini`)
+- `scripts/`: Build and deployment scripts
+- `spec/`: PyInstaller spec files
+- `docs/`: Project documentation
+- `locales/`: Internationalization files
+- `wwwroot/`: Web assets and resources
+- `tests/`: Unit and integration tests
 
 ## Getting Started
 
@@ -49,86 +60,74 @@ The project is organized into several directories based on functionality:
 
 ## Usage
 
-### CLI
+### Unified Interface
 
-Run the command-line interface using:
+Run the SentinelPC application:
 
 ```bash
-python src/cli/pc_optimizer_cli_v2.py
+dist\SentinelPC.exe
 ```
 
-### Data Analyzer Executable
-
-To run the data analyzer as a standalone executable:
+The application will automatically detect your preferences and launch in either CLI or GUI mode. You can force a specific mode using command-line arguments:
 
 ```bash
-dist\data_analyzer.exe <csv_file_path>
+dist\SentinelPC.exe --cli  # Force CLI mode
+dist\SentinelPC.exe --gui  # Force GUI mode
 ```
 
-Replace `<csv_file_path>` with the path to your CSV file. You can also use the `--help` flag to see available options:
+## Building the Application
+
+Use the unified build script to create the executable:
 
 ```bash
-dist\data_analyzer.exe --help
-```
+# Install development dependencies
+pip install -r requirements-dev.txt
 
-### GUI
-
-Launch the graphical user interface with:
-
-```bash
-python src/gui/pc_optimizer_gui_v2.py
-```
-
-## Building Executables
-
-Use the provided spec files and the `build.bat` script to create standalone executables:
-
-```bash
-# Install PyInstaller (if not already installed)
-pip install pyinstaller
-
-# Run the build script
-.\scripts\build.bat
+# Run the unified build script
+python scripts/build_unified.py
 ```
 
 ## Configuration
 
-The application uses a configuration file located at `config/config.ini`. You can modify settings such as the optimization level in this file.
+The application uses a configuration file located at `config/config.ini`. You can modify settings such as:
+- Optimization level
+- Language preferences
+- Feature flags
+- Monitoring options
+- Accessibility settings
 
-## CSV Data Analysis Features
+## Features
 
-The `src/core/data_analyzer.py` module provides functionalities for analyzing and transforming CSV data. See the module's docstrings for detailed information.
+### Internationalization
+The application supports multiple languages through the `i18n_manager.py` module. Language files are stored in the `locales/` directory.
+
+### Accessibility
+Built-in accessibility features are managed by `accessibility_manager.py`, ensuring the application is usable by everyone.
+
+### Monitoring System
+The `monitoring_manager.py` provides real-time system monitoring and performance metrics.
+
+### Feature Flags
+Feature flags in `feature_flags.py` allow for gradual rollout of new features and A/B testing.
 
 ## Contributing
 
-Contributions are welcome! Please follow the guidelines in a `CONTRIBUTING.md` file (to be created) when submitting pull requests or issues.
+Contributions are welcome! Please read `CONTRIBUTING.md` for guidelines on how to submit pull requests and report issues.
 
 ## License
 
-This project is licensed under the MIT License - see the `LICENSE` file (to be created) for details.
+This project is licensed under the MIT License - see the `LICENSE` file for details.
 
 ## Troubleshooting
 
-- **Error: ModuleNotFoundError:** Ensure all required packages are installed using `pip install -r requirements.txt`.
-- **Error: File not found:** Verify file paths in your code and configuration files.
-- **Other errors:** Check the console output for specific error messages and refer to the project documentation for solutions.
-
-## Code Enhancements
-
-### Improved Error Handling in `performance_optimizer_v2.py`
-
-The `clean_temp_files` function in `src/core/performance_optimizer_v2.py` has been enhanced with more specific error handling. It now distinguishes between `OSError` exceptions, which are common during file system operations, and other unexpected exceptions. This allows for more targeted logging and debugging in case of issues during temporary file cleaning.
-
-### Consolidated Configuration Management
-
-Configuration management has been consolidated by merging `config_manager.py` into `config_manager_v2.py`.
-
-### Added Logging in `config_manager_v2.py`
-
-Logging has been added to the `save_config` function in `src/core/config_manager_v2.py`. This provides better visibility into the configuration saving process, logging both successful saves and any exceptions that may occur. This is useful for debugging and ensuring that configuration changes are properly persisted.
+- **Error: ModuleNotFoundError:** Ensure all required packages are installed using `pip install -r requirements.txt`
+- **Error: File not found:** Verify file paths in your code and configuration files
+- **Other errors:** Check the console output and logs in `pc_optimizer.log`
 
 ## Future Enhancements
 
-- Refactor `environment_manager.py` to use `EnvironmentConfig` from `src.core.config_manager_v2`.
-- Review and refactor `performance_optimizer_v2.py`.
-- Implement visual design recommendations in the GUI.
+- Enhanced monitoring capabilities with machine learning integration
+- Extended accessibility features
+- Additional language support
+- Cloud synchronization capabilities
+- Advanced performance optimization algorithms
