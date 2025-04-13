@@ -6,6 +6,7 @@ import psutil
 import platform
 import os
 import shutil
+from .base_manager import BasePerformanceOptimizer
 from .environment_manager import EnvironmentConfig
 from .logging_manager import LoggingManager
 
@@ -25,28 +26,43 @@ class FileCleanupError(OptimizationError):
     """Exception raised when temporary file cleanup fails."""
     pass
 
-class PerformanceOptimizer:
+class PerformanceOptimizer(BasePerformanceOptimizer):
     def __init__(self):
         self.config = EnvironmentConfig()
         self.logger = LoggingManager().get_logger(__name__)
         
-    def initialize(self, profile: Optional[str] = None) -> bool:
+    def initialize(self, config: Optional[Dict[str, Any]] = None) -> bool:
         """Initialize the performance optimizer.
         
         Args:
-            profile: Optional optimization profile to use
+            config: Optional configuration dictionary
             
         Returns:
             bool: True if initialization was successful, False otherwise
         """
         try:
             self.logger.info("Initializing performance optimizer")
+            if config:
+                self.config.update(config)
             return True
         except Exception as e:
             self.logger.error(f"Failed to initialize performance optimizer: {e}")
             return False
+            
+    def cleanup(self) -> bool:
+        """Clean up resources used by the optimizer.
+        
+        Returns:
+            bool: True if cleanup successful, False otherwise
+        """
+        try:
+            self.logger.info("Cleaning up performance optimizer")
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to cleanup performance optimizer: {e}")
+            return False
 
-    def optimize_system(self) -> bool:
+    def optimize_system(self, profile: Optional[str] = None) -> Dict[str, Any]:
         """Optimize system performance using multiple optimization strategies.
 
         Returns:
@@ -90,12 +106,37 @@ class PerformanceOptimizer:
                 raise TaskExecutionError(error_msg)
                 
             self.logger.info("System optimization completed successfully")
-            return True
+            return {
+                "success": True,
+                "tasks_completed": len(tasks),
+                "tasks_failed": len(failed_tasks),
+                "failed_tasks": failed_tasks
+            }
             
         except Exception as e:
             self.logger.error(f"Failed to optimize system: {str(e)}")
-            raise OptimizationError(f"Failed to optimize system: {str(e)}")
+            return {
+                "success": False,
+                "error": str(e)
+            }
 
+    def get_optimization_status(self) -> Dict[str, Any]:
+        """Get current optimization status.
+        
+        Returns:
+            Dict containing optimization status
+        """
+        try:
+            return {
+                "success": True,
+                "status": "idle",  # or "running", "completed", "failed"
+                "last_run": None,  # timestamp of last optimization
+                "current_task": None  # current running task if any
+            }
+        except Exception as e:
+            self.logger.error(f"Failed to get optimization status: {e}")
+            return {"success": False, "error": str(e)}
+    
     def _apply_dark_mode_performance(self):
         # Windows-specific dark mode optimizations
         pass

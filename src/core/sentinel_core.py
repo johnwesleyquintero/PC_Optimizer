@@ -5,10 +5,12 @@ managing and coordinating all optimization operations.
 """
 
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
+from queue import Queue, Empty
 from .config_manager import ConfigManager
 from .performance_optimizer import PerformanceOptimizer
 from .environment_manager import EnvironmentManager
+from .monitoring_manager import MonitoringManager
 from .logging_manager import LoggingManager
 
 class SentinelCore:
@@ -20,7 +22,9 @@ class SentinelCore:
         self.config = ConfigManager()
         self.optimizer = PerformanceOptimizer()
         self.env_manager = EnvironmentManager()
+        self.monitoring = MonitoringManager()
         self.version = "1.0.0"
+        self._message_queue = Queue()
     
     def initialize(self) -> bool:
         """Initialize all core components.
@@ -30,15 +34,27 @@ class SentinelCore:
         """
         try:
             self.logger.info("Initializing SentinelPC Core v%s", self.version)
-            self.config.load_config()
-            self.env_manager.initialize()
-            self.optimizer.initialize(self.config)
+            
+            # Initialize components in order
+            if not self.config.load_config():
+                raise RuntimeError("Failed to load configuration")
+                
+            if not self.env_manager.initialize(self.config.get_config()):
+                raise RuntimeError("Failed to initialize environment manager")
+                
+            if not self.optimizer.initialize(self.config.get_config()):
+                raise RuntimeError("Failed to initialize performance optimizer")
+                
+            if not self.monitoring.initialize():
+                raise RuntimeError("Failed to initialize monitoring manager")
+                
             return True
+            
         except Exception as e:
             self.logger.error("Failed to initialize SentinelPC Core: %s", str(e))
             return False
     
-    def run_optimization(self, profile: Optional[str] = None) -> Dict[str, Any]:
+    def optimize_system(self, profile: Optional[str] = None) -> Dict[str, Any]:
         """Run system optimization with optional profile.
         
         Args:
@@ -53,19 +69,23 @@ class SentinelCore:
             
             # Get system state before optimization
             initial_state = self.env_manager.get_system_state()
+            initial_metrics = self.monitoring.get_system_metrics()
             
             # Run optimization
-            optimization_result = self.optimizer.optimize(
+            optimization_result = self.optimizer.optimize_system(
                 profile=profile if profile else self.config.get_default_profile()
             )
             
             # Get system state after optimization
             final_state = self.env_manager.get_system_state()
+            final_metrics = self.monitoring.get_system_metrics()
             
             return {
                 "success": True,
                 "initial_state": initial_state,
+                "initial_metrics": initial_metrics,
                 "final_state": final_state,
+                "final_metrics": final_metrics,
                 "optimizations": optimization_result
             }
             
@@ -80,10 +100,49 @@ class SentinelCore:
             Dict containing system information
         """
         try:
-            return self.env_manager.get_system_info()
+            system_info = self.env_manager.get_system_info()
+            system_metrics = self.monitoring.get_system_metrics()
+            system_state = self.env_manager.get_system_state()
+            
+            return {
+                "success": True,
+                "system_info": system_info,
+                "system_metrics": system_metrics,
+                "system_state": system_state
+            }
         except Exception as e:
             self.logger.error("Failed to get system info: %s", str(e))
-            return {"error": str(e)}
+            return {"success": False, "error": str(e)}
+    
+    def get_startup_programs(self) -> Dict[str, Any]:
+        """Get list of startup programs.
+        
+        Returns:
+            Dict containing startup program information
+        """
+        try:
+            return self.env_manager.get_startup_programs()
+        except Exception as e:
+            self.logger.error("Failed to get startup programs: %s", str(e))
+            return {"success": False, "error": str(e)}
+    
+    def get_system_metrics(self) -> Dict[str, Any]:
+        """Get current system metrics.
+        
+        Returns:
+            Dict containing system metrics
+        """
+        try:
+            metrics = self.monitoring.get_system_metrics()
+            history = self.monitoring.get_performance_history()
+            return {
+                "success": True,
+                "current_metrics": metrics,
+                "history": history
+            }
+        except Exception as e:
+            self.logger.error("Failed to get system metrics: %s", str(e))
+            return {"success": False, "error": str(e)}
     
     def update_config(self, config_updates: Dict[str, Any]) -> bool:
         """Update configuration settings.
@@ -95,8 +154,12 @@ class SentinelCore:
             bool: True if update successful, False otherwise
         """
         try:
-            self.config.update_config(config_updates)
-            return True
+            if self.config.update_config(config_updates):
+                # Reinitialize components with new config
+                self.optimizer.initialize(self.config.get_config())
+                self.env_manager.initialize(self.config.get_config())
+                return True
+            return False
         except Exception as e:
             self.logger.error("Failed to update config: %s", str(e))
             return False

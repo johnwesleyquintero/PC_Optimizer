@@ -2,32 +2,24 @@
 # This configuration explicitly avoids running any build commands.
 
 [build]
-  # IMPORTANT: Set this to the directory containing your index.html and Assets folder.
-  # If index.html is at the root of your repo, use "."
-  # If it's in a folder named "public", use "public", etc.
-  publish = "." # <--- CHANGE THIS if your site files are not at the root
+  # IMPORTANT: This points to the directory containing your index.html, Assets, and dist folders.
+  # This matches your structure where index.html is in _wwwroot.
+  publish = "_wwwroot"
 
   # Explicitly tell Netlify NOT to run any build command.
-  # This prevents it from trying to detect/build Python, Node, etc.
+  # Perfect for pre-built static sites.
   command = ""
-  ignore = "*.py"
+  # Optional: Ignore specific files during build checks (less relevant with command="")
+  # ignore = "*.py"
 
 # This rule ensures that requests to paths that don't match a file
-# (like mysite.com/some-path) still serve your main index.html.
-# Useful for single-page apps, but generally harmless for a simple landing page.
+# still serve your main index.html. Generally good practice.
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Build environment settings are not strictly needed since no build command runs,
-# but leaving NODE_VERSION doesn't hurt. You could remove this section.
-# [build.environment]
-#   NODE_VERSION = "18" # Not used if command = ""
-
-# Security headers are generally good practice for any website.
-# These settings help protect against common web vulnerabilities.
-# They don't interfere with serving static files or ignoring Python.
+# Security headers are good practice. These look fine.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -35,8 +27,6 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
-    # Adjusted CSP slightly for clarity, but functionally similar to yours
-    # Allows resources from self, inline styles/scripts, data URIs for images,
-    # and external resources (like CDNs for fonts/css) over HTTPS.
+    # Allows resources from self, inline styles/scripts, data URIs, and external HTTPS (CDNs, etc.)
     Content-Security-Policy = "default-src 'self' https: data:; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https:; img-src 'self' data: https:;"
 

@@ -6,8 +6,9 @@ This module handles system monitoring, health checks, and performance tracking.
 import logging
 import psutil
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
+from .base_manager import BaseMonitoringManager
 
 @dataclass
 class SystemMetrics:
@@ -18,7 +19,7 @@ class SystemMetrics:
     network_io: Dict[str, int]
     timestamp: datetime
 
-class MonitoringManager:
+class MonitoringManager(BaseMonitoringManager):
     """Manages system monitoring and performance tracking."""
     
     def __init__(self, metrics_history_size: int = 100):
@@ -26,17 +27,42 @@ class MonitoringManager:
         self.metrics_history: List[SystemMetrics] = []
         self.metrics_history_size = metrics_history_size
         self.health_status = "healthy"
-        self._initialize_monitoring()
     
-    def _initialize_monitoring(self) -> None:
-        """Initialize monitoring system."""
+    def initialize(self, config: Optional[Dict[str, Any]] = None) -> bool:
+        """Initialize monitoring system.
+        
+        Args:
+            config: Optional configuration dictionary
+            
+        Returns:
+            bool: True if initialization successful
+        """
         try:
             self.logger.info("Initializing system monitoring")
+            if config:
+                self.metrics_history_size = config.get('metrics_history_size', 100)
+                if self.metrics_history_size <= 0:
+                    raise ValueError("Metrics history size must be positive integer")
             # Initial metrics collection to verify functionality
-            self.collect_metrics()
+            return self.collect_metrics() is not None
         except Exception as e:
             self.logger.error(f"Failed to initialize monitoring: {e}")
             self.health_status = "error"
+            return False
+            
+    def cleanup(self) -> bool:
+        """Clean up monitoring resources.
+        
+        Returns:
+            bool: True if cleanup successful
+        """
+        try:
+            self.logger.info("Cleaning up monitoring manager")
+            self.metrics_history.clear()
+            return True
+        except Exception as e:
+            self.logger.error(f"Failed to cleanup monitoring: {e}")
+            return False
     
     def collect_metrics(self) -> Optional[SystemMetrics]:
         """Collect current system metrics.
@@ -57,7 +83,12 @@ class MonitoringManager:
             for partition in psutil.disk_partitions():
                 try:
                     usage = psutil.disk_usage(partition.mountpoint)
-                    disk_usage[partition.mountpoint] = usage.percent
+                    disk_usage[partition.mountpoint] = {
+                        'total': usage.total,
+                        'used': usage.used,
+                        'free': usage.free,
+                        'percent': usage.percent
+                    }
                 except Exception as e:
                     self.logger.warning(f"Failed to get disk usage for {partition.mountpoint}: {e}")
             
@@ -88,6 +119,55 @@ class MonitoringManager:
         except Exception as e:
             self.logger.error(f"Failed to collect system metrics: {e}")
             return None
+            
+    def get_system_metrics(self) -> Dict[str, Any]:
+        """Get current system metrics.
+        
+        Returns:
+            Dict containing system metrics
+        """
+        try:
+            metrics = self.collect_metrics()
+            if not metrics:
+                return {"success": False, "error": "Failed to collect metrics"}
+                
+            return {
+                "success": True,
+                "cpu_percent": metrics.cpu_percent,
+                "memory_percent": metrics.memory_percent,
+                "disk_usage": metrics.disk_usage,
+                "network_io": metrics.network_io,
+                "timestamp": metrics.timestamp.isoformat(),
+                "health_status": self.health_status
+            }
+        except Exception as e:
+            self.logger.error(f"Failed to get system metrics: {e}")
+            return {"success": False, "error": str(e)}
+            
+    def get_performance_history(self) -> Dict[str, Any]:
+        """Get historical performance data.
+        
+        Returns:
+            Dict containing performance history
+        """
+        try:
+            history = [{
+                "cpu_percent": m.cpu_percent,
+                "memory_percent": m.memory_percent,
+                "disk_usage": m.disk_usage,
+                "network_io": m.network_io,
+                "timestamp": m.timestamp.isoformat()
+            } for m in self.metrics_history]
+            
+            return {
+                "success": True,
+                "history": history,
+                "history_size": len(history),
+                "max_history_size": self.metrics_history_size
+            }
+        except Exception as e:
+            self.logger.error(f"Failed to get performance history: {e}")
+            return {"success": False, "error": str(e)}
     
     def _update_health_status(self, metrics: SystemMetrics) -> None:
         """Update system health status based on metrics.

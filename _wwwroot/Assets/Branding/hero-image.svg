@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <!-- Reusing the brand gradient definition -->
+    <linearGradient id="brand-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00C8E0"/>
+      <stop offset="100%" style="stop-color:#0097B2"/>
+    </linearGradient>
+
+    <!-- Subtle background gradient -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0F4F8; stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E2E8F0; stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Drop shadow filter -->
+    <filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="4"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-gradient)" />
+
+  <!-- Main UI Window Group (with shadow) -->
+  <g filter="url(#drop-shadow)">
+    <!-- Main Window Frame -->
+    <rect x="50" y="50" width="700" height="500" rx="15" ry="15" fill="#FFFFFF" stroke="#D1D9E3" stroke-width="1"/>
+
+    <!-- Header Bar -->
+    <rect x="50" y="50" width="700" height="50" rx="15" ry="15" fill="url(#brand-gradient)" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"/>
+    <!-- Header - Small Logo Icon -->
+    <g transform="translate(65, 60) scale(0.15)"> <!-- Position and scale the icon -->
+        <path d="M 128 16 L 208 64 V 160 C 208 200, 176 240, 128 240 C 80 240, 48 200, 48 160 V 64 L 128 16 z" fill="#FFFFFF" opacity="0.8" />
+        <circle cx="128" cy="128" r="40" fill="#0097B2" />
+        <circle cx="128" cy="128" r="17" fill="#00E1FF" />
+        <circle cx="139" cy="117" r="6" fill="#FFFFFF" opacity="0.9"/>
+    </g>
+    <!-- Header - Placeholder Title Text -->
+     <rect x="125" y="65" width="180" height="20" rx="4" ry="4" fill="#FFFFFF" fill-opacity="0.3"/>
+
+    <!-- Sidebar -->
+    <rect x="50" y="100" width="180" height="450" fill="#F8FAFC" style="border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 15;"/>
+    <!-- Sidebar - Menu Item Placeholders -->
+    <rect x="70" y="130" width="140" height="25" rx="5" ry="5" fill="#E2E8F0"/> <!-- Inactive -->
+    <rect x="70" y="170" width="140" height="25" rx="5" ry="5" fill="url(#brand-gradient)" fill-opacity="0.8"/> <!-- Active -->
+    <rect x="70" y="210" width="140" height="25" rx="5" ry="5" fill="#E2E8F0"/> <!-- Inactive -->
+    <rect x="70" y="250" width="140" height="25" rx="5" ry="5" fill="#E2E8F0"/> <!-- Inactive -->
+
+
+    <!-- Main Content Area -->
+    <rect x="230" y="100" width="520" height="450" fill="#FFFFFF" style="border-top-left-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 15;"/>
+    <!-- Main Content - Placeholder Text Lines -->
+    <rect x="260" y="130" width="460" height="15" rx="3" ry="3" fill="#E2E8F0"/>
+    <rect x="260" y="155" width="420" height="15" rx="3" ry="3" fill="#E2E8F0"/>
+    <rect x="260" y="180" width="460" height="15" rx="3" ry="3" fill="#E2E8F0"/>
+
+    <!-- Main Content - Placeholder Chart/Graphic Area -->
+    <rect x="260" y="220" width="460" height="280" rx="8" ry="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
+    <!-- Placeholder lines inside graphic area -->
+     <rect x="280" y="240" width="100" height="10" rx="3" ry="3" fill="#CBD5E0"/>
+     <rect x="280" y="260" width="420" height="220" rx="3" ry="3" fill="#E2E8F0"/>
+
+  </g>
+
+</svg>
