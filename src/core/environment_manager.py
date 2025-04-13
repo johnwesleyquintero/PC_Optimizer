@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from src.core.config_manager_v2 import EnvironmentConfig as BaseEnvironmentConfig
+from .config_manager import EnvironmentConfig as BaseEnvironmentConfig
 
 class EnvironmentManager:
     """Manages environment-specific configurations and system resources for the PC Optimizer application."""

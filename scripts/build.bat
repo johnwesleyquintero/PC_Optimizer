@@ -1,19 +1,23 @@
 @echo off
-pip install pyinstaller
+echo Building SentinelPC Application...
 
-@echo Cleaning previous builds
-if exist dist rmdir /s /q dist
-if exist build rmdir /s /q build
+:: Set Python environment
+set PYTHON=python
 
-@echo Uninstalling conflicting pathlib package
-"C:\Python313\python.exe" -m pip uninstall -y pathlib
+:: Clean previous builds
+if exist "dist" rd /s /q "dist"
+if exist "build" rd /s /q "build"
 
-@echo Building SentinelPC
-pyinstaller --onefile --name SentinelPC ^
-  --icon=wwwroot\Assets\Branding\app_icon.ico ^
-  --hidden-import config_manager_v2 ^
-  --hidden-import performance_optimizer_v2 ^
-  --paths=src/core ^
-  --distpath ./dist ^
-  --workpath ./build ^
-  main.py
+:: Install required packages
+%PYTHON% -m pip install -r requirements.txt
+
+:: Build the consolidated SentinelPC application
+%PYTHON% -m PyInstaller SentinelPC.spec --clean --noconfirm
+
+if %ERRORLEVEL% NEQ 0 (
+    echo Build failed!
+    exit /b 1
+)
+
+echo Build completed successfully!
+echo Executable can be found in the dist directory.
