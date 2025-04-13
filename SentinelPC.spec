@@ -2,11 +2,11 @@
 
 
 a = Analysis(
-    ['main.py'],
-    pathex=['src/core'],
+    ['src\\main.py'],
+    pathex=[],
     binaries=[],
-    datas=[],
-    hiddenimports=['config_manager_v2', 'performance_optimizer_v2'],
+    datas=[('config/*.ini', 'config')],
+    hiddenimports=['numpy', 'pandas'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['wwwroot\\Assets\\Branding\\app_icon.ico'],
+    icon=['_wwwroot\\Assets\\Branding\\icon.ico'],
 )

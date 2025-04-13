@@ -2,36 +2,32 @@
 
 import PyInstaller.__main__
 import os
-import shutil
-import sys
-import subprocess
-from pathlib import Path
 
-ICON_PATH = os.path.join('_wwwroot', 'Assets', 'Branding', 'favicon.ico')
+ICON_PATH = os.path.join('_wwwroot', 'Assets', 'Branding', 'icon.ico')
 
-def verify_environment():
-    """Verify Python environment and dependencies"""
+def build_executable():
+    """Build the SentinelPC executable"""
     try:
-        # Check if running in virtual environment
-        in_venv = sys.prefix != sys.base_prefix
-        if not in_venv:
-            print("Warning: Not running in a virtual environment")
-        
-        # Verify icon file exists
-        if not os.path.exists(ICON_PATH):
-            print(f"Warning: Icon file not found at {ICON_PATH}")
-            
-        # Verify PyInstaller installation
-        try:
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '-r', 'requirements.txt'])
-            print("Successfully installed requirements")
-            return True
-        except subprocess.CalledProcessError as e:
-            print(f"Failed to install requirements: {e}")
-            return False
+        args = [
+            'src/main.py',
+            '--name=SentinelPC',
+            '--onefile',
+            '--clean'
+        ]
+        if os.path.exists(ICON_PATH):
+            args.extend(['--icon', ICON_PATH])
+        args.extend(['--add-data', 'config/*.ini:config'])
+        args.extend(['--hidden-import', 'numpy'])
+        args.extend(['--hidden-import', 'pandas'])
+        PyInstaller.__main__.run(args)
+        print("Build completed successfully!")
+        return True
     except Exception as e:
-        print(f"Environment setup failed: {str(e)}")
+        print(f"Build failed: {str(e)}")
         return False
+
+if __name__ == '__main__':
+    build_executable()
 
 def clean_build_dirs():
     """Clean build and dist directories"""
@@ -69,23 +65,33 @@ def build_unified_app():
         print(f"Icon file exists: {icon_path}")
         icon_arg = f"--icon={icon_path}"
 
-    PyInstaller.__main__.run([
-        'src/main.py',                    # Main script
+    # Convert paths to absolute paths
+    main_script = str(project_root / 'src' / 'main.py')
+    config_path = str(project_root / 'config')
+    locales_path = str(project_root / 'locales')
+
+    # Build PyInstaller arguments
+    args = [
+        main_script,                      # Main script
         '--name=SentinelPC',              # Output name
         '--onefile',                      # Single file output
         '--windowed',                     # GUI mode support
-        f'--icon={ICON_PATH}',            # Application icon
-        '--add-data=config/*.ini;config', # Include config
-        '--add-data=locales/*.json;locales', # Include locales
+        icon_arg,                         # Application icon
+        f'--add-data={config_path}/*.ini{os.pathsep}config',  # Include config
+        f'--add-data={locales_path}/*.json{os.pathsep}locales',  # Include locales
         '--clean',                        # Clean cache
         '--noconfirm',                    # Overwrite existing
-        # Add necessary imports
-        '--hidden-import=tkinter',
+        '--hidden-import=tkinter',        # Add necessary imports
         '--hidden-import=PIL',
-        # Exclude unnecessary modules
-        '--exclude-module=test',
-        '--exclude-module=unittest',
-    ])
+        '--exclude-module=test',          # Exclude unnecessary modules
+        '--exclude-module=unittest'
+    ]
+
+    # Filter out empty arguments
+    args = [arg for arg in args if arg]
+
+    # Run PyInstaller
+    PyInstaller.__main__.run(args)
 
 def main():
     print("Building unified SentinelPC application...")

@@ -1,14 +1,14 @@
 # Core Dependencies
 darkdetect==0.8.0
 psutil==5.9.8
-pandas==2.2.1
-numpy==1.26.4
+numpy>=1.26.4
+pandas>=2.2.3
 configparser==6.0.0
 
 # Web Framework
-fastapi==0.110.0
-uvicorn==0.34.0
-starlette==0.45.3
+fastapi>=0.110.0
+uvicorn>=0.34.0
+starlette>=0.36.3
 
 # UI Components
 streamlit==1.42.2

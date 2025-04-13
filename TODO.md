@@ -39,7 +39,7 @@
     *   [x] Created essential policy pages (`_wwwroot/privacy.html`, `_wwwroot/terms.html`).
     *   [x] Verified all branding asset references in documentation (`README.md`, etc.) and website (`index.html`).
     *   [x] Updated footer links in `index.html` to point to new policy pages.
-    *   [x] Ensured required assets are present: `_wwwroot/favicon.ico`, `wwwroot/Assets/Branding/og-image.png`, `wwwroot/Assets/Branding/apple-touch-icon.png`.
+    *   [x] Ensured required assets are present: `_wwwroot/favicon.ico`, `_wwwroot/Assets/Branding/og-image.png`, `_wwwroot/Assets/Branding/apple-touch-icon.png`.
     *   [x] Double-checked deployment URL consistency in `index.html` meta tags.
 
 ---

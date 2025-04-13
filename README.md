@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="wwwroot/Assets/Branding/logo.svg" alt="Sentinel PC Logo" width="400">
+  <img src="_wwwroot/Assets/Branding/logo.svg" alt="Sentinel PC Logo" width="400">
 </p>
 
 <h1 align="center">Your Ultimate Workspace Guardian 🛡️</h1>
 
 > This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It features a unified interface with both CLI and GUI capabilities, internationalization support, and advanced monitoring systems.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/56e76301-0db4-4551-9120-abf76d6c8cc1/deploy-status)](https://app.netlify.com/sites/sentinelpc/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/dee96004-2646-4fee-881e-015bdd75685d/deploy-status)](https://app.netlify.com/sites/wq-resume/deploys)
 
 ## Project Structure
 
@@ -32,7 +32,7 @@ The project is organized into several directories based on functionality:
 - `spec/`: PyInstaller spec files
 - `docs/`: Project documentation
 - `locales/`: Internationalization files
-- `wwwroot/`: Web assets and resources
+- `_wwwroot/`: Web assets and resources
 - `tests/`: Unit and integration tests
 
 ## Getting Started
@@ -59,10 +59,38 @@ The project is organized into several directories based on functionality:
    ```bash
    pip install -r requirements.txt
    ```
+4. Run the application:
+   ```bash
+   python src/sentinel_gui.py
+   ```
+## CLI Usage
+To use the command-line interface (CLI), run the following command:
+```bash
+python src/sentinel_cli.py
+```
+The CLI will guide you through various configuration options and provide real-time performance metrics.
+## GUI Usage
+To use the graphical user interface (GUI), run the following command:
+```bash
+python src/sentinel_gui.py
+```
+The GUI will provide a user-friendly interface for configuring and monitoring your PC.
 
-## Usage
+## Building the Application
+To build the application, use the provided build scripts:
+```bash
+# Build for Windows
+python scripts/build_unified.py
+```
+## Workarounds
 
-### Unified Interface
+```bash
+.\build.bat
+```
+
+## Usage 
+
+### Unified Interface   
 
 Run the SentinelPC application:
 
