@@ -1,4 +1,3 @@
-import logging
 from pathlib import Path
 from typing import List, Dict, Any
 from concurrent.futures import ThreadPoolExecutor
@@ -8,13 +7,7 @@ import platform
 import os
 import shutil
 from .environment_manager import EnvironmentConfig
-
-# Configure logging
-logging.basicConfig(
-    filename='pc_optimizer.log',
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+from .logging_manager import LoggingManager
 
 class OptimizationError(Exception):
     """Custom exception for optimization-related errors."""
@@ -23,6 +16,7 @@ class OptimizationError(Exception):
 class PerformanceOptimizer:
     def __init__(self):
         self.config = EnvironmentConfig()
+        self.logger = LoggingManager().get_logger(__name__)
 
     def optimize_system(self) -> bool:
         """Optimize system performance using multiple optimization strategies.
@@ -31,7 +25,7 @@ class PerformanceOptimizer:
             bool: True if optimization was successful, False otherwise.
         """
         try:
-            logging.info("optimize_system: Starting system optimization")
+            self.logger.info("optimize_system: Starting system optimization")
             
             # Adjust system based on theme
             if self.config.theme == 'dark':
@@ -40,7 +34,7 @@ class PerformanceOptimizer:
             # Get optimization tasks
             tasks = self._get_tasks()
             if not tasks:
-                logging.warning("No optimization tasks found")
+                self.logger.warning("No optimization tasks found")
                 return True
 
             # Execute tasks using thread pool

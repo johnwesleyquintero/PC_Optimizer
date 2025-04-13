@@ -34,7 +34,7 @@
 *These tasks focus on establishing the new `SentinelPC` structure and core improvements.*
 
 ### Project Structure & Naming
-*   [ ] **Define `SentinelPC` Architecture:** Plan how CLI, GUI, and Core components will integrate within the single `SentinelPC` application structure. (Medium, Design/Docs)
+*   [x] **Define `SentinelPC` Architecture:** Plan how CLI, GUI, and Core components will integrate within the single `SentinelPC` application structure. (Medium, Design/Docs)
 *   [x] **Implement Semantic Versioning:**
     *   [x] Adopt SemVer (`v1.0.0`). (Small)
     *   [x] Remove `_v2` suffixes from all relevant filenames (e.g., `pc_optimizer_cli.py`, `config_manager.py`). (Medium, Multiple files)
@@ -46,10 +46,14 @@
 ### Core Improvements & Stability
 *   [x] **Verify/Create `LICENSE` file:** Ensure a proper `LICENSE` file exists. (Small)
 *   [x] **Create `CONTRIBUTING.md`:** Define contribution guidelines. (Small)
-*   [ ] **Enhance Dependency Management:**
-    *   [ ] Pin dependencies in `requirements.txt` (`pip freeze > requirements.txt`). (Small)
-    *   [x] Create `requirements-dev.txt` for development tools (pytest, flake8, black, coverage, safety). (Small)
-*   [ ] **Implement Centralized Logging:** Set up project-wide logging using Python's `logging` module, configurable via `config.ini`. (Medium, Multiple files)
+*   [x] **Enhance Dependency Management:**
+    *   [x] Pin dependencies in `requirements.txt` (`pip freeze > requirements.txt`). (Small)
+    *   [x] Organized dependencies into clear categories (Core, Web Framework, UI Components, etc.)
+    *   [x] Moved development tools to requirements-dev.txt
+*   [x] **Implement Centralized Logging:** Set up project-wide logging using Python's `logging` module, configurable via `config.ini`.
+    *   [x] Updated core modules to use centralized logging
+    *   [x] Ensured consistent log formatting and handling
+    *   [x] Integrated with config.ini for configurable logging settings
 *   [ ] **Refactor `environment_manager.py`:** Update to use `EnvironmentConfig` from the consolidated config manager. (Medium, `src/core/environment_manager.py` - *path may change after rename*)
 *   [ ] **Add Initial Tests for Core Modules:**
     *   [ ] Add basic unit tests for `config_manager.py`. (Small, `tests/`)
