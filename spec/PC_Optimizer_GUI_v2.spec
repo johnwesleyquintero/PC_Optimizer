@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['pc_optimizer_gui_v2.py'],
+    ['SentinelPC_gui_v2.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='PC_Optimizer_GUI_v2',
+    name='SentinelPC_GUI_v2',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

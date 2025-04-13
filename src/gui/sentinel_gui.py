@@ -1,4 +1,4 @@
-# c:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\sentinel_gui.py
+# c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\sentinel_gui.py
 """SentinelPC GUI Interface
 
 This module provides the graphical user interface for SentinelPC.

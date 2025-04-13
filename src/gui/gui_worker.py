@@ -1,4 +1,4 @@
-# c:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\gui_worker.py
+# c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\gui_worker.py
 """Worker module for handling long-running GUI operations.
 
 This module provides a robust mechanism for executing potentially blocking tasks

@@ -2,7 +2,7 @@
 import PyInstaller.__main__
 
 PyInstaller.__main__.run([
-    'pc_optimizer_cli_v2.py',
+    'SentinelPC_cli_v2.py',
     '--name=sysopt',          # Final executable name
     '--onefile',              # Single binary output
     '--hidden-import=config_manager_v2',  # Explicitly include custom modules

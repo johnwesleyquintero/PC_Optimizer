@@ -17,7 +17,7 @@
 *   [x] Create a README.md file (Initial version)
 *   [x] Consolidate configuration management (`config_manager.py`)
 *   [x] Consolidate performance optimization (`performance_optimizer.py`)
-*   [x] Remove redundant `_v2` files (`config_manager_v2.py`, `performance_optimizer_v2.py`, `pc_optimizer_cli_v2.py`, `pc_optimizer_gui_v2.py`)
+*   [x] Remove redundant `_v2` files (`config_manager_v2.py`, `performance_optimizer_v2.py`, `SentinelPC_cli_v2.py`, `SentinelPC_gui_v2.py`)
 *   [x] Update import statements in relevant files
 *   [x] Define SentinelPC architecture in ARCHITECTURE.md
 *   [x] Implement Semantic Versioning (`v1.0.0`, remove `_v2` suffixes, establish tagging process)

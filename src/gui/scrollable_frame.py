@@ -1,4 +1,4 @@
-# c:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\scrollable_frame.py
+# c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\scrollable_frame.py
 """Custom scrollable frame widget for enhanced UI navigation.
 
 This module provides a scrollable frame widget that can be used to add scrolling

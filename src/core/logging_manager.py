@@ -37,7 +37,7 @@ class LoggingManager:
 
         # File handler (if enabled)
         if self.config.getboolean('Logging', 'file_logging', fallback=True):
-            log_file = self.log_dir / self.config.get('Logging', 'log_file', fallback='pc_optimizer.log')
+            log_file = self.log_dir / self.config.get('Logging', 'log_file', fallback='SentinelPC.log')
             file_handler = RotatingFileHandler(
                 log_file,
                 maxBytes=max_file_size,

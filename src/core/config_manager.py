@@ -166,11 +166,11 @@ class EnvironmentConfig:
 
     def _get_config_dir(self):
         if self.system == "Windows":
-            return Path(os.environ['APPDATA']) / "PC_Optimizer"
+            return Path(os.environ['APPDATA']) / "SentinelPC"
         elif self.system == "Darwin":
-            return Path.home() / "Library/Application Support/PC_Optimizer"
+            return Path.home() / "Library/Application Support/SentinelPC"
         else:
-            return Path.home() / ".config/pc_optimizer"
+            return Path.home() / ".config/SentinelPC"
 
     def _load_config(self):
         self.logger.info("EnvironmentConfig: Loading configuration")
@@ -206,8 +206,8 @@ class EnvironmentConfig:
 
     def _default_output_dir(self):
         if self.system == "Windows":
-            return Path(os.environ['USERPROFILE']) / "Documents/PC_Optimizer"
-        return Path.home() / "PC_Optimizer"
+            return Path(os.environ['USERPROFILE']) / "Documents/SentinelPC"
+        return Path.home() / "SentinelPC"
 
     def save_config(self):
         logging.info("EnvironmentConfig: Saving configuration")

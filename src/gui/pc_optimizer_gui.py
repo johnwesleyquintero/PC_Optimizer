@@ -1,4 +1,4 @@
-# c:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\pc_optimizer_gui.py
+# c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\SentinelPC_gui.py
 import tkinter as tk
 from tkinter import ttk, scrolledtext # Use scrolledtext for easier log handling
 import psutil

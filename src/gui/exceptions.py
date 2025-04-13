@@ -1,4 +1,4 @@
-# c:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\exceptions.py
+# c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\exceptions.py
 """Custom exceptions for GUI operations.
 
 This module contains custom exceptions used specifically within the SentinelPC

@@ -2,8 +2,8 @@
 
 
 a = Analysis(
-    ['C:/Users/MAG/Desktop/PC_Optimizer/src/gui/pc_optimizer_gui.py'],
-    pathex=['C:/Users/MAG/Desktop/PC_Optimizer'],
+    ['C:/Users/MAG/Desktop/SentinelPC/src/gui/SentinelPC_gui.py'],
+    pathex=['C:/Users/MAG/Desktop/SentinelPC'],
     binaries=[],
     datas=[],
     hiddenimports=[],

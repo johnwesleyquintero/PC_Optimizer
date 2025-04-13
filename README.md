@@ -41,7 +41,7 @@ The project is organized into several directories based on functionality:
 
    ```bash
    git clone <repository_url>
-   cd PC_Optimizer
+   cd SentinelPC
    ```
 
 2. Create and activate a virtual environment (recommended):
@@ -152,7 +152,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 
 - **Error: ModuleNotFoundError:** Ensure all required packages are installed using `pip install -r requirements.txt`
 - **Error: File not found:** Verify file paths in your code and configuration files
-- **Other errors:** Check the console output and logs in `pc_optimizer.log`
+- **Other errors:** Check the console output and logs in `SentinelPC.log`
 
 ## Future Enhancements
 

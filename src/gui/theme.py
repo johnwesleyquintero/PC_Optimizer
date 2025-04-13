@@ -1,4 +1,4 @@
-# c:\Users\johnw\OneDrive\Desktop\PC_Optimizer\src\gui\theme.py
+# c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\theme.py
 import tkinter as tk
 from tkinter import ttk
 import logging

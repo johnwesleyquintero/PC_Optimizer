@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['pc_optimizer_cli_v2.py'],
+    ['SentinelPC_cli_v2.py'],
     pathex=[],
     binaries=[],
     datas=[('config/*.ini', 'config')],
