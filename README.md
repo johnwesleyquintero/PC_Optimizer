@@ -1,6 +1,10 @@
-# SENTINEL PC Optimizer
+<p align="center">
+  <img src="wwwroot/Assets/Branding/logo.svg" alt="Sentinel PC Logo" width="400">
+</p>
 
-This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It includes both a command-line interface (CLI) and a graphical user interface (GUI) for accessibility.
+<h1 align="center">Your Ultimate Workspace Guardian 🛡️</h1>
+
+> This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It includes both a command-line interface (CLI) and a graphical user interface (GUI) for accessibility.
 
 ## Project Structure
 
