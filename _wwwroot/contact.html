@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO - Title & Meta Description -->
+    <title>Contact Us - SentinelPC</title>
+    <meta name="description" content="Get in touch with the SentinelPC team for support, feedback, or inquiries.">
+    <!-- Add other relevant meta tags if needed -->
+
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Animate.css kept for consistency, though not actively used on this page -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <!-- Ensure favicon.ico exists in the root (_wwwroot) -->
+    <link rel="icon" type="image/svg+xml" href="Assets/Branding/favicon.svg">
+    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png">
+    <!-- Ensure apple-touch-icon.png (180x180) exists in Assets/Branding/ -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #4B5563;
+            /* Slightly softer gray */
+            @apply antialiased;
+            /* Smoother font rendering */
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+            color: #1F2937;
+            /* Darker Gray for headings */
+        }
+
+        h1,
+        h2 {
+            letter-spacing: -0.025em;
+        }
+
+        /* Add explicit focus styles for accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5);
+            /* Cyan focus ring */
+        }
+
+        /* Specific focus styles for buttons with background */
+        .get-started-button {
+            background-color: #00AECB;
+            /* Brand Teal/Blue */
+            transition: background-color 0.3s ease;
+        }
+
+        .get-started-button:hover {
+            background-color: #0097B2;
+            /* Darker brand blue */
+        }
+
+        .get-started-button:focus-visible {
+            box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5), 0 4px 8px rgba(0, 151, 178, 0.3);
+        }
+
+        /* Specific focus styles for nav links */
+        nav a:focus-visible {
+            background-color: #f3f4f6;
+            /* Light gray background on focus */
+            box-shadow: none;
+            /* Remove default ring if background is enough */
+        }
+
+        /* Specific focus styles for footer links */
+        footer a:focus-visible {
+            text-decoration: underline;
+            box-shadow: none;
+        }
+
+        /* Style for main content area */
+        .content-section {
+            padding-top: 6rem;
+            /* Adjust based on nav height */
+            padding-bottom: 4rem;
+        }
+
+        @media (min-width: 768px) {
+            .content-section {
+                padding-top: 8rem;
+                /* Adjust for larger screens if nav height changes */
+            }
+        }
+
+        /* Styling for contact options */
+        .contact-option {
+            @apply bg-white p-6 rounded-lg shadow-md border border-gray-200 flex items-center space-x-4 transition duration-300 ease-in-out hover:shadow-lg;
+        }
+
+        .contact-option svg {
+            @apply w-8 h-8 text-cyan-600 flex-shrink-0;
+        }
+
+        .contact-option a {
+            @apply text-cyan-600 hover:text-cyan-700 font-medium;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Navigation (Copied from other pages, links adjusted) -->
+    <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="index.html"
+                class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 rounded"
+                aria-label="Sentinel PC Home">
+                <img src="Assets/Branding/logo.svg" alt="Sentinel PC Logo" class="h-8">
+                <!-- Ensure Assets/Branding/logo.svg exists -->
+            </a>
+            <div class="hidden md:flex items-center space-x-2">
+                <!-- Hide on small screens, adjust spacing -->
+                <a href="index.html#features"
+                    class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Features</a>
+                <a href="index.html#testimonials"
+                    class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Testimonials</a>
+                <a href="index.html#download"
+                    class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Download</a>
+                <a href="index.html#download"
+                    class="get-started-button text-white font-semibold py-2 px-5 rounded-lg text-sm ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">Get
+                    Started</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button"
+                    class="text-gray-600 hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500 rounded"
+                    aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <!-- Screen reader text -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
+            <a href="index.html#features"
+                class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Features</a>
+            <a href="index.html#testimonials"
+                class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Testimonials</a>
+            <a href="index.html#download"
+                class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Download</a>
+            <a href="index.html#download"
+                class="block px-6 py-4 text-center get-started-button text-white font-semibold rounded-none focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Get
+                Started</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="content-section container mx-auto px-6">
+        <h1 class="text-3xl md:text-4xl font-bold mb-8 text-gray-800 text-center">Get in Touch</h1>
+
+        <p class="text-lg text-gray-600 mb-12 text-center max-w-2xl mx-auto">
+            We'd love to hear from you! Whether you have a question about features, need support, want to report a bug, or
+            just want to share your feedback, please reach out through one of the methods below.
+        </p>
+
+        <div class="max-w-lg mx-auto space-y-6">
+            <!-- Contact Option 1: Email -->
+            <div class="contact-option">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-1">Email Support</h3>
+                    <p class="text-gray-600 text-sm mb-1">For general inquiries, support requests, and feedback.</p>
+                    <!-- *** ACTION REQUIRED: Replace with your actual support email *** -->
+                    <a href="mailto:info.wescode@gmail.com" class="break-all">info.wescode@gmail.com</a>
+                </div>
+            </div>
+
+            <!-- Contact Option 2: GitHub Issues (if applicable) -->
+            <div class="contact-option">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.026 2.747-1.026.546 1.379.201 2.397.098 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                        clip-rule="evenodd" />
+                </svg>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-1">GitHub Issues</h3>
+                    <p class="text-gray-600 text-sm mb-1">Best for bug reports and feature requests.</p>
+                    <!-- *** ACTION REQUIRED: Replace with your actual GitHub issues link *** -->
+                    <a href="https://github.com/johnwesleyquintero/SentinelPC/issues" target="_blank"
+                        rel="noopener noreferrer">Report an Issue / Suggest Feature</a>
+                </div>
+            </div>
+
+            <!-- Add other contact methods if needed (e.g., Twitter, Discord) -->
+
+        </div>
+
+        <p class="text-gray-500 mt-12 text-center text-sm">
+            We aim to respond to all inquiries within 1-2 business days. Thank you for contacting SentinelPC!
+        </p>
+
+    </main>
+
+   <!-- Footer Links -->
+   <footer class="bg-gray-800 text-gray-300 py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                     <a href="#" class="flex items-center justify-center md:justify-start mb-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
+                        <img src="Assets/Branding/favicon.svg" alt="" class="h-6 mr-2" aria-hidden="true"> <!-- Ensure Assets/Branding/favicon.svg exists -->
+                        <span class="text-lg font-semibold text-gray-200">SentinelPC</span>
+                    </a>
+                    <p class="text-sm">&copy; <span id="copyright-year">2025</span> SentinelPC. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <!-- Temporary links - Update href when pages are created -->
+                    <a href="privacy.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Privacy Policy</a>
+                    <a href="terms.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Terms of Service</a>
+                    <a href="contact.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic Copyright Year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuButton && mobileMenu) {
+            menuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenu.classList.toggle('hidden');
+                menuButton.setAttribute('aria-expanded', !isExpanded); // Toggle ARIA state
+            });
+        }
+
+        // Close mobile menu if clicking outside (Optional but good practice)
+        document.addEventListener('click', function(event) {
+            if (mobileMenu && menuButton && !mobileMenu.classList.contains('hidden')) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnButton = menuButton.contains(event.target);
+                if (!isClickInsideMenu && !isClickOnButton) {
+                    mobileMenu.classList.add('hidden');
+                    menuButton.setAttribute('aria-expanded', 'false'); // Update ARIA state
+                }
+            }
+        });
+
+        // No smooth scroll needed specifically for this page unless internal links are added
+    </script>
+</body>
+</html>

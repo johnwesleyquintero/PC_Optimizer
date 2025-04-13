@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 
 # Project information
 project = 'SentinelPC'
-copyright = '2024, SentinelPC Team'
+copyright = '2025, SentinelPC Team'
 author = 'SentinelPC Team'
 release = '1.0.0'
 

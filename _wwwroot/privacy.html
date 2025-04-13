@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,106 +21,160 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Favicon -->
-    <link rel="icon" href="favicon.ico" sizes="any"> <!-- Ensure favicon.ico exists in the root (_wwwroot) -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <!-- Ensure favicon.ico exists in the root (_wwwroot) -->
     <link rel="icon" type="image/svg+xml" href="Assets/Branding/favicon.svg">
-    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png"> <!-- Ensure apple-touch-icon.png (180x180) exists in Assets/Branding/ -->
+    <link rel="apple-touch-icon" href="Assets/Branding/apple-touch-icon.png">
+    <!-- Ensure apple-touch-icon.png (180x180) exists in Assets/Branding/ -->
 
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            color: #4B5563; /* Slightly softer gray */
-            @apply antialiased; /* Smoother font rendering */
+            color: #4B5563;
+            /* Slightly softer gray */
+            @apply antialiased;
+            /* Smoother font rendering */
         }
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
             font-weight: 700;
-            color: #1F2937; /* Darker Gray for headings */
+            color: #1F2937;
+            /* Darker Gray for headings */
         }
-        h1, h2 {
-             letter-spacing: -0.025em;
+
+        h1,
+        h2 {
+            letter-spacing: -0.025em;
         }
+
         /* Add explicit focus styles for accessibility */
-        a:focus-visible, button:focus-visible {
+        a:focus-visible,
+        button:focus-visible {
             outline: 2px solid transparent;
             outline-offset: 2px;
-            box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5); /* Cyan focus ring */
+            box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5);
+            /* Cyan focus ring */
         }
+
         /* Specific focus styles for buttons with background */
         .get-started-button {
-             background-color: #00AECB; /* Brand Teal/Blue */
-             transition: background-color 0.3s ease;
+            background-color: #00AECB;
+            /* Brand Teal/Blue */
+            transition: background-color 0.3s ease;
         }
+
         .get-started-button:hover {
-             background-color: #0097B2; /* Darker brand blue */
+            background-color: #0097B2;
+            /* Darker brand blue */
         }
+
         .get-started-button:focus-visible {
-             box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5), 0 4px 8px rgba(0, 151, 178, 0.3);
+            box-shadow: 0 0 0 3px rgba(0, 199, 224, 0.5), 0 4px 8px rgba(0, 151, 178, 0.3);
         }
-         /* Specific focus styles for nav links */
+
+        /* Specific focus styles for nav links */
         nav a:focus-visible {
-            background-color: #f3f4f6; /* Light gray background on focus */
-            box-shadow: none; /* Remove default ring if background is enough */
+            background-color: #f3f4f6;
+            /* Light gray background on focus */
+            box-shadow: none;
+            /* Remove default ring if background is enough */
         }
+
         /* Specific focus styles for footer links */
         footer a:focus-visible {
             text-decoration: underline;
             box-shadow: none;
         }
+
         /* Style for main content area */
         .content-section {
-            padding-top: 6rem; /* Adjust based on nav height */
+            padding-top: 6rem;
+            /* Adjust based on nav height */
             padding-bottom: 4rem;
         }
+
         @media (min-width: 768px) {
             .content-section {
-                padding-top: 8rem; /* Adjust for larger screens if nav height changes */
+                padding-top: 8rem;
+                /* Adjust for larger screens if nav height changes */
             }
         }
+
         /* Basic styling for policy content */
         .policy-content h2 {
             @apply text-2xl font-semibold mt-8 mb-4 text-gray-700;
         }
-        .policy-content p, .policy-content ul {
+
+        .policy-content p,
+        .policy-content ul {
             @apply text-gray-600 mb-4 leading-relaxed;
         }
+
         .policy-content ul {
             @apply list-disc list-inside ml-4;
         }
+
         .policy-content li {
             @apply mb-2;
         }
+
         .policy-content a {
             @apply text-cyan-600 hover:text-cyan-700 underline;
         }
     </style>
 </head>
+
 <body class="bg-gray-50">
 
     <!-- Navigation (Copied from index.html, links adjusted) -->
     <nav class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="index.html" class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
-                <img src="Assets/Branding/logo.svg" alt="Sentinel PC Logo" class="h-8"> <!-- Ensure Assets/Branding/logo.svg exists -->
+            <a href="index.html"
+                class="flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 rounded"
+                aria-label="Sentinel PC Home">
+                <img src="Assets/Branding/logo.svg" alt="Sentinel PC Logo" class="h-8">
+                <!-- Ensure Assets/Branding/logo.svg exists -->
             </a>
-            <div class="hidden md:flex items-center space-x-2"> <!-- Hide on small screens, adjust spacing -->
-                <a href="index.html#features" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Features</a>
-                <a href="index.html#testimonials" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Testimonials</a>
-                <a href="index.html#download" class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Download</a>
-                <a href="index.html#download" class="get-started-button text-white font-semibold py-2 px-5 rounded-lg text-sm ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">Get Started</a>
+            <div class="hidden md:flex items-center space-x-2">
+                <!-- Hide on small screens, adjust spacing -->
+                <a href="index.html#features"
+                    class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Features</a>
+                <a href="index.html#testimonials"
+                    class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Testimonials</a>
+                <a href="index.html#download"
+                    class="text-gray-600 hover:text-cyan-600 px-3 py-2 rounded-md hover:bg-gray-100 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500">Download</a>
+                <a href="index.html#download"
+                    class="get-started-button text-white font-semibold py-2 px-5 rounded-lg text-sm ml-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">Get
+                    Started</a>
             </div>
             <!-- Mobile Menu Button -->
-             <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-600 hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500 rounded" aria-controls="mobile-menu" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span> <!-- Screen reader text -->
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <div class="md:hidden">
+                <button id="mobile-menu-button"
+                    class="text-gray-600 hover:text-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-cyan-500 rounded"
+                    aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <!-- Screen reader text -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
         </div>
-         <!-- Mobile Menu (hidden by default) -->
+        <!-- Mobile Menu (hidden by default) -->
         <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200">
-            <a href="index.html#features" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Features</a>
-            <a href="index.html#testimonials" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Testimonials</a>
-            <a href="index.html#download" class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Download</a>
-            <a href="index.html#download" class="block px-6 py-4 text-center get-started-button text-white font-semibold rounded-none focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Get Started</a>
+            <a href="index.html#features"
+                class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Features</a>
+            <a href="index.html#testimonials"
+                class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Testimonials</a>
+            <a href="index.html#download"
+                class="block px-6 py-3 text-gray-600 hover:bg-gray-100 hover:text-cyan-600 focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Download</a>
+            <a href="index.html#download"
+                class="block px-6 py-4 text-center get-started-button text-white font-semibold rounded-none focus:outline-none focus:ring-inset focus:ring-2 focus:ring-cyan-500">Get
+                Started</a>
         </div>
     </nav>
 
@@ -127,7 +182,7 @@
     <main class="content-section container mx-auto px-6 policy-content">
         <h1 class="text-3xl md:text-4xl font-bold mb-8 text-gray-800">Privacy Policy</h1>
 
-        <p class="text-gray-500 mb-6">Last Updated: <span id="last-updated-date">[Insert Date Here]</span></p>
+        <p class="text-gray-500 mb-6">Last Updated: <span id="last-updated-date">November 29, 2023</span></
 
         <p>Welcome to SentinelPC. We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our software application ("Application"). Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access or use the Application.</p>
 
@@ -190,33 +245,34 @@
         <h2>Contact Us</h2>
         <p>If you have any questions about this Privacy Policy, please contact us:</p>
         <ul>
-            <li>By email: <a href="mailto:[Your Support Email Address]">[Your Support Email Address]</a></li>
-            <li>By visiting this page on our website: <a href="[Link to Contact Page or Section, if any]">[Your Website Contact Link]</a></li>
+            <li>By email: <a href="mailto:info.wescode@gmail.com">info.wescode@gmail.com</a></li>
+            <li>By visiting this page on our website: <a href="[Link to Contact Page or Section, if any]">https://sentinelpc.netlify.app</a></li>
             <!-- Add other contact methods if applicable -->
         </ul>
 
     </main>
 
-    <!-- Footer (Copied from index.html, links adjusted) -->
-    <footer class="bg-gray-800 text-gray-300 py-12">
+   <!-- Footer Links -->
+   <footer class="bg-gray-800 text-gray-300 py-12">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0 text-center md:text-left">
-                     <a href="index.html" class="flex items-center justify-center md:justify-start mb-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
+                     <a href="#" class="flex items-center justify-center md:justify-start mb-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded" aria-label="Sentinel PC Home">
                         <img src="Assets/Branding/favicon.svg" alt="" class="h-6 mr-2" aria-hidden="true"> <!-- Ensure Assets/Branding/favicon.svg exists -->
                         <span class="text-lg font-semibold text-gray-200">SentinelPC</span>
                     </a>
-                    <p class="text-sm">&copy; <span id="copyright-year">2024</span> SentinelPC. All rights reserved.</p>
+                    <p class="text-sm">&copy; <span id="copyright-year">2025</span> SentinelPC. All rights reserved.</p>
                 </div>
                 <div class="flex space-x-6">
-                    <!-- Active link styling could be added here if desired -->
-                    <a href="privacy.html" class="text-white font-semibold transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded" aria-current="page">Privacy Policy</a>
+                    <!-- Temporary links - Update href when pages are created -->
+                    <a href="privacy.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Privacy Policy</a>
                     <a href="terms.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Terms of Service</a>
-                    <a href="#" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Contact Us</a> <!-- Update href -->
+                    <a href="contact.html" class="hover:text-white transition duration-300 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-cyan-500 rounded">Contact Us</a>
                 </div>
             </div>
         </div>
     </footer>
+
 
     <script>
         // Dynamic Copyright Year

@@ -63,62 +63,76 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             return False
 
     def optimize_system(self, profile: Optional[str] = None) -> Dict[str, Any]:
-        """Optimize system performance using multiple optimization strategies.
-
+        """Execute system optimization tasks with parallel processing.
+        
+        Args:
+            profile: Optional optimization profile name from configuration
+            
         Returns:
-            bool: True if optimization was successful, False otherwise.
-
+            Dict containing:
+            - success: Overall operation status
+            - tasks_completed: Number of successful tasks
+            - tasks_failed: Number of failed tasks
+            - failed_tasks: List of failed task names
+            
         Raises:
-            OptimizationError: If optimization process fails.
-            TaskExecutionError: If specific tasks fail during execution.
+            OptimizationError: If initialization fails
+            TaskExecutionError: If any tasks fail during execution
         """
         try:
-            self.logger.info("Starting system optimization")
+            self._validate_optimization_ready()
+            tasks = self._get_tasks_for_profile(profile)
             
-            # Adjust system based on theme
-            if self.config.theme == 'dark':
-                self._apply_dark_mode_performance()
+            with ThreadPoolExecutor(
+                max_workers=self._get_thread_count()
+            ) as executor:
+                results = self._execute_tasks(executor, tasks)
             
-            # Get optimization tasks
-            tasks = self._get_tasks()
-            if not tasks:
-                self.logger.warning("No optimization tasks found")
-                return True
+            return self._generate_optimization_report(results)
+            
+        except Exception as error:
+            self.logger.error(f"Optimization failed: {error}")
+            raise OptimizationError(f"System optimization failed: {error}") from error
 
-            # Execute tasks using thread pool
-            thread_count = min(self.config.max_threads or multiprocessing.cpu_count(), len(tasks))
-            failed_tasks = []
+    def _validate_optimization_ready(self):
+        """Verify system meets optimization requirements"""
+        if not self.config.is_valid():
+            raise OptimizationError("Invalid configuration detected")
+        
+        if self.config.theme == 'dark':
+            self._apply_dark_mode_performance()
+
+    def _get_thread_count(self) -> int:
+        """Determine optimal thread count for task execution"""
+        return min(
+            self.config.max_threads or multiprocessing.cpu_count(), 
+            self.config.max_parallel_tasks
+        )
+
+    def _execute_tasks(self, executor, tasks):
+        """Execute tasks and return completion results"""
+        return [
+            future.result()
+            for future in concurrent.futures.as_completed(
+                [executor.submit(self._optimize_task, task) for task in tasks]
+            )
+        ]
+
+    def _generate_optimization_report(self, results):
+        """Generate detailed optimization report"""
+        failed_tasks = [task['name'] for task, success in results if not success]
+        
+        if failed_tasks:
+            raise TaskExecutionError(
+                f"Failed tasks: {', '.join(failed_tasks)}"
+            )
             
-            with ThreadPoolExecutor(max_workers=thread_count) as executor:
-                future_to_task = {executor.submit(self._optimize_task, task): task for task in tasks}
-                for future in future_to_task:
-                    task = future_to_task[future]
-                    try:
-                        if not future.result():
-                            failed_tasks.append(task['name'])
-                    except Exception as e:
-                        self.logger.error(f"Task {task['name']} failed with error: {str(e)}")
-                        failed_tasks.append(task['name'])
-            
-            if failed_tasks:
-                error_msg = f"Failed tasks: {', '.join(failed_tasks)}"
-                self.logger.error(error_msg)
-                raise TaskExecutionError(error_msg)
-                
-            self.logger.info("System optimization completed successfully")
-            return {
-                "success": True,
-                "tasks_completed": len(tasks),
-                "tasks_failed": len(failed_tasks),
-                "failed_tasks": failed_tasks
-            }
-            
-        except Exception as e:
-            self.logger.error(f"Failed to optimize system: {str(e)}")
-            return {
-                "success": False,
-                "error": str(e)
-            }
+        return {
+            "success": True,
+            "tasks_completed": len(results) - len(failed_tasks),
+            "tasks_failed": len(failed_tasks),
+            "failed_tasks": failed_tasks
+        }
 
     def get_optimization_status(self) -> Dict[str, Any]:
         """Get current optimization status.
