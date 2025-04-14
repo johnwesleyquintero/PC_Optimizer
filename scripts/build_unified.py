@@ -52,8 +52,19 @@ def build_executable():
 if __name__ == '__main__':
     build_executable()
 
-def clean_build_dirs():
-    """Clean build and dist directories"""
+def clean_build_dirs(max_retries=3, retry_delay=2):
+    """Clean build and dist directories with retry mechanism for locked files
+    
+    Args:
+        max_retries (int): Maximum number of cleanup attempts
+        retry_delay (int): Delay in seconds between retries
+    
+    Returns:
+        bool: True if cleanup successful, False otherwise
+    """
+    import time
+    from pathlib import Path
+    
     try:
         # Get the project root directory
         project_root = Path(__file__).parent.parent
@@ -61,10 +72,28 @@ def clean_build_dirs():
         # Clean build and dist directories
         for dir_name in ['build', 'dist']:
             dir_path = project_root / dir_name
-            if dir_path.exists():
-                shutil.rmtree(dir_path)
-            # Create fresh directory
-            dir_path.mkdir(exist_ok=True)
+            if not dir_path.exists():
+                continue
+                
+            for attempt in range(max_retries):
+                try:
+                    print(f"Attempting to clean {dir_name} directory (attempt {attempt + 1}/{max_retries})")
+                    if dir_path.exists():
+                        shutil.rmtree(dir_path)
+                    # Create fresh directory
+                    dir_path.mkdir(exist_ok=True)
+                    break
+                except PermissionError as pe:
+                    if attempt < max_retries - 1:
+                        print(f"Directory {dir_name} is locked. Retrying in {retry_delay} seconds...")
+                        time.sleep(retry_delay)
+                    else:
+                        print(f"Failed to clean {dir_name} directory after {max_retries} attempts.")
+                        print("Please close any applications that might be using these files and try again.")
+                        return False
+                except Exception as e:
+                    print(f"Unexpected error cleaning {dir_name} directory: {str(e)}")
+                    return False
         return True
     except Exception as e:
         print(f"Failed to clean directories: {str(e)}")

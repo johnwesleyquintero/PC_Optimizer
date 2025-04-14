@@ -83,10 +83,15 @@ To build the application, use the provided build scripts:
 python scripts/build_unified.py
 ```
 ## Workarounds
-
+To build the application, use the provided bat scripts:
 ```bash
 .\build.bat
 ```
+To run the application, use the provided bat scripts:
+```bash
+.\run.bat
+```
+
 
 ## Usage 
 
