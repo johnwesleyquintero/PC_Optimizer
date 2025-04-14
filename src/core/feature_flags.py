@@ -11,7 +11,15 @@ from dataclasses import dataclass
 from enum import Enum
 
 class FeatureState(Enum):
-    """Enum representing possible states of a feature."""
+    """
+    Enum representing possible states of a feature.
+
+    Possible states include:
+        - ENABLED: Feature is fully enabled.
+        - DISABLED: Feature is disabled.
+        - BETA: Feature is in beta testing.
+        - ALPHA: Feature is in alpha testing.
+    """
     ENABLED = "enabled"
     DISABLED = "disabled"
     BETA = "beta"
@@ -19,7 +27,16 @@ class FeatureState(Enum):
 
 @dataclass
 class Feature:
-    """Represents a feature with its configuration."""
+    """
+    Represents a feature with its configuration.
+
+    Attributes:
+        name (str): The name of the feature.
+        state (FeatureState): The current state of the feature.
+        description (str): A description of the feature.
+        dependencies (list[str], optional): A list of feature names that this feature depends on. Defaults to None.
+        config (Dict[str, Any], optional): A dictionary containing configuration settings for the feature. Defaults to None.
+    """
     name: str
     state: FeatureState
     description: str

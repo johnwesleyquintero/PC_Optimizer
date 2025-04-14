@@ -6,7 +6,13 @@ from typing import Optional
 from datetime import datetime
 
 class LoggingManager:
-    """Centralized logging management for the PC Optimizer application."""
+    """
+    Centralized logging management for the PC Optimizer application.
+
+    This class implements a singleton pattern to ensure only one instance
+    of the logger is used throughout the application. It configures
+    both file and console logging based on settings in the configuration file.
+    """
 
     _instance = None
 

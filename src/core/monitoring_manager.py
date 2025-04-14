@@ -12,7 +12,16 @@ from .base_manager import BaseMonitoringManager
 
 @dataclass
 class SystemMetrics:
-    """Container for system performance metrics."""
+    """
+    Container for system performance metrics.
+
+    Attributes:
+        cpu_percent (float): CPU utilization percentage.
+        memory_percent (float): Memory utilization percentage.
+        disk_usage (Dict[str, float]): Disk usage statistics for each mounted partition.
+        network_io (Dict[str, int]): Network I/O statistics (bytes sent and received).
+        timestamp (datetime): Timestamp of when the metrics were collected.
+    """
     cpu_percent: float
     memory_percent: float
     disk_usage: Dict[str, float]
@@ -20,7 +29,12 @@ class SystemMetrics:
     timestamp: datetime
 
 class MonitoringManager(BaseMonitoringManager):
-    """Manages system monitoring and performance tracking."""
+    """
+    Manages system monitoring and performance tracking.
+
+    This class collects and stores system performance metrics,
+    calculates health status, and provides access to historical data.
+    """
     
     def __init__(self, metrics_history_size: int = 100):
         self.logger = logging.getLogger(__name__)

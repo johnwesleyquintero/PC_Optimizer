@@ -18,7 +18,12 @@ WINDOWS_SYSTEM = 'Windows'
 MEMORY_THRESHOLD_2GB = 2 * 1024**3
 
 class ConfigManager:
-    """Manages configuration settings for SentinelPC."""
+    """
+    Manages configuration settings for SentinelPC.
+
+    This class handles loading, saving, and updating configuration settings
+    from a configuration file.
+    """
     
     def __init__(self, config_file='config.ini'):
         """Initialize ConfigManager.
@@ -154,6 +159,9 @@ class ConfigManager:
         self.save_config()
 
 class EnvironmentConfig:
+    """
+    Provides environment-specific configuration settings.
+    """
     def __init__(self, config_file='config.ini'):
         self.system = platform.system()
         self.config_dir = self._get_config_dir()
@@ -162,7 +170,13 @@ class EnvironmentConfig:
         self.logger = LoggingManager().get_logger(__name__)
         self.logger.info(f"EnvironmentConfig: Configuration loaded from {self.config_path}")
 
-    def _get_config_dir(self):
+    def _get_config_dir(self) -> Path:
+        """
+        Determines the appropriate configuration directory based on the operating system.
+
+        Returns:
+            Path: The path to the configuration directory.
+        """
         if self.system == "Windows":
             return Path(os.environ['APPDATA']) / "SentinelPC"
         elif self.system == "Darwin":
@@ -170,7 +184,13 @@ class EnvironmentConfig:
         else:
             return Path.home() / ".config/SentinelPC"
 
-    def _load_config(self):
+    def _load_config(self) -> configparser.ConfigParser:
+        """
+        Loads the configuration settings from the configuration file.
+
+        Returns:
+            configparser.ConfigParser: The loaded configuration settings.
+        """
         self.logger.info("EnvironmentConfig: Loading configuration")
         config = configparser.ConfigParser()
         config.read_dict({
@@ -202,12 +222,21 @@ class EnvironmentConfig:
             return self._default_output_dir()
         return Path(self.config['Paths']['output_dir'])
 
-    def _default_output_dir(self):
+    def _default_output_dir(self) -> Path:
+        """
+        Gets the default output directory based on the operating system.
+
+        Returns:
+            Path: The default output directory.
+        """
         if self.system == "Windows":
             return Path(os.environ['USERPROFILE']) / "Documents/SentinelPC"
         return Path.home() / "SentinelPC"
 
-    def save_config(self):
+    def save_config(self) -> None:
+        """
+        Saves the current configuration settings to the configuration file.
+        """
         logging.info("EnvironmentConfig: Saving configuration")
         self.config_dir.mkdir(parents=True, exist_ok=True)
         try:

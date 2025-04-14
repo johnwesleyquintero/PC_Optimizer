@@ -8,7 +8,12 @@ from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional
 
 class BaseManager(ABC):
-    """Base interface for all manager classes."""
+    """
+    Base interface for all manager classes.
+
+    This abstract base class defines the common methods that all manager
+    classes in SentinelPC should implement.
+    """
     
     @abstractmethod
     def initialize(self, config: Optional[Dict[str, Any]] = None) -> bool:
@@ -32,7 +37,12 @@ class BaseManager(ABC):
         pass
 
 class BaseEnvironmentManager(BaseManager):
-    """Interface for environment management functionality."""
+    """
+    Interface for environment management functionality.
+
+    This abstract base class defines the methods for managing the system
+    environment.
+    """
     
     @abstractmethod
     def get_system_info(self) -> Dict[str, Any]:
@@ -53,7 +63,12 @@ class BaseEnvironmentManager(BaseManager):
         pass
 
 class BaseMonitoringManager(BaseManager):
-    """Interface for system monitoring functionality."""
+    """
+    Interface for system monitoring functionality.
+
+    This abstract base class defines the methods for monitoring system
+    performance and health.
+    """
     
     @abstractmethod
     def get_system_metrics(self) -> Dict[str, Any]:
@@ -74,7 +89,12 @@ class BaseMonitoringManager(BaseManager):
         pass
 
 class BasePerformanceOptimizer(BaseManager):
-    """Interface for performance optimization functionality."""
+    """
+    Interface for performance optimization functionality.
+
+    This abstract base class defines the methods for optimizing system
+    performance.
+    """
     
     @abstractmethod
     def optimize_system(self, profile: Optional[str] = None) -> Dict[str, Any]:

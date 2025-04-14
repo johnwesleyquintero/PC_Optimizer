@@ -9,7 +9,7 @@
 
 ---
 
-## Completed (Verified based on current structure/files)
+## Completed (Verified based on current structure/files or user report)
 
 *   [x] Create a virtual environment
 *   [x] Install the required packages
@@ -47,6 +47,9 @@
 *   [x] **Review Security Practices:** Assess and enhance security (input validation, file operations, dependency scanning with `safety`). (Medium, Multiple files) *(Marked complete based on implemented input validation, path security, and enhanced GUI error handling)*
 *   [x] **Prevent GUI Freezing:** Use threading or asyncio to run the optimizations in a separate thread or coroutine in `src/gui/sentinel_gui.py` to prevent the GUI from freezing. *(Related to Phase 2 GUI Responsiveness task)*
 *   [x] **Add GUI Error Handling:** Add error handling to the optimization functions in `src/gui/sentinel_gui.py` to catch potential exceptions (including the new custom ones from core) and display user-friendly error messages in the GUI. *(Related to Phase 2 Error Handling task - specifically the GUI part)*
+*   [x] **Update `README.md`:** Ensure it fully reflects the consolidated `SentinelPC` application, new structure, features, and usage. (Small, `README.md`) - *User reported complete.*
+*   [x] **Add Docstrings (Core):** Write comprehensive docstrings for public modules, classes, and functions in `src/core/`. (Medium, `src/core/`) - *User reported complete for core modules. GUI/other components might still need review.*
+*   [x] **Add Basic User Guides:** Create simple guides for using `SentinelPC` (CLI and GUI modes) in the `docs/` folder. (Medium, `docs/`) - *User reported complete.*
 
 ---
 
@@ -77,9 +80,7 @@
 *   [ ] **Add Integration Tests:** Develop tests for CLI and GUI interactions (basic workflows). (Medium, `tests/`)
 
 ### Documentation
-*   [ ] **Update `README.md`:** Ensure it fully reflects the consolidated `SentinelPC` application, new structure, features, and usage. (Small, `README.md`) - *Review needed, but largely up-to-date.*
-*   [ ] **Add Docstrings:** Write comprehensive docstrings for public modules, classes, and functions, including the new exception classes and GUI components. (Medium, Multiple files)
-*   [ ] **Add Basic User Guides:** Create simple guides for using `SentinelPC` (CLI and GUI modes) in the `docs/` folder. (Medium, `docs/`)
+*   [ ] **Add Docstrings (Remaining):** Write comprehensive docstrings for remaining public modules, classes, and functions (e.g., GUI components, CLI, scripts). (Medium, Multiple files) - *Note: Core modules reported complete.*
 
 ### Features & Enhancements
 *   [ ] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/sentinel_gui.py`. *(Note: filename might be different after rename)* *(Revisiting this - while threading is done, ensure the core *logic* hooks are fully implemented if they weren't already)*

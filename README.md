@@ -26,7 +26,7 @@ SentinelPC aims to be your go-to tool for keeping your Windows PC running smooth
 *   **Unified Interface:** Access all features through a user-friendly GUI or a powerful CLI.
 *   **Performance Optimization:** Tools to clean temporary files, manage startup programs, adjust power settings, and more (some features pending full implementation).
 *   **Configuration Management:** Centralized settings via `config/config.ini`.
-*   **System Monitoring:** Real-time insights into system performance (planned).
+*   **System Monitoring:** Real-time insights into system performance (under development).
 *   **Internationalization (i18n):** Support for multiple languages (via `locales/`).
 *   **Accessibility:** Designed with accessibility considerations.
 *   **Feature Flags:** Allows for controlled rollout of new capabilities.

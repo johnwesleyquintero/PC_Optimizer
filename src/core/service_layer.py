@@ -13,14 +13,27 @@ from .performance_optimizer import PerformanceOptimizer
 
 @dataclass
 class OptimizationResult:
-    """Data class for optimization results."""
+    """
+    Data class for optimization results.
+
+    Attributes:
+        success (bool): Indicates if the optimization was successful.
+        metrics (Dict[str, Any]): Metrics collected during optimization.
+        changes (List[str]): List of changes made during optimization.
+        errors (Optional[List[str]]): List of errors encountered during optimization, if any.
+    """
     success: bool
     metrics: Dict[str, Any]
     changes: List[str]
     errors: Optional[List[str]] = None
 
 class SystemService:
-    """Service for system-related operations."""
+    """
+    Service for system-related operations.
+
+    This service provides methods for performing system optimization
+    and managing system state.
+    """
     
     def __init__(self, core: SentinelCore, feature_flags: FeatureFlags):
         self.core = core
@@ -79,7 +92,12 @@ class SystemService:
         pass
 
 class ConfigurationService:
-    """Service for configuration management."""
+    """
+    Service for configuration management.
+
+    This service provides methods for updating system configuration
+    and synchronizing configuration changes.
+    """
     
     def __init__(self, config_manager: ConfigManager, feature_flags: FeatureFlags):
         self.config_manager = config_manager
@@ -109,7 +127,12 @@ class ConfigurationService:
         pass
 
 class ServiceLayer:
-    """Main service layer coordinating all services."""
+    """
+    Main service layer coordinating all services.
+
+    This class initializes and manages all service dependencies,
+    including the core system, feature flags, and configuration.
+    """
     
     def __init__(self):
         self.core = SentinelCore()

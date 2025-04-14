@@ -14,7 +14,13 @@ from .monitoring_manager import MonitoringManager
 from .logging_manager import LoggingManager
 
 class SentinelCore:
-    """Core class managing all SentinelPC optimization operations."""
+    """
+    Core class managing all SentinelPC optimization operations.
+
+    This class initializes and manages the core components of the
+    SentinelPC application, including configuration, performance
+    optimization, environment management, and system monitoring.
+    """
     
     def __init__(self):
         """Initialize SentinelCore with all required components."""

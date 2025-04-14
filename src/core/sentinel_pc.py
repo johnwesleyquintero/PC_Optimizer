@@ -10,7 +10,13 @@ import darkdetect
 import multiprocessing
 
 class SentinelPC:
-    """Main class for SentinelPC application that consolidates configuration and performance management."""
+    """
+    Main class for SentinelPC application that consolidates configuration and performance management.
+
+    This class is responsible for initializing the application, loading
+    configuration settings, setting up logging, and performing system
+    optimization tasks.
+    """
     VERSION = '1.0.0'
 
     def __init__(self, config_file='config.ini'):
@@ -88,7 +94,12 @@ class SentinelPC:
             return False
 
     def _get_optimization_tasks(self) -> list:
-        """Get list of optimization tasks based on system state."""
+        """
+        Get list of optimization tasks based on system state.
+
+        Returns:
+            list: A list of tuples, where each tuple contains the task name and the task function.
+        """
         tasks = []
         if psutil.virtual_memory().percent > 80:
             tasks.append(('memory', self._optimize_memory))
@@ -97,7 +108,15 @@ class SentinelPC:
         return tasks
 
     def _execute_task(self, task: tuple) -> bool:
-        """Execute a single optimization task."""
+        """
+        Execute a single optimization task.
+
+        Args:
+            task (tuple): A tuple containing the task name and the task function.
+
+        Returns:
+            bool: True if the task was executed successfully, False otherwise.
+        """
         task_name, task_func = task
         try:
             logging.info(f"Executing task: {task_name}")
@@ -107,7 +126,12 @@ class SentinelPC:
             return False
 
     def _optimize_memory(self) -> bool:
-        """Optimize system memory usage."""
+        """
+        Optimize system memory usage.
+
+        Returns:
+            bool: True if memory optimization was successful, False otherwise.
+        """
         try:
             # Memory optimization logic here
             return True
@@ -116,7 +140,12 @@ class SentinelPC:
             return False
 
     def _optimize_cpu(self) -> bool:
-        """Optimize CPU usage."""
+        """
+        Optimize CPU usage.
+
+        Returns:
+            bool: True if CPU optimization was successful, False otherwise.
+        """
         try:
             # CPU optimization logic here
             return True

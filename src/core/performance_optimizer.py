@@ -11,13 +11,25 @@ from .environment_manager import EnvironmentConfig
 from .logging_manager import LoggingManager
 
 class OptimizationError(Exception):
-    """Base exception for optimization-related errors."""
+    """
+    Base exception for optimization-related errors.
+
+    Attributes:
+        details (Optional[Dict[str, Any]]): Additional details about the error.
+    """
     def __init__(self, message: str = "An optimization error occurred.", details: Optional[Dict[str, Any]] = None):
         self.details = details or {}
         super().__init__(message)
 
 class TaskExecutionError(OptimizationError):
-    """Exception raised when a specific optimization task fails."""
+    """
+    Exception raised when a specific optimization task fails.
+
+    Attributes:
+        task_name (str): The name of the task that failed.
+        reason (str): The reason why the task failed.
+        details (Optional[Dict[str, Any]]): Additional details about the error.
+    """
     def __init__(self, task_name: str, reason: str, details: Optional[Dict[str, Any]] = None):
         self.task_name = task_name
         self.reason = reason
@@ -25,7 +37,14 @@ class TaskExecutionError(OptimizationError):
         super().__init__(message, details)
 
 class MemoryOptimizationError(OptimizationError):
-    """Exception raised when memory optimization fails."""
+    """
+    Exception raised when memory optimization fails.
+
+    Attributes:
+        current_usage (float): The current memory usage percentage.
+        target_usage (float): The target memory usage percentage.
+        details (Optional[Dict[str, Any]]): Additional details about the error.
+    """
     def __init__(self, current_usage: float, target_usage: float, details: Optional[Dict[str, Any]] = None):
         self.current_usage = current_usage
         self.target_usage = target_usage
@@ -33,7 +52,14 @@ class MemoryOptimizationError(OptimizationError):
         super().__init__(message, details)
 
 class FileCleanupError(OptimizationError):
-    """Exception raised when temporary file cleanup fails."""
+    """
+    Exception raised when temporary file cleanup fails.
+
+    Attributes:
+        path (str): The path where the file cleanup failed.
+        error_type (str): The type of error that occurred during file cleanup.
+        details (Optional[Dict[str, Any]]): Additional details about the error.
+    """
     def __init__(self, path: str, error_type: str, details: Optional[Dict[str, Any]] = None):
         self.path = path
         self.error_type = error_type
@@ -41,6 +67,13 @@ class FileCleanupError(OptimizationError):
         super().__init__(message, details)
 
 class PerformanceOptimizer(BasePerformanceOptimizer):
+    """
+    Manages system performance optimization tasks.
+
+    This class provides methods to initialize, cleanup, and execute
+    optimization tasks, as well as retrieve optimization status and
+    disk usage information.
+    """
     def __init__(self):
         self.config = EnvironmentConfig()
         self.logger = LoggingManager().get_logger(__name__)

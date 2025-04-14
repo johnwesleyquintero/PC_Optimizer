@@ -9,7 +9,16 @@ from dataclasses import dataclass
 
 @dataclass
 class AccessibilityPreferences:
-    """Container for user accessibility preferences."""
+    """
+    Container for user accessibility preferences.
+
+    Attributes:
+        high_contrast (bool): Whether to use high contrast mode.
+        font_size (str): Font size ('small', 'medium', 'large').
+        screen_reader_mode (bool): Whether to enable screen reader mode.
+        reduce_animations (bool): Whether to reduce animations.
+        keyboard_navigation (bool): Whether to enable keyboard navigation.
+    """
     high_contrast: bool = False
     font_size: str = 'medium'
     screen_reader_mode: bool = False
@@ -17,9 +26,17 @@ class AccessibilityPreferences:
     keyboard_navigation: bool = True
 
 class AccessibilityManager:
-    """Manages accessibility features and compliance."""
-    
+    """
+    Manages accessibility features and compliance.
+
+    This class provides methods to set and get accessibility preferences,
+    keyboard shortcuts, ARIA labels, focus order, color contrast mode,
+    and font size scale.
+    """
     def __init__(self):
+        """
+        Initializes the AccessibilityManager with default preferences and keyboard shortcuts.
+        """
         self.logger = logging.getLogger(__name__)
         self.preferences = AccessibilityPreferences()
         self.keyboard_shortcuts: Dict[str, str] = {
@@ -83,7 +100,8 @@ class AccessibilityManager:
             return False
     
     def get_aria_label(self, element_id: str) -> Optional[str]:
-        """Get ARIA label for UI element.
+        """
+        Get ARIA label for UI element.
         
         Args:
             element_id: Identifier for the UI element
@@ -102,7 +120,8 @@ class AccessibilityManager:
         return aria_labels.get(element_id)
     
     def get_focus_order(self) -> list:
-        """Get recommended focus order for UI elements.
+        """
+        Get recommended focus order for UI elements.
         
         Returns:
             list: Ordered list of element IDs for focus traversal
@@ -116,7 +135,8 @@ class AccessibilityManager:
         ]
     
     def get_color_contrast_mode(self) -> Dict[str, str]:
-        """Get color scheme for current contrast mode.
+        """
+        Get color scheme for current contrast mode.
         
         Returns:
             Dict[str, str]: Color mappings for UI elements
@@ -138,7 +158,8 @@ class AccessibilityManager:
         }
     
     def get_font_size_scale(self) -> Dict[str, str]:
-        """Get font size scale based on current preferences.
+        """
+        Get font size scale based on current preferences.
         
         Returns:
             Dict[str, str]: Font size mappings for different elements
