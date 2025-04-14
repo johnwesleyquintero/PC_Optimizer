@@ -1,3 +1,4 @@
+import os
 from .config_manager import EnvironmentConfig
 from .logging_manager import LoggingManager
 
@@ -43,11 +44,9 @@ class EnvironmentManager:
                 self._config.max_threads = config_ranges["max_threads"]["default"]
             else:
                 max_threads = self._config.max_threads
-                if (
-                    not isinstance(max_threads, int)
-                    or max_threads < config_ranges["max_threads"]["min"]
-                    or max_threads > config_ranges["max_threads"]["max"]
-                ):
+                min_threads = config_ranges["max_threads"]["min"]
+                max_allowed = config_ranges["max_threads"]["max"]
+                if not isinstance(max_threads, int) or not min_threads <= max_threads <= max_allowed:
                     self.logger.warning(
                         f"Invalid max_threads value: {max_threads}, using default"
                     )
@@ -64,19 +63,14 @@ class EnvironmentManager:
                 self._config.log_level = config_ranges["log_level"]["default"]
 
             # Validate theme
-            if not hasattr(self._config, "theme") or not isinstance(
-                self._config.theme, dict
-            ):
+            if not hasattr(self._config, "theme") or not isinstance(self._config.theme, dict):
                 self.logger.warning(
                     "Theme configuration missing or invalid, using default"
                 )
                 self._config.theme = config_ranges["theme"]["default"].copy()
             else:
-                missing_keys = [
-                    key
-                    for key in config_ranges["theme"]["required_keys"]
-                    if key not in self._config.theme
-                ]
+                missing_keys = [key for key in config_ranges["theme"]["required_keys"]
+                              if key not in self._config.theme]
                 if missing_keys:
                     self.logger.warning(
                         f"Missing theme keys: {missing_keys}, using defaults for those keys"

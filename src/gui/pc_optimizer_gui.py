@@ -1,14 +1,12 @@
 # c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\gui\SentinelPC_gui.py
 import tkinter as tk
-from tkinter import ttk, scrolledtext  # Use scrolledtext for easier log handling
-import psutil
-import threading  # Keep for main thread check if needed, but worker handles tasks
+from tkinter import ttk, scrolledtext
+import threading
 import platform
 import logging
-import os
-import shutil
-import subprocess
-import winreg  # Keep for Windows-specific task
+import winreg
+
+# Project imports
 
 # Assuming these are in the expected locations relative to this file
 # Adjust paths if necessary

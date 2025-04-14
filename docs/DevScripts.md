@@ -30,7 +30,6 @@ pip install -r requirements-dev.txt
 ```
 
 ## 2. Running the Application (from Source Code)
-
 Use these commands to run the application directly from the source files for testing and debugging.
 
 ```bash
@@ -45,7 +44,6 @@ python -m src.main
 ```
 
 ## 3. Building the Executable
-
 Use these commands to package the application into a standalone .exe file.
 
 ```bash
@@ -61,7 +59,6 @@ pyinstaller SentinelPC.spec
 The output executable (SentinelPC.exe) will be located in the dist/ directory.
 
 ## 4. Running the Built Executable
-
 After building, use these commands to test the packaged .exe.
 
 ```bash
@@ -76,7 +73,6 @@ After building, use these commands to test the packaged .exe.
 ```
 
 ## 5. Code Quality Checks
-
 Run these tools to ensure code style and quality.
 
 ```bash
@@ -87,8 +83,21 @@ flake8 src/ tests/
 black src/ tests/
 ```
 
-## 6. Utility / Troubleshooting Commands
+## 6. Automated Task Runner (SentinelPC X WESCORE)
+This script combines several common development steps into one command.
 
+```bash
+# Runs the enhanced task runner:
+# 1. Kills existing SentinelPC.exe
+# 2. Runs Flake8 (logs to run_tasks.log)
+# 3. Runs Black (logs to run_tasks.log)
+# 4. Builds the executable (logs to run_tasks.log)
+# 5. Runs the built SentinelPC.exe
+# Check run_tasks.log for detailed output, especially on errors.
+.\run_tasks.bat
+```
+
+## 7. Utility / Troubleshooting Commands
 Helpful commands for common development issues.
 
 ```bash

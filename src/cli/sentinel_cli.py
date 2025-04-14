@@ -3,8 +3,6 @@
 This module provides the command-line interface for SentinelPC.
 """
 
-import sys
-import argparse
 from typing import Optional
 from ..core.sentinel_core import SentinelCore
 
