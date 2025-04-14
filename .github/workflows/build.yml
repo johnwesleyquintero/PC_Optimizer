@@ -9,55 +9,50 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.13"
+          python-version: "3.10"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+          pip install -r requirements-build.txt
           pip install pyinstaller
 
-      - name: Build executables
-        run: .\scripts\build.bat
-
-      - name: Publish executables
+      - name: Build executable
         run: |
-          mkdir -p _wwwroot/publish
-          cp dist/SentinelPC.exe _wwwroot/publish/
+          python -m PyInstaller --clean --onefile src/main.py --name SentinelPC
 
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./_wwwroot/publish/SentinelPC.exe
-          asset_name: SentinelPC.exe
-          asset_content_type: application/octet-stream
+      - name: Test executable
+        run: |
+          ./dist/SentinelPC.exe --version
 
       - name: Create Release
         id: create_release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ github.run_number }}
-          release_name: Release v${{ github.run_number }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
 
       - name: Upload Release Asset
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: _wwwroot/publish/SentinelPC.exe
+          asset_path: ./dist/SentinelPC.exe
           asset_name: SentinelPC.exe
           asset_content_type: application/octet-stream

@@ -177,6 +177,32 @@ class SentinelGUI:
         system metrics at regular intervals defined by
         METRICS_UPDATE_INTERVAL.
         """
+        try:
+            # Get metrics in worker thread to avoid UI freezes
+            def update_metrics():
+                try:
+                    metrics = self.core.get_system_metrics()
+                    if metrics.get('success'):
+                        return metrics['current_metrics']
+                    return None
+                except Exception as e:
+                    logger.error(f"Error fetching metrics: {e}")
+                    return None
+
+            def handle_metrics_update(result, error):
+                if error:
+                    logger.error(f"Metrics update failed: {error}")
+                    return
+                if result:
+                    self.handle_metrics_update(result)
+
+            # Schedule the next update
+            self.worker.add_task(update_metrics, handle_metrics_update)
+            self.root.after(self.METRICS_UPDATE_INTERVAL, self._schedule_metrics_update)
+        except Exception as e:
+            logger.error(f"Failed to schedule metrics update: {e}")
+            # Retry scheduling after a delay
+            self.root.after(5000, self._schedule_metrics_update)
 
     def handle_metrics_update(self, metrics: Dict[str, Any]) -> None:
         """Handle updated system metrics data.
