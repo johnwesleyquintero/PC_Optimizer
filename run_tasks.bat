@@ -2,7 +2,7 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 :: ####################################
-:: SentinelPC X WESCORE | Enhanced Development Task Runner
+:: SentinelPC X WESCORE | Dev Task Runner
 :: ####################################
 :: Runs common development tasks in sequence with logging and improved error handling:
 :: 1. Kill existing process (if any)
@@ -15,10 +15,41 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 :: ####################################
 
 SET LOGFILE=run_tasks.log
-ECHO Starting SentinelPC Task Runner Log > %LOGFILE%
-ECHO Timestamp: %DATE% %TIME% >> %LOGFILE%
-ECHO ======================================== >> %LOGFILE%
-ECHO.
+:: Runs common development tasks in sequence with logging and improved error handling:
+:: --- Start of Script ---
+
+:: Write the requested header message and initial log info (overwrites existing log)
+(
+  ECHO ==========================================================
+  ECHO 𝐑𝐞𝐪𝐮𝐞𝐬𝐭 𝐟𝐨𝐫 𝐒𝐲𝐬𝐭𝐞𝐦𝐚𝐭𝐢𝐜 𝐈𝐦𝐩𝐥𝐞𝐦𝐞𝐧𝐭𝐚𝐭𝐢𝐨𝐧 𝐨𝐟 𝐈𝐦𝐩𝐫𝐨𝐯𝐞𝐦𝐞𝐧𝐭𝐬 𝐚𝐧𝐝 𝐅𝐢𝐱𝐞𝐬
+  ECHO ==========================================================
+  ECHO 𝗣𝗼𝘄𝗲𝗿𝗲𝗱 𝗯𝘆: 𝗦𝗲𝗻𝘁𝗶𝗻𝗲𝗹𝗣𝗖 𝗫 𝗪𝗘𝗦𝗖𝗢𝗥𝗘^|𝗗𝗲𝘃𝗲𝗹𝗼𝗽𝗺𝗲𝗻𝘁 𝗧𝗮𝘀𝗸 𝗥𝘂𝗻𝗻𝗲𝗿
+  ECHO.
+  ECHO Objective:
+  ECHO I need your assistance in implementing improvements and fixes systematically while ensuring that the existing functionality remains intact.
+  ECHO.
+  ECHO Details:
+  ECHO 1. Log File: Please refer to the full log trace provided in `run_tasks.log` for any relevant information.
+  ECHO 2. Command Used: The command executed was `.\run_tasks.bat`.
+  ECHO.
+  ECHO Tasks:
+  ECHO 1. Review Logs: Analyze the `run_tasks.log` file to identify any errors, warnings, or areas that need improvement.
+  ECHO 2. Implement Fixes: Address the identified issues systematically, ensuring that each fix is thoroughly tested.
+  ECHO 3. Maintain Functionality: Ensure that all existing functionality remains operational and unaffected by the changes.
+  ECHO 4. Documentation: Document all changes made, including the rationale behind each fix and any testing procedures used.
+  ECHO.
+  ECHO Expected Outcome:
+  ECHO - A stable system with improved performance and fixed issues.
+  ECHO - Detailed documentation of all changes and testing results.
+  ECHO.
+  ECHO ========================================
+  ECHO Starting Task Runner Log
+  ECHO Timestamp: %DATE% %TIME%
+  ECHO ========================================
+  ECHO.
+) > %LOGFILE%
+
+:: --- End of Header Modification ---
 
 ECHO [1/5] Attempting to kill any running SentinelPC.exe process...
 taskkill /F /IM SentinelPC.exe > nul 2>&1

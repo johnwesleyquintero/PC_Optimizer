@@ -5,6 +5,7 @@ import threading
 import platform
 import logging
 import winreg
+from typing import Optional
 
 # Project imports
 
@@ -304,11 +305,9 @@ class AdaptiveGUI:
                 task_func, callback_func = self.optimization_tasks[option_name]
                 self._log(f"Queueing task: {option_name}", "info")
 
-                # Pass option_name to the callback using a lambda
-                # This way the callback knows which task just finished
-                task_callback = lambda result, error, name=option_name: callback_func(
-                    name, result, error
-                )
+                # Create a proper callback function that captures the task name
+                def task_callback(result, error, task_name=option_name):
+                    return callback_func(task_name, result, error)
 
                 # Add task to worker
                 added = self.worker.add_task(task_func, task_callback)

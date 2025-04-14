@@ -5,10 +5,7 @@ import psutil
 import os
 from src.core.performance_optimizer import (
     PerformanceOptimizer,
-    OptimizationError,
-    TaskExecutionError,
-    MemoryOptimizationError,
-    FileCleanupError,
+    TaskExecutionError
 )
 
 

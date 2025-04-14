@@ -3,7 +3,6 @@ import configparser
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import Optional
-from datetime import datetime
 
 
 class LoggingManager:

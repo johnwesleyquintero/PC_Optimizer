@@ -4,9 +4,8 @@ This module serves as the central core component of the SentinelPC application,
 managing and coordinating all optimization operations.
 """
 
-import logging
-from typing import Dict, Any, Optional, List
-from queue import Queue, Empty
+from typing import Optional, Dict, Any
+from queue import Queue
 from .config_manager import ConfigManager
 from .performance_optimizer import PerformanceOptimizer
 from .environment_manager import EnvironmentManager
@@ -44,17 +43,33 @@ class SentinelCore:
 
             # Initialize components in order
             # Config is already loaded in __init__
-            if not self.config.get_config():
-                raise RuntimeError("Failed to load configuration")
+            try:
+                if not self.config.get_config():
+                    raise RuntimeError("Failed to load configuration")
+            except Exception as e:
+                self.logger.error("Failed to load configuration: %s", str(e))
+                raise
 
-            if not self.env_manager.initialize(self.config.get_config()):
-                raise RuntimeError("Failed to initialize environment manager")
+            try:
+                if not self.env_manager.initialize(self.config.get_config()):
+                    raise RuntimeError("Failed to initialize environment manager")
+            except Exception as e:
+                self.logger.error("Failed to initialize environment manager: %s", str(e))
+                raise
 
-            if not self.optimizer.initialize(self.config.get_config()):
-                raise RuntimeError("Failed to initialize performance optimizer")
+            try:
+                if not self.optimizer.initialize(self.config.get_config()):
+                    raise RuntimeError("Failed to initialize performance optimizer")
+            except Exception as e:
+                self.logger.error("Failed to initialize performance optimizer: %s", str(e))
+                raise
 
-            if not self.monitoring.initialize():
-                raise RuntimeError("Failed to initialize monitoring manager")
+            try:
+                if not self.monitoring.initialize():
+                    raise RuntimeError("Failed to initialize monitoring manager")
+            except Exception as e:
+                self.logger.error("Failed to initialize monitoring manager: %s", str(e))
+                raise
 
             return True
 
@@ -82,9 +97,13 @@ class SentinelCore:
             initial_metrics = self.monitoring.get_system_metrics()
 
             # Run optimization
-            optimization_result = self.optimizer.optimize_system(
-                profile=profile if profile else self.config.get_default_profile()
-            )
+            try:
+                optimization_result = self.optimizer.optimize_system(
+                    profile=profile if profile else self.config.get_default_profile()
+                )
+            except Exception as e:
+                self.logger.error("Optimization failed: %s", str(e))
+                return {"success": False, "error": str(e)}
 
             # Get system state after optimization
             final_state = self.env_manager.get_system_state()
@@ -110,9 +129,21 @@ class SentinelCore:
             Dict containing system information
         """
         try:
-            system_info = self.env_manager.get_system_info()
-            system_metrics = self.monitoring.get_system_metrics()
-            system_state = self.env_manager.get_system_state()
+            try:
+                system_info = self.env_manager.get_system_info()
+            except Exception as e:
+                self.logger.error("Failed to get system info: %s", str(e))
+                return {"success": False, "error": str(e)}
+            try:
+                system_metrics = self.monitoring.get_system_metrics()
+            except Exception as e:
+                self.logger.error("Failed to get system metrics: %s", str(e))
+                return {"success": False, "error": str(e)}
+            try:
+                system_state = self.env_manager.get_system_state()
+            except Exception as e:
+                self.logger.error("Failed to get system state: %s", str(e))
+                return {"success": False, "error": str(e)}
 
             return {
                 "success": True,
@@ -131,7 +162,11 @@ class SentinelCore:
             Dict containing startup program information
         """
         try:
-            return self.env_manager.get_startup_programs()
+            try:
+                return self.env_manager.get_startup_programs()
+            except Exception as e:
+                self.logger.error("Failed to get startup programs: %s", str(e))
+                return {"success": False, "error": str(e)}
         except Exception as e:
             self.logger.error("Failed to get startup programs: %s", str(e))
             return {"success": False, "error": str(e)}
@@ -143,8 +178,12 @@ class SentinelCore:
             Dict containing system metrics
         """
         try:
-            metrics = self.monitoring.get_system_metrics()
-            history = self.monitoring.get_performance_history()
+            try:
+                metrics = self.monitoring.get_system_metrics()
+                history = self.monitoring.get_performance_history()
+            except Exception as e:
+                self.logger.error("Failed to get system metrics: %s", str(e))
+                return {"success": False, "error": str(e)}
             return {"success": True, "current_metrics": metrics, "history": history}
         except Exception as e:
             self.logger.error("Failed to get system metrics: %s", str(e))
@@ -160,12 +199,16 @@ class SentinelCore:
             bool: True if update successful, False otherwise
         """
         try:
-            if self.config.update_config(config_updates):
-                # Reinitialize components with new config
-                self.optimizer.initialize(self.config.get_config())
-                self.env_manager.initialize(self.config.get_config())
-                return True
-            return False
+            try:
+                if self.config.update_config(config_updates):
+                    # Reinitialize components with new config
+                    self.optimizer.initialize(self.config.get_config())
+                    self.env_manager.initialize(self.config.get_config())
+                    return True
+                return False
+            except Exception as e:
+                self.logger.error("Failed to update config: %s", str(e))
+                return False
         except Exception as e:
             self.logger.error("Failed to update config: %s", str(e))
             return False
@@ -173,9 +216,12 @@ class SentinelCore:
     def shutdown(self) -> None:
         """Clean shutdown of core components."""
         try:
-            self.logger.info("Shutting down SentinelPC Core")
-            self.optimizer.cleanup()
-            self.env_manager.cleanup()
-            self.config.save_config()
+            try:
+                self.logger.info("Shutting down SentinelPC Core")
+                self.optimizer.cleanup()
+                self.env_manager.cleanup()
+                self.config.save_config()
+            except Exception as e:
+                self.logger.error("Error during shutdown: %s", str(e))
         except Exception as e:
             self.logger.error("Error during shutdown: %s", str(e))

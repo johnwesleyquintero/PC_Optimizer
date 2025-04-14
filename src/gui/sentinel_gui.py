@@ -8,7 +8,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import os
 import logging
-from typing import Dict, Any, Optional, Tuple, List
+from typing import Dict, Any, Optional
 
 # Attempt to import PIL for image handling, provide fallback/warning if missing
 try:
@@ -87,7 +87,9 @@ class SentinelGUI:
 
         # --- Icon ---
         icon_label = ttk.Label(header_frame, style="Header.TLabel")
-        icon_label.grid(row=0, column=0, rowspan=2, padx=10, pady=5, sticky=tk.W)
+        icon_label.grid(
+            row=0, column=0, rowspan=2, padx=10, pady=5, sticky=tk.W
+        )
         if _PIL_AVAILABLE:
             try:
                 # Construct path relative to this file
@@ -133,50 +135,7 @@ class SentinelGUI:
         )
         self.memory_label.pack(side=tk.LEFT)
 
-    def _create_sidebar(self) -> None:
-        """Create the sidebar navigation panel.
 
-        Creates a vertical sidebar containing navigation buttons and controls
-        for different sections of the application. Includes buttons for:
-        - Dashboard view
-        - System optimization
-        - Settings configuration
-        - Help/About section
-        """
-
-    def _create_content_area(self) -> None:
-        """Create the main content area with multiple frames.
-
-        Sets up the main content area with multiple frames for different views:
-        - Dashboard with system metrics and charts
-        - Optimization controls and progress
-        - Settings panel
-        - Help documentation
-
-        Only one frame is visible at a time, controlled by navigation.
-        """
-
-    def _create_status_bar(self) -> None:
-        """Create the status bar at the bottom of the window.
-
-        Displays current application status, ongoing operations,
-        and important system messages to the user.
-        """
-
-    def _schedule_initial_updates(self) -> None:
-        """Schedule initial data loading and updates.
-
-        Triggers the first load of system metrics and schedules
-        periodic updates for real-time monitoring.
-        """
-
-    def _schedule_metrics_update(self) -> None:
-        """Schedule periodic updates of system metrics.
-
-        Sets up a recurring timer to fetch and display updated
-        system metrics at regular intervals defined by
-        METRICS_UPDATE_INTERVAL.
-        """
         try:
             # Get metrics in worker thread to avoid UI freezes
             def update_metrics():
@@ -198,7 +157,9 @@ class SentinelGUI:
 
             # Schedule the next update
             self.worker.add_task(update_metrics, handle_metrics_update)
-            self.root.after(self.METRICS_UPDATE_INTERVAL, self._schedule_metrics_update)
+            self.root.after(
+                self.METRICS_UPDATE_INTERVAL, self._schedule_metrics_update
+            )
         except Exception as e:
             logger.error(f"Failed to schedule metrics update: {e}")
             # Retry scheduling after a delay
@@ -230,7 +191,9 @@ class SentinelGUI:
         """Create the sidebar navigation."""
         sidebar_frame = ttk.Frame(self.root, style="Sidebar.TFrame", width=180)
         sidebar_frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
-        sidebar_frame.grid_propagate(False)  # Prevent resizing based on content
+        sidebar_frame.grid_propagate(
+            False
+        )  # Prevent resizing based on content
         sidebar_frame.grid_rowconfigure(4, weight=1)  # Push exit button down
 
         # Add navigation buttons with commands
@@ -262,7 +225,9 @@ class SentinelGUI:
         # Exit Button
         ttk.Button(
             sidebar_frame, text="Exit", style="Sidebar.TButton", command=self.root.quit
-        ).grid(row=5, column=0, padx=10, pady=10, sticky=(tk.EW, tk.S))
+        ).grid(
+            row=5, column=0, padx=10, pady=10, sticky=(tk.EW, tk.S)
+        )
 
     def _create_content_area(self) -> None:
         """Create the main scrollable content area and its sections."""
@@ -275,6 +240,8 @@ class SentinelGUI:
         )  # Allow content to expand horizontally
 
         # Create log text widget
+        from tkinter import scrolledtext
+
         self.log_text = scrolledtext.ScrolledText(
             self.content_frame, height=10, wrap=tk.WORD
         )
@@ -321,8 +288,11 @@ class SentinelGUI:
         )
         disk_scrollbar.grid(row=0, column=1, sticky=(tk.N, tk.S), pady=5)
         self.disk_text["yscrollcommand"] = disk_scrollbar.set
-        ttk.Button(disk_frame, text="Refresh", command=self.update_disk_usage).grid(
+        ttk.Button(
+            disk_frame, text="Refresh", command=self.update_disk_usage
+        ).grid(
             row=1, column=0, columnspan=2, pady=(0, 5)
+        )
         )
 
         # --- Startup Programs Section ---
@@ -380,13 +350,20 @@ class SentinelGUI:
         profile_combo = ttk.Combobox(
             self.control_frame, textvariable=self.profile_var, state="readonly"
         )
-        profile_combo["values"] = ("default", "performance", "balanced", "power-saver")
+        profile_combo["values"] = (
+            "default",
+            "performance",
+            "balanced",
+            "power-saver",
+        )
         profile_combo.grid(row=0, column=1, padx=5, pady=5, sticky=tk.W)
 
         self.optimize_button = ttk.Button(
             self.control_frame, text="Start Optimization", command=self.run_optimization
         )
-        self.optimize_button.grid(row=0, column=2, padx=20, pady=5, sticky=tk.W)
+        self.optimize_button.grid(
+            row=0, column=2, padx=20, pady=5, sticky=tk.W
+        )
 
         # --- Results Section ---
         results_frame = ttk.LabelFrame(
@@ -436,7 +413,8 @@ class SentinelGUI:
             if self.root.winfo_exists():
                 self._update_system_metrics()
                 self.root.after(
-                    self.METRICS_UPDATE_INTERVAL, self._schedule_metrics_update
+                    self.METRICS_UPDATE_INTERVAL,
+                    self._schedule_metrics_update,
                 )
         except tk.TclError:
             logger.info("Metrics update loop stopped: Root window closed.")
@@ -473,10 +451,13 @@ class SentinelGUI:
 
         # Assuming core has a method like get_system_metrics that returns {'cpu_percent': x, 'memory_percent': y}
         if hasattr(self.core, "get_system_metrics"):
-            self.worker.add_task(self.core.get_system_metrics, on_metrics_complete)
+            self.worker.add_task(
+                self.core.get_system_metrics, on_metrics_complete
+            )
         else:
             logger.warning(
-                "SentinelCore does not have 'get_system_metrics' method. Metrics update skipped."
+                "SentinelCore does not have 'get_system_metrics' method. "
+                "Metrics update skipped."
             )
             # Update labels to indicate missing data if desired
             self.cpu_label.configure(text="CPU: N/A")
@@ -505,7 +486,8 @@ class SentinelGUI:
                 elif result:
                     for key, value in result.items():
                         self.info_text.insert(
-                            tk.END, f"{key.replace('_', ' ').title()}: {value}\n"
+                            tk.END,
+                            f"{key.replace('_', ' ').title()}: {value}\n",
                         )
                     logger.debug("System info updated.")
                 else:
@@ -890,7 +872,7 @@ if __name__ == "__main__":
         version = "0.1-mock"
 
         def get_system_info(self):
-            import time, platform
+            import platform
 
             time.sleep(0.5)  # Simulate delay
             return {
@@ -902,7 +884,8 @@ if __name__ == "__main__":
             }
 
         def get_disk_usage(self):
-            import time, psutil, shutil
+            import psutil
+import shutil
 
             time.sleep(0.8)  # Simulate delay
             data = {}
@@ -987,7 +970,7 @@ if __name__ == "__main__":
             }
 
         def get_system_metrics(self):
-            import psutil, time
+            import psutil
 
             # time.sleep(0.1) # Keep this fast
             return {

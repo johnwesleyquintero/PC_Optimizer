@@ -27,6 +27,7 @@ class AdaptiveCLI:
         """
         return f"""\nCurrent Environment:
   - OS: {self.config.system}
-  - Theme: {self.config.theme.capitalize()}
+  - Theme: {self.config.theme}
+  - Theme (Capitalized): {self.config.theme.capitalize()}
   - Threads: {self.config.max_threads}
   - Output Directory: {self.config.output_dir}"""

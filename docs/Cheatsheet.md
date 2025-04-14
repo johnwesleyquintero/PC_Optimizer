@@ -1,5 +1,10 @@
 # Development Command Cheatsheet
 
+
+```bash
+.\run_tasks.bat
+```
+
 This file provides common commands used during the development of SentinelPC. Copy and paste these into your terminal (like Command Prompt, PowerShell, or Git Bash on Windows).
 
 **Remember to activate your virtual environment first for most commands!**
