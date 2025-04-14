@@ -2,167 +2,159 @@
   <img src="_wwwroot/Assets/Branding/logo.svg" alt="Sentinel PC Logo" width="400">
 </p>
 
-<h1 align="center">Your Ultimate Workspace Guardian 🛡️</h1>
+<h1 align="center">SentinelPC: Your Ultimate Workspace Guardian 🛡️</h1>
 
-> This project aims to provide a comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience. It features a unified interface with both CLI and GUI capabilities, internationalization support, and advanced monitoring systems.
+<p align="center">
+  <em>A comprehensive solution for optimizing PC performance, managing configurations, and improving the overall user experience through a unified CLI and GUI.</em>
+</p>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/dee96004-2646-4fee-881e-015bdd75685d/deploy-status)](https://app.netlify.com/sites/wq-resume/deploys)
+<p align="center">
+  <!-- Add relevant badges here once CI is stable, e.g., Build Status, Latest Release -->
+  <!-- Example: <a href="https://github.com/johnwesleyquintero/SentinelPC/actions/workflows/main.yml"><img src="https://github.com/johnwesleyquintero/SentinelPC/actions/workflows/main.yml/badge.svg" alt="Build Status"></a> -->
+  <a href="https://github.com/johnwesleyquintero/SentinelPC/releases/latest"><img src="https://img.shields.io/github/v/release/johnwesleyquintero/SentinelPC?include_prereleases&label=latest%20release&color=blue" alt="Latest Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/johnwesleyquintero/SentinelPC" alt="License"></a>
+</p>
 
-## Project Structure
+---
 
-The project is organized into several directories based on functionality:
+## Overview
 
-- `src/`: Contains the source code for the application.
-  - `cli/`: Command-line interface modules (`sentinel_cli.py`, `build_cli.py`).
-  - `gui/`: Graphical user interface modules (`sentinel_gui.py`).
-  - `core/`: Core functionality including:
-    - Data analysis (`data_analyzer.py`)
-    - Configuration management (`config_manager.py`)
-    - Environment management (`environment_manager.py`)
-    - Performance optimization (`performance_optimizer.py`)
-    - Internationalization (`i18n_manager.py`)
-    - Accessibility features (`accessibility_manager.py`)
-    - Monitoring systems (`monitoring_manager.py`)
-    - Feature flags (`feature_flags.py`)
-    - Service layer (`service_layer.py`)
-- `build/`: Stores build artifacts (auto-generated)
-- `dist/`: Contains distribution outputs
-- `config/`: Configuration files (`config.ini`)
-- `scripts/`: Build and deployment scripts
-- `spec/`: PyInstaller spec files
-- `docs/`: Project documentation
-- `locales/`: Internationalization files
-- `_wwwroot/`: Web assets and resources
-- `tests/`: Unit and integration tests
+SentinelPC aims to be your go-to tool for keeping your Windows PC running smoothly. It combines various optimization techniques, configuration management, and system monitoring into a single application accessible via both a command-line interface (CLI) and a graphical user interface (GUI).
 
-## Getting Started
+## ✨ Features
 
-1. Clone the repository:
+*   **Unified Interface:** Access all features through a user-friendly GUI or a powerful CLI.
+*   **Performance Optimization:** Tools to clean temporary files, manage startup programs, adjust power settings, and more (some features pending full implementation).
+*   **Configuration Management:** Centralized settings via `config/config.ini`.
+*   **System Monitoring:** Real-time insights into system performance (planned).
+*   **Internationalization (i18n):** Support for multiple languages (via `locales/`).
+*   **Accessibility:** Designed with accessibility considerations.
+*   **Feature Flags:** Allows for controlled rollout of new capabilities.
 
-   ```bash
-   git clone <repository_url>
-   cd SentinelPC
-   ```
+## 🚀 Getting Started
 
-2. Create and activate a virtual environment (recommended):
+### Option 1: Download the Executable (Recommended)
 
-   ```bash
-   python -m venv venv
-   # On Windows
-   venv\Scripts\activate
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
+The easiest way to use SentinelPC is to download the pre-built executable:
 
-3. Install dependencies:
+1.  Go to the **Latest Release** page.
+2.  Download the `SentinelPC.exe` file from the Assets section.
+3.  Save the `.exe` file to a convenient location on your computer.
+4.  No installation is required! Proceed to the Usage section.
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Run the application:
-   ```bash
-   python src/sentinel_gui.py
-   ```
-## CLI Usage
-To use the command-line interface (CLI), run the following command:
-```bash
-python src/sentinel_cli.py
-```
-The CLI will guide you through various configuration options and provide real-time performance metrics.
-## GUI Usage
-To use the graphical user interface (GUI), run the following command:
-```bash
-python src/sentinel_gui.py
-```
-The GUI will provide a user-friendly interface for configuring and monitoring your PC.
+*Note: Due to a temporary CI issue (see `WORKAROUND.md`), automated builds might be paused. If no `.exe` is available, please use Option 2 or check back later.*
 
-## Building the Application
-To build the application, use the provided build scripts:
-```bash
-# Build for Windows
-python scripts/build_unified.py
-```
-## Workarounds
-To build the application, use the provided bat scripts:
-```bash
-.\build.bat
-```
-To run the application, use the provided bat scripts:
-```bash
-.\run.bat
-```
+### Option 2: Running from Source (For Development/Testing)
 
+If you want to run the latest development code or contribute:
 
-## Usage 
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/johnwesleyquintero/SentinelPC.git
+    cd SentinelPC
+    ```
 
-### Unified Interface   
+2.  **Create and activate a virtual environment:**
+    ```bash
+    python -m venv venv
+    # On Windows
+    .\venv\Scripts\activate
+    # On macOS/Linux
+    source venv/bin/activate
+    ```
 
-Run the SentinelPC application:
+3.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-```bash
-dist\SentinelPC.exe
-```
+4.  **Run the application:**
+    *   **GUI:** `python src/sentinel_gui.py`
+    *   **CLI:** `python src/sentinel_cli.py`
 
-The application will automatically detect your preferences and launch in either CLI or GUI mode. You can force a specific mode using command-line arguments:
+## 💻 Usage
 
-```bash
-dist\SentinelPC.exe --cli  # Force CLI mode
-dist\SentinelPC.exe --gui  # Force GUI mode
-```
+1.  **Run the application:**
+    *   If you downloaded the executable: Double-click `SentinelPC.exe` or run it from your terminal:
+        ```bash
+        .\SentinelPC.exe
+        ```
+    *   If running from source, use the Python commands mentioned in Option 2.
 
-## Building the Application
+2.  **Choose Interface Mode (Optional):**
+    By default, SentinelPC might launch the GUI. You can force a specific mode using flags (primarily for the `.exe`):
+    ```bash
+    # Force CLI mode
+    .\SentinelPC.exe --cli
 
-Use the unified build script to create the executable:
+    # Force GUI mode
+    .\SentinelPC.exe --gui
+    ```
 
-```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
+3.  **Configuration:**
+    Adjust application settings by editing the `config/config.ini` file.
 
-# Run the unified build script
-python scripts/build_unified.py
-```
+## 🛠️ Building from Source
 
-## Configuration
+If you need to build the `SentinelPC.exe` yourself:
 
-The application uses a configuration file located at `config/config.ini`. You can modify settings such as:
-- Optimization level
-- Language preferences
-- Feature flags
-- Monitoring options
-- Accessibility settings
+1.  Ensure you have followed steps 1-2 from Option 2.
+2.  Install development dependencies:
+    ```bash
+    pip install -r requirements-dev.txt
+    ```
+3.  Run the unified build script:
+    ```bash
+    python scripts/build_unified.py
+    ```
+4.  The executable will be created in the `dist/` directory.
 
-## Features
+*Note: See `WORKAROUND.md` for details on the current manual build process if CI is unavailable.*
 
-### Internationalization
-The application supports multiple languages through the `i18n_manager.py` module. Language files are stored in the `locales/` directory.
+## ⚙️ Known Issues and Workarounds
 
-### Accessibility
-Built-in accessibility features are managed by `accessibility_manager.py`, ensuring the application is usable by everyone.
+Due to a temporary issue with the CI service, automated builds and releases may be unavailable. Please refer to the `WORKAROUND.md` file for instructions on local development, manual building, and manual release procedures.
 
-### Monitoring System
-The `monitoring_manager.py` provides real-time system monitoring and performance metrics.
+## 📂 Project Structure
 
-### Feature Flags
-Feature flags in `feature_flags.py` allow for gradual rollout of new features and A/B testing.
+SentinelPC/
+├── .github/ # GitHub Actions workflows
+├── _wwwroot/ # Static website/landing page assets
+├── build/ # PyInstaller build artifacts (temporary)
+├── config/ # Configuration files (config.ini)
+├── dist/ # Distribution executables (output of build)
+├── docs/ # Project documentation
+├── locales/ # Internationalization files (e.g., .po, .mo)
+├── scripts/ # Build and utility scripts (build_unified.py)
+├── spec/ # PyInstaller spec files
+├── src/ # Main source code
+│   ├── cli/ # Command-line interface logic
+│   ├── core/ # Core functionalities (optimizer, config, etc.)
+│   ├── gui/ # Graphical user interface logic
+│   └── ... # Other shared modules/packages
+├── tests/ # Unit and integration tests
+├── .gitignore # Git ignore rules
+├── CONTRIBUTING.md # Guidelines for contributors
+├── LICENSE # Project license (MIT)
+├── README.md # This file
+├── requirements-dev.txt # Development dependencies
+├── requirements.txt # Core application dependencies
+├── TODO.md # Project roadmap and tasks
+└── WORKAROUND.md # Temporary workaround info
 
-## Contributing
+## 🤝 Contributing
 
-Contributions are welcome! Please read `CONTRIBUTING.md` for guidelines on how to submit pull requests and report issues.
+Contributions are welcome! Please read the `CONTRIBUTING.md` file for guidelines on setting up your development environment, code style, testing procedures, and submitting pull requests.
 
-## License
+## 🐛 Troubleshooting
+
+*   **ModuleNotFoundError:** Ensure you are in your activated virtual environment (`venv`) and have installed dependencies using `pip install -r requirements.txt`.
+*   **File Not Found:** Verify that relative paths in configuration or code are correct based on the project structure.
+*   **Build Errors:** Check the output from the build script (`build_unified.py`) and ensure development dependencies (`requirements-dev.txt`) are installed. Consult `WORKAROUND.md` if CI issues persist.
+*   **Other Issues:** Check the application logs (e.g., `SentinelPC.log` if implemented) or open an issue on GitHub.
+
+## 📜 License
 
 This project is licensed under the MIT License - see the `LICENSE` file for details.
 
-## Troubleshooting
-
-- **Error: ModuleNotFoundError:** Ensure all required packages are installed using `pip install -r requirements.txt`
-- **Error: File not found:** Verify file paths in your code and configuration files
-- **Other errors:** Check the console output and logs in `SentinelPC.log`
-
-## Future Enhancements
-
-- Enhanced monitoring capabilities with machine learning integration
-- Extended accessibility features
-- Additional language support
-- Cloud synchronization capabilities
-- Advanced performance optimization algorithms
+For future enhancements and project roadmap, please refer to the `TODO.md` file.
