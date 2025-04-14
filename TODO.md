@@ -130,15 +130,69 @@
 
 ---
 
-## Codebase Improvements (Specific Pending Tasks)
 
-*These are more granular tasks identified for improvement.*
+## Codebase Improvements (Specific Pending Tasks - Post-Refactor Linting)
 
-### High Priority
-*   [ ] **Investigate and Fix UI Traceback Errors:** Address the runtime errors occurring in the UI of the built executable, as reported by the user. (Medium, `src/gui/`, potentially `main.py`)
+*Based on the `flake8` output from `run_tasks.log` (Mon 04/14/2025 21:49), these tasks address the remaining code quality issues, prioritized by module.*
 
-### Medium Priority
-*(No pending items in this sub-section currently)*
+**Instructions:** Tackle these modules one by one. After fixing the issues in a module, run `flake8 src/path/to/module.py` (or `flake8 src/` for all) to confirm before moving to the next.
 
-### Low Priority
-*(No pending items in this sub-section currently)*
+### Priority 1: Critical/Functional Issues & High Error Density
+
+1.  **`src/core/performance_optimizer.py`** (Highest Error Count & Variety)
+    *   [ ] Fix indentation errors (`E111`, `E117`, `E114`, `E127`). These can sometimes hide logic bugs.
+    *   [ ] Remove unused import `logging` (`F401`).
+    *   [ ] Remove unused local variable `total_space_before` (`F841`).
+    *   [ ] Fix multiple statements on one line (`E701`).
+    *   [ ] Address all style issues (`E501`, `E261`, `E302`, `E303`, `W391`). *Consider using an auto-formatter like `black` or `autopep8` after fixing indentation.*
+
+2.  **`src/gui/sentinel_gui.py`** (High Error Count & Functional Issues)
+    *   [ ] Investigate and fix redefinition of unused `time` (`F811`). This likely means `time` is imported and then redefined as a variable multiple times, potentially shadowing the module or indicating copy-paste errors. Remove the unused import or rename the variables.
+    *   [ ] Fix f-string missing placeholders (`F541`). This is likely a bug where `f""` was used without `{}`.
+    *   [ ] Fix indentation errors (`E111`, `E117`).
+    *   [ ] Fix multiple statements on one line (`E701`).
+    *   [ ] Address all style issues (`E501`, `E261`, `E301`, `E303`).
+
+### Priority 2: Unused Code & Moderate Error Density
+
+3.  **`src/main.py`**
+    *   [ ] Remove unused imports `sys` and `tkinter as tk` (`F401`).
+    *   [ ] Fix line length errors (`E501`).
+
+4.  **`src/gui/theme.py`**
+    *   [ ] Remove unused local variable `COLOR_TEXT_SECONDARY` (`F841`).
+    *   [ ] Fix line length errors (`E501`).
+
+5.  **`tests/` Modules**
+    *   [ ] `test_gui_components.py`: Remove unused import `MagicMock` (`F401`).
+    *   [ ] `test_integration.py`: Remove unused local variable `test_config` (`F841`).
+    *   [ ] `test_performance_optimizer.py`: Remove unused imports `psutil`, `os` (`F401`). Fix line length (`E501`).
+    *   [ ] `test_cli_components.py`: Fix line length errors (`E501`).
+
+6.  **`src/gui/pc_optimizer_gui.py`** (High `E501` count)
+    *   [ ] Fix whitespace before ':' (`E203`).
+    *   [ ] Fix line length errors (`E501`). *Consider refactoring long lines.*
+
+7.  **`src/gui/gui_worker.py`** (High `E501` count)
+    *   [ ] Fix line length errors (`E501`). *Consider refactoring long lines.*
+
+### Priority 3: Primarily Style/Line Length Issues (Lower Density)
+
+*These modules mostly have `E501` (line too long) and some `W291` (trailing whitespace) errors. Fix these as time permits, potentially using an auto-formatter.*
+
+8.  [ ] **`src/core/data_analyzer.py`**: Fix `E501`, `W291`.
+9.  [ ] **`src/core/environment_manager.py`**: Fix `E501`.
+10. [ ] **`src/gui/scrollable_frame.py`**: Fix `E501`.
+11. [ ] **`src/core/monitoring_manager.py`**: Fix `E501`.
+12. [ ] **`src/core/i18n_manager.py`**: Fix `E501`.
+13. [ ] **`src/core/sentinel_core.py`**: Fix `E501`.
+14. [ ] **`src/gui/exceptions.py`**: Fix `E501`.
+15. [ ] **`src/core/config_manager.py`**: Fix `E501`.
+16. [ ] **`src/core/feature_flags.py`**: Fix `E501`.
+17. [ ] **`src/core/logging_manager.py`**: Fix `E501`.
+18. [ ] **`src/core/sentinel_pc.py`**: Fix `E501`.
+19. [ ] **`src/core/service_layer.py`**: Fix `E501`.
+20. [ ] **`src/core/accessibility_manager.py`**: Fix `E501`.
+21. [ ] **`src/core/base_manager.py`**: Fix `E501`.
+
+---
