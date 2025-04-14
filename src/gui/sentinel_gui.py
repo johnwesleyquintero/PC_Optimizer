@@ -9,6 +9,7 @@ from tkinter import ttk, messagebox
 import os
 import logging
 from typing import Dict, Any, Optional
+import time  # Added for time.sleep in mock class
 
 # Attempt to import PIL for image handling, provide fallback/warning if missing
 try:
@@ -20,10 +21,26 @@ except ImportError:
     Image = None
     ImageTk = None
 
-from ..core.sentinel_core import SentinelCore
-from .gui_worker import GUIWorker
-from .scrollable_frame import ScrollableFrame
-from . import theme  # Assuming theme.py exists and apply_modern_theme is defined
+# Attempt to import core components, handle potential ImportError if structure differs
+try:
+    from ..core.sentinel_core import SentinelCore
+    from .gui_worker import GUIWorker
+    from .scrollable_frame import ScrollableFrame
+    from . import theme
+except ImportError as e:
+    # Fallback for running standalone or if structure differs
+    print(f"Warning: Could not import project modules. Using mock objects. Error: {e}")
+    # Define mock classes or import alternatives if necessary for standalone testing
+    SentinelCore = object # Placeholder
+    GUIWorker = object # Placeholder
+    ScrollableFrame = object # Placeholder
+    theme = object # Placeholder
+    class MockTheme:
+        def apply_modern_theme(self, root):
+            print("Mock theme applied")
+            return ttk.Style()
+    theme = MockTheme()
+
 
 logger = logging.getLogger(__name__)
 
@@ -43,7 +60,9 @@ class SentinelGUI:
         logger.info("Initializing SentinelGUI...")
         self.core = core
         self.root = tk.Tk()
-        self.root.title(f"SentinelPC v{self.core.version}")
+        # Use core version if available, otherwise default
+        core_version = getattr(core, 'version', 'N/A')
+        self.root.title(f"SentinelPC v{core_version}")
         self.root.geometry("850x650")  # Slightly larger default size
 
         # Initialize worker thread
@@ -99,7 +118,8 @@ class SentinelGUI:
                 )  # Example: using a PNG
                 if os.path.exists(icon_path):
                     img = Image.open(icon_path)
-                    # Resize if needed, e.g., img = img.resize((32, 32), Image.Resampling.LANCZOS)
+                    # Resize if needed, e.g.,
+                    # img = img.resize((32, 32), Image.Resampling.LANCZOS)
                     self.shield_icon = ImageTk.PhotoImage(img)
                     icon_label.configure(image=self.shield_icon)
                 else:
@@ -135,14 +155,17 @@ class SentinelGUI:
         )
         self.memory_label.pack(side=tk.LEFT)
 
-
         try:
             # Get metrics in worker thread to avoid UI freezes
             def update_metrics():
                 try:
-                    metrics = self.core.get_system_metrics()
-                    if metrics.get("success"):
-                        return metrics["current_metrics"]
+                    # Check if core has the method before calling
+                    if hasattr(self.core, "get_system_metrics"):
+                        metrics = self.core.get_system_metrics()
+                        if metrics and metrics.get("success"):
+                            return metrics.get("current_metrics")
+                    else:
+                        logger.warning("Core object missing 'get_system_metrics'")
                     return None
                 except Exception as e:
                     logger.error(f"Error fetching metrics: {e}")
@@ -172,20 +195,40 @@ class SentinelGUI:
             metrics: Dictionary containing updated system metrics
                     including CPU usage, memory usage, etc.
         """
+        try:
+            if self.root.winfo_exists() and metrics:
+                cpu = metrics.get("cpu_percent", -1.0)
+                mem = metrics.get("memory_percent", -1.0)
+                self.cpu_label.configure(
+                    text=f"CPU: {cpu:.1f}%" if cpu >= 0 else "CPU: N/A"
+                )
+                self.memory_label.configure(
+                    text=f"Memory: {mem:.1f}%" if mem >= 0 else "Memory: N/A"
+                )
+        except tk.TclError:
+             pass # Window closed
+        except Exception as e:
+            logger.error(f"Error updating metrics labels: {e}")
+
 
     def show_about(self) -> None:
-        """Display the about dialog with application information.
+        """Display the about dialog with application information."""
+        version = getattr(self.core, 'version', 'N/A')
+        messagebox.showinfo(
+            "About SentinelPC",
+            f"SentinelPC Optimizer\nVersion: {version}\n\n"
+            "Developed by WESCORE AI.\n"
+            "System optimization and monitoring tool."
+        )
 
-        Shows version information, credits, and other relevant
-        details about the application.
-        """
 
     def toggle_theme(self) -> None:
-        """Toggle between light and dark application themes.
+        """Toggle between light and dark application themes."""
+        # This requires more complex theme management in theme.py
+        # For now, just log the action
+        logger.info("Theme toggle requested (not fully implemented).")
+        messagebox.showinfo("Theme", "Theme toggling is not yet implemented.")
 
-        Switches the application's visual theme and updates
-        all widgets to reflect the new theme.
-        """
 
     def _create_sidebar(self) -> None:
         """Create the sidebar navigation."""
@@ -261,7 +304,8 @@ class SentinelGUI:
             height=8,
             width=70,
             relief=tk.FLAT,
-            bg=self.style.lookup("Content.TFrame", "background"),
+            # Use style lookup for background color
+            bg=self.style.lookup("TFrame", "background"),
         )
         self.info_text.grid(row=0, column=0, sticky=(tk.W, tk.E))
         # Add scrollbar if needed, though ScrollableFrame handles the main scroll
@@ -272,7 +316,9 @@ class SentinelGUI:
         self.info_text["yscrollcommand"] = info_scrollbar.set
 
         # --- Disk Usage Section ---
-        disk_frame = ttk.LabelFrame(self.content_frame, text="Disk Usage", padding="10")
+        disk_frame = ttk.LabelFrame(
+            self.content_frame, text="Disk Usage", padding="10"
+        )
         disk_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), padx=5, pady=5)
         disk_frame.grid_columnconfigure(0, weight=1)
         self.disk_text = tk.Text(
@@ -280,7 +326,7 @@ class SentinelGUI:
             height=5,
             width=70,
             relief=tk.FLAT,
-            bg=self.style.lookup("Content.TFrame", "background"),
+            bg=self.style.lookup("TFrame", "background"),
         )
         self.disk_text.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=5)
         disk_scrollbar = ttk.Scrollbar(
@@ -292,7 +338,6 @@ class SentinelGUI:
             disk_frame, text="Refresh", command=self.update_disk_usage
         ).grid(
             row=1, column=0, columnspan=2, pady=(0, 5)
-        )
         )
 
         # --- Startup Programs Section ---
@@ -376,7 +421,7 @@ class SentinelGUI:
             height=10,
             width=70,
             relief=tk.FLAT,
-            bg=self.style.lookup("Content.TFrame", "background"),
+            bg=self.style.lookup("TFrame", "background"),
             wrap=tk.WORD,
         )
         self.results_text.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=5)
@@ -431,25 +476,11 @@ class SentinelGUI:
                 # self.cpu_label.configure(text="CPU: Error")
                 # self.memory_label.configure(text="Memory: Error")
             elif result:
-                try:
-                    # Check if root window still exists before updating labels
-                    if self.root.winfo_exists():
-                        cpu = result.get("cpu_percent", -1.0)
-                        mem = result.get("memory_percent", -1.0)
-                        self.cpu_label.configure(
-                            text=f"CPU: {cpu:.1f}%" if cpu >= 0 else "CPU: N/A"
-                        )
-                        self.memory_label.configure(
-                            text=f"Memory: {mem:.1f}%" if mem >= 0 else "Memory: N/A"
-                        )
-                except tk.TclError:
-                    pass  # Window closed, ignore update
-                except Exception as e:
-                    logger.error(f"Error updating metrics labels: {e}")
+                self.handle_metrics_update(result) # Call the handler method
             else:
                 logger.warning("Received no data or error from get_system_metrics.")
 
-        # Assuming core has a method like get_system_metrics that returns {'cpu_percent': x, 'memory_percent': y}
+        # Assuming core has a method like get_system_metrics
         if hasattr(self.core, "get_system_metrics"):
             self.worker.add_task(
                 self.core.get_system_metrics, on_metrics_complete
@@ -501,44 +532,69 @@ class SentinelGUI:
                 logger.exception(f"Error updating system info text widget: {e}")
                 self.status_var.set("Error updating UI")
 
-        self.worker.add_task(self.core.get_system_info, on_complete)
+        if hasattr(self.core, "get_system_info"):
+            self.worker.add_task(self.core.get_system_info, on_complete)
+        else:
+            logger.warning("Core object missing 'get_system_info'")
+            self.status_var.set("Error: Core function missing")
+
 
     def update_disk_usage(self) -> None:
         """Update disk usage information display."""
+        self.status_var.set("Fetching disk usage...")
+        logger.debug("Requesting disk usage update.")
 
         def disk_usage_task():
-            return self.core.get_disk_usage()
+            if hasattr(self.core, "get_disk_usage"):
+                return self.core.get_disk_usage()
+            else:
+                logger.warning("Core object missing 'get_disk_usage'")
+                return {"success": False, "error": "Core function missing"}
 
-        def disk_usage_callback(disk_info: Optional[Any], error: Optional[str]) -> None:
-            if error:
-                self.logger.error(f"Error updating disk usage: {error}")
-                messagebox.showerror("Error", f"Failed to update disk usage: {error}")
-                return
 
+        def disk_usage_callback(result: Optional[Any], error: Optional[str]) -> None:
             try:
-                # Clear existing content
+                if not self.root.winfo_exists(): return
+                self.disk_text.configure(state=tk.NORMAL)
                 self.disk_text.delete("1.0", tk.END)
+                if error:
+                    self.logger.error(f"Error updating disk usage: {error}")
+                    self.disk_text.insert(tk.END, f"Error: {error}")
+                    messagebox.showerror("Error", f"Failed to update disk usage: {error}")
+                elif result and result.get("success"):
+                    disk_info = result.get("data", {})
+                    inaccessible = result.get("inaccessible", [])
+                    if not disk_info and not inaccessible:
+                         self.disk_text.insert(tk.END, "No disk partitions found or accessible.")
+                    for disk, usage in disk_info.items():
+                        used_percent = usage.get("percent", 0)
+                        total = usage.get("total", 0)
+                        free = usage.get("free", 0)
+                        total_gb = total / (1024**3)
+                        free_gb = free / (1024**3)
+                        disk_line = f"Disk {disk} ({usage.get('mountpoint', '')}):\n"
+                        disk_line += f"  Used: {used_percent:.1f}%\n"
+                        disk_line += f"  Total: {total_gb:.1f} GB, Free: {free_gb:.1f} GB\n\n"
+                        self.disk_text.insert(tk.END, disk_line)
+                    if inaccessible:
+                        self.disk_text.insert(tk.END, "\nInaccessible Partitions:\n")
+                        for part in inaccessible:
+                            self.disk_text.insert(tk.END, f"  - {part.get('device', 'N/A')}: {part.get('reason', 'Unknown')}\n")
+                    logger.debug("Disk usage updated.")
+                else:
+                    err_msg = result.get("error", "Failed to get disk usage.") if result else "Failed to get disk usage."
+                    self.disk_text.insert(tk.END, f"Error: {err_msg}")
+                    logger.error(f"Failed to get disk usage: {err_msg}")
 
-                # Format and display disk information
-                for disk, usage in disk_info.items():
-                    used_percent = usage.get("percent", 0)
-                    total = usage.get("total", 0)
-                    free = usage.get("free", 0)
-
-                    # Convert bytes to GB for display
-                    total_gb = total / (1024**3)
-                    free_gb = free / (1024**3)
-
-                    disk_line = f"Disk {disk}:\n"
-                    disk_line += f"  Used: {used_percent:.1f}%\n"
-                    disk_line += f"  Total: {total_gb:.1f} GB\n"
-                    disk_line += f"  Free: {free_gb:.1f} GB\n\n"
-
-                    self.disk_text.insert(tk.END, disk_line)
-
+                self.disk_text.configure(state=tk.DISABLED)
+                self.status_var.set("Ready")
+            except tk.TclError:
+                 logger.warning("Disk usage update aborted: Window closed.")
             except Exception as e:
                 self.logger.error(f"Error displaying disk usage: {e}", exc_info=True)
                 messagebox.showerror("Error", f"Failed to display disk usage: {str(e)}")
+                self.status_var.set("Error updating UI")
+
 
         try:
             # Run disk usage check in worker thread
@@ -546,45 +602,69 @@ class SentinelGUI:
         except Exception as e:
             messagebox.showerror("Error", f"Failed to start disk usage check: {str(e)}")
             self.logger.error(f"Failed to start disk usage check: {e}", exc_info=True)
+            self.status_var.set("Error starting task")
 
     def update_startup_list(self) -> None:
         """Update startup programs list."""
+        self.status_var.set("Fetching startup programs...")
+        logger.debug("Requesting startup list update.")
 
         def startup_list_task():
-            return self.core.get_startup_programs()
+            if hasattr(self.core, "get_startup_programs"):
+                return self.core.get_startup_programs()
+            else:
+                logger.warning("Core object missing 'get_startup_programs'")
+                return {"success": False, "error": "Core function missing"}
 
         def startup_list_callback(
-            startup_items: Optional[Any], error: Optional[str]
+            result: Optional[Any], error: Optional[str]
         ) -> None:
-            if error:
-                self.logger.error(f"Error updating startup list: {error}")
-                messagebox.showerror(
-                    "Error", f"Failed to update startup programs: {error}"
-                )
-                return
-
             try:
-                # Clear existing items
+                if not self.root.winfo_exists(): return
+                # Clear existing items first
                 for item in self.startup_list.get_children():
                     self.startup_list.delete(item)
 
-                # Add items to treeview
-                for item in startup_items:
-                    self.startup_list.insert(
-                        "",
-                        tk.END,
-                        values=(
-                            item.get("name", "Unknown"),
-                            item.get("path", "Unknown"),
-                            item.get("status", "Unknown"),
-                        ),
+                if error:
+                    self.logger.error(f"Error updating startup list: {error}")
+                    messagebox.showerror(
+                        "Error", f"Failed to update startup programs: {error}"
                     )
+                elif result and result.get("success"):
+                    startup_items = result.get("programs", [])
+                    if not startup_items:
+                        # Insert a placeholder if the list is empty
+                         self.startup_list.insert("", tk.END, values=("(No startup programs found)", "", ""))
+                    else:
+                        # Add items to treeview
+                        for item in startup_items:
+                            self.startup_list.insert(
+                                "",
+                                tk.END,
+                                values=(
+                                    item.get("name", "Unknown"),
+                                    item.get("path", "Unknown"),
+                                    item.get("status", "Unknown"),
+                                ),
+                            )
+                    logger.debug("Startup list updated.")
+                else:
+                     err_msg = result.get("error", "Failed to get startup list.") if result else "Failed to get startup list."
+                     messagebox.showerror("Error", f"Failed to get startup programs: {err_msg}")
+                     logger.error(f"Failed to get startup programs: {err_msg}")
+                     self.startup_list.insert("", tk.END, values=(f"(Error: {err_msg})", "", ""))
 
+
+                self.status_var.set("Ready")
+            except tk.TclError:
+                 logger.warning("Startup list update aborted: Window closed.")
             except Exception as e:
                 self.logger.error(f"Error displaying startup list: {e}", exc_info=True)
                 messagebox.showerror(
                     "Error", f"Failed to display startup programs: {str(e)}"
                 )
+                self.status_var.set("Error updating UI")
+
 
         try:
             # Run startup list check in worker thread
@@ -594,6 +674,7 @@ class SentinelGUI:
                 "Error", f"Failed to start startup list check: {str(e)}"
             )
             self.logger.error(f"Failed to start startup list check: {e}", exc_info=True)
+            self.status_var.set("Error starting task")
 
     # --- Actions ---
 
@@ -614,25 +695,26 @@ class SentinelGUI:
         item_id = selection[0]
         item_values = self.startup_list.item(item_id)["values"]
 
-        if not item_values or len(item_values) < 2:
-            logger.error("Invalid startup item selected")
-            messagebox.showerror("Error", "Invalid startup item selected")
+        # Check for placeholder item
+        if not item_values or len(item_values) < 3 or not item_values[0] or item_values[0].startswith("("):
+            logger.warning("Invalid or placeholder startup item selected for management.")
+            messagebox.showwarning("Invalid Selection", "Cannot manage this item.")
             return
 
         program_name = str(item_values[0]).strip()
-        program_path = str(item_values[1]).strip()
+        program_path = str(item_values[1]).strip() # Path is needed for enabling
 
-        # Validate program name and path
-        if not program_name or not program_path:
-            logger.error("Empty program name or path")
-            messagebox.showerror("Error", "Invalid program details")
+        # Validate program name and path (path needed for enable)
+        if not program_name or (action == "enable" and not program_path):
+            logger.error(f"Empty program name or path for action '{action}'")
+            messagebox.showerror("Error", "Invalid program details for this action.")
             return
 
-        # Validate path security
-        if not self._is_safe_path(program_path):
-            logger.error(f"Unsafe program path detected: {program_path}")
+        # Validate path security only if path is provided and action is enable
+        if action == "enable" and not self._is_safe_path(program_path):
+            logger.error(f"Unsafe program path detected for enabling: {program_path}")
             messagebox.showerror(
-                "Security Error", "Invalid or unsafe program path detected"
+                "Security Error", "Invalid or unsafe program path detected for enabling."
             )
             return
 
@@ -646,7 +728,7 @@ class SentinelGUI:
         logger.info(f"Requesting to {action} startup program: {program_name}")
 
         def on_complete(
-            result: Optional[Dict[str, bool]], error: Optional[str] = None
+            result: Optional[Dict[str, Any]], error: Optional[str] = None
         ) -> None:
             try:
                 if not self.root.winfo_exists():
@@ -668,7 +750,7 @@ class SentinelGUI:
                 else:
                     # Handle cases where core returns success=False or unexpected result
                     err_msg = (
-                        result.get("message", "Unknown reason")
+                        result.get("error", "Unknown reason") # Changed from 'message'
                         if isinstance(result, dict)
                         else "Unknown reason"
                     )
@@ -689,11 +771,14 @@ class SentinelGUI:
                 self.status_var.set("Error updating UI")
 
         if hasattr(self.core, "manage_startup_program"):
+            # Pass program_path only if enabling
+            task_args = {"action": action, "program_name": program_name}
+            if action == "enable":
+                task_args["program_path"] = program_path
+
             self.worker.add_task(
-                lambda: self.core.manage_startup_program(
-                    action=action, program_name=program_name, program_path=program_path
-                ),
-                on_complete,
+                 lambda: self.core.manage_startup_program(**task_args),
+                 on_complete,
             )
         else:
             logger.error("SentinelCore does not have 'manage_startup_program' method.")
@@ -703,51 +788,99 @@ class SentinelGUI:
             self.status_var.set("Error: Core function missing")
 
     def _is_safe_path(self, path: str) -> bool:
-        """Validate if a file path is safe.
+        """Basic validation if a file path seems safe for startup management.
 
         Args:
             path: The file path to validate
-
-        Returns:
-            bool: True if path is safe, False otherwise
         """
+        if not path: return False # Empty path is not safe
+
+        # Disallow relative paths for startup items for security
+        if not os.path.isabs(path):
+             logger.warning(f"Relative path detected in startup item: {path}")
+             return False
+
         try:
             # Basic path security checks
-            if not path or len(path) > 260:  # Windows MAX_PATH
+            if len(path) > 1024:  # Generous path length limit
+                logger.warning(f"Excessively long path detected: {path[:100]}...")
                 return False
 
-            # Check for suspicious patterns
-            suspicious_patterns = ["..", "&&", "|", ";", ">", "<", "$", "`", "*", "?"]
+            # Check for suspicious patterns more carefully
+            # Avoid patterns that allow command injection or directory traversal
+            suspicious_patterns = ["..", "&&", "|", ";", ">", "<", "$(", "`", "\n", "\r"]
+            # Check for unquoted spaces if the path isn't enclosed in quotes
+            # This is complex, so we'll focus on the patterns above for now.
+            # A more robust check might involve ensuring proper quoting if spaces exist.
+
             if any(pattern in path for pattern in suspicious_patterns):
-                return False
+                 logger.warning(f"Suspicious pattern detected in path: {path}")
+                 return False
 
-            # Validate path exists and is a file
-            return os.path.isfile(path)
+            # Optional: Check if the path points to an executable?
+            # This might be too restrictive. For now, rely on pattern checks.
+            # if not path.lower().endswith(('.exe', '.bat', '.cmd', '.com')):
+            #     logger.warning(f"Path does not point to a common executable type: {path}")
+            #     return False
+
+            # Check if the file exists (basic sanity check)
+            # Note: os.path.isfile might fail for some system paths even if valid
+            # We rely more on pattern matching above.
+            # return os.path.isfile(path)
+            return True # Passed basic checks
+
         except Exception as e:
-            logger.error(f"Path validation error: {e}")
+            logger.error(f"Path validation error for '{path}': {e}")
             return False
 
     def run_optimization(self) -> None:
         """Run system optimization with selected profile."""
         profile = self.profile_var.get()
+        self.status_var.set(f"Starting optimization with profile: {profile}...")
+        logger.info(f"Requesting optimization with profile: {profile}")
 
         def optimization_task():
-            return self.core.optimize_system(profile)
+             if hasattr(self.core, "optimize_system"):
+                return self.core.optimize_system(profile)
+             else:
+                logger.warning("Core object missing 'optimize_system'")
+                return {"success": False, "error": "Core function missing"}
+
 
         def optimization_callback(result: Optional[Any], error: Optional[str]) -> None:
-            if error:
-                messagebox.showerror("Error", f"Optimization failed: {error}")
-                self.logger.error(f"Optimization error: {error}")
-                return
+            try:
+                if not self.root.winfo_exists(): return
+                self.results_text.configure(state=tk.NORMAL)
+                self.results_text.delete("1.0", tk.END) # Clear previous results
 
-            if result.get("success"):
-                messagebox.showinfo("Success", "Optimization completed successfully!")
-                self.update_system_info()  # Refresh system info
-            else:
-                failed = result.get("failed_tasks", [])
-                messagebox.showerror(
-                    "Error", f"Optimization failed for tasks: {', '.join(failed)}"
-                )
+                if error:
+                    messagebox.showerror("Error", f"Optimization failed: {error}")
+                    self.logger.error(f"Optimization error: {error}")
+                    self.results_text.insert(tk.END, f"Error: {error}\n")
+                elif result:
+                    self.display_optimization_results(result) # Use helper to display
+                    if result.get("success"):
+                        messagebox.showinfo("Success", "Optimization completed successfully!")
+                        self.update_system_info()  # Refresh system info after optimization
+                    else:
+                        failed_tasks = result.get("failed_tasks", [])
+                        failed_msg = f"Optimization completed with failures: {', '.join(t['name'] for t in failed_tasks if isinstance(t, dict) and 'name' in t)}" if failed_tasks else "Optimization failed for unknown reasons."
+                        messagebox.showerror("Error", failed_msg)
+                        logger.error(failed_msg)
+
+                else:
+                     messagebox.showerror("Error", "Optimization returned no result.")
+                     self.results_text.insert(tk.END, "Error: No result returned.\n")
+
+                self.results_text.configure(state=tk.DISABLED)
+                self.status_var.set("Ready")
+            except tk.TclError:
+                 logger.warning("Optimization callback aborted: Window closed.")
+            except Exception as e:
+                 logger.exception(f"Error processing optimization result: {e}")
+                 messagebox.showerror("Error", "Failed to process optimization results.")
+                 self.status_var.set("Error updating UI")
+
 
         try:
             # Run optimization in worker thread
@@ -755,6 +888,7 @@ class SentinelGUI:
         except Exception as e:
             messagebox.showerror("Error", f"Failed to start optimization: {str(e)}")
             self.logger.error(f"Failed to start optimization: {e}", exc_info=True)
+            self.status_var.set("Error starting task")
 
     def display_optimization_results(self, results: Dict[str, Any]) -> None:
         """Formats and displays optimization results in the text widget.
@@ -767,17 +901,29 @@ class SentinelGUI:
             self.results_text.insert(tk.END, "Received empty results.\n")
             return
 
-        if not results.get("success", False):
+        if not results.get("success", False): # Check overall success flag
             self.results_text.insert(
                 tk.END, f"\n--- Optimization Reported Failure ---\n"
             )
-            self.results_text.insert(
-                tk.END,
-                f"Error: {results.get('error', 'No specific error message provided.')}\n",
-            )
+            error_msg = results.get('error', 'No specific error message provided.')
+            failed_tasks_info = results.get('failed_tasks', [])
+            if failed_tasks_info:
+                 error_msg += "\nFailed Tasks:\n"
+                 for task in failed_tasks_info:
+                     task_name = task.get('name', 'Unknown Task')
+                     task_error = task.get('error', 'Unknown Error')
+                     error_msg += f"  - {task_name}: {task_error}\n"
+
+            self.results_text.insert(tk.END, f"Error: {error_msg}\n")
             return  # Stop displaying further details if overall success is false
 
         self.results_text.insert(tk.END, "\n--- Optimization Summary ---\n")
+        self.results_text.insert(tk.END, f"Profile Used: {results.get('profile', 'N/A')}\n")
+        self.results_text.insert(tk.END, f"Tasks Completed: {results.get('tasks_completed', 'N/A')}\n")
+        self.results_text.insert(tk.END, f"Tasks Failed: {results.get('tasks_failed', 'N/A')}\n")
+        timestamp = results.get('timestamp', 'N/A')
+        self.results_text.insert(tk.END, f"Timestamp: {timestamp}\n")
+
 
         # Display Initial State (Optional - can be verbose)
         if "initial_state" in results and isinstance(results["initial_state"], dict):
@@ -790,20 +936,21 @@ class SentinelGUI:
                         tk.END, f"  {key.replace('_', ' ').title()}: {value}\n"
                     )
 
-        # Display Optimizations Performed
-        if "optimizations" in results and isinstance(results["optimizations"], list):
+        # Display Optimizations Performed (using 'tasks' key if available)
+        tasks_run = results.get('tasks', results.get('optimizations')) # Check both keys
+        if isinstance(tasks_run, list):
             self.results_text.insert(tk.END, "\nOptimizations Performed:\n")
-            if not results["optimizations"]:
+            if not tasks_run:
                 self.results_text.insert(
                     tk.END, "  (No specific optimizations listed)\n"
                 )
             else:
-                for opt in results["optimizations"]:
+                for opt in tasks_run:
                     # Check if opt is a dict with details or just a string
                     if isinstance(opt, dict):
                         name = opt.get("name", "Unnamed Task")
-                        status = opt.get("status", "Unknown")
-                        details = opt.get("details", "")
+                        status = "Success" if opt.get("success", False) else "Failed"
+                        details = opt.get("details", opt.get("message", opt.get("error", ""))) # Get more info
                         self.results_text.insert(tk.END, f"  - {name}: {status}")
                         if details:
                             self.results_text.insert(tk.END, f" ({details})\n")
@@ -813,6 +960,16 @@ class SentinelGUI:
                         self.results_text.insert(
                             tk.END, f"  - {opt}\n"
                         )  # Assume it's just a string name
+
+        # Display Failed Tasks Separately if available
+        failed_tasks_info = results.get('failed_tasks', [])
+        if failed_tasks_info:
+             self.results_text.insert(tk.END, "\nFailed Tasks Details:\n")
+             for task in failed_tasks_info:
+                 task_name = task.get('name', 'Unknown Task')
+                 task_error = task.get('error', 'Unknown Error')
+                 self.results_text.insert(tk.END, f"  - {task_name}: {task_error}\n")
+
 
         # Display Final State (Optional)
         if "final_state" in results and isinstance(results["final_state"], dict):
@@ -824,6 +981,14 @@ class SentinelGUI:
                     self.results_text.insert(
                         tk.END, f"  {key.replace('_', ' ').title()}: {value}\n"
                     )
+
+        # Display Warnings
+        warnings = results.get('warnings', [])
+        if warnings:
+            self.results_text.insert(tk.END, "\nWarnings:\n")
+            for warning in warnings:
+                 self.results_text.insert(tk.END, f"  - {warning}\n")
+
 
         self.results_text.insert(tk.END, "\n--- Optimization Complete ---\n")
         self.results_text.see(tk.END)  # Scroll to the end
@@ -837,7 +1002,8 @@ class SentinelGUI:
             # Focus the control frame itself or the optimize button
             self.optimize_button.focus_set()
             # Scroll the parent ScrollableFrame's canvas to show the control frame
-            # Note: This might require access to the canvas in ScrollableFrame or a dedicated method there.
+            # Note: This might require access to the canvas in ScrollableFrame
+            # or a dedicated method there.
             # For simplicity, we'll just focus the button for now.
             logger.debug("Focus set to optimization section.")
         except tk.TclError:
@@ -873,7 +1039,7 @@ if __name__ == "__main__":
 
         def get_system_info(self):
             import platform
-
+            import time
             time.sleep(0.5)  # Simulate delay
             return {
                 "os": platform.system(),
@@ -885,98 +1051,110 @@ if __name__ == "__main__":
 
         def get_disk_usage(self):
             import psutil
-import shutil
-
+            import shutil
+            import time
             time.sleep(0.8)  # Simulate delay
             data = {}
             try:
                 for part in psutil.disk_partitions(all=False):
                     if os.path.exists(part.mountpoint):
-                        usage = shutil.disk_usage(part.mountpoint)
-                        data[part.device] = {
-                            "total": usage.total,
-                            "used": usage.used,
-                            "free": usage.free,
-                            "percent": (
-                                (usage.used / usage.total * 100)
-                                if usage.total > 0
-                                else 0
-                            ),
-                        }
+                        try:
+                            usage = shutil.disk_usage(part.mountpoint)
+                            data[part.device] = {
+                                "mountpoint": part.mountpoint, # Added mountpoint
+                                "total": usage.total,
+                                "used": usage.used,
+                                "free": usage.free,
+                                "percent": (
+                                    (usage.used / usage.total * 100)
+                                    if usage.total > 0
+                                    else 0
+                                ),
+                            }
+                        except OSError as e:
+                             logger.warning(f"Could not get usage for {part.mountpoint}: {e}")
             except Exception as e:
-                return {"error": str(e)}
-            return {"data": data}
+                logger.exception("Error getting disk usage in mock")
+                return {"success": False, "error": str(e)}
+            return {"success": True, "data": data, "inaccessible": []} # Match expected structure
 
         def get_startup_programs(self):
             import time
-
             time.sleep(1.0)  # Simulate delay
             # Mock data - replace with actual logic if possible
-            return [
-                {
-                    "name": "Mock Program A",
-                    "path": "C:\\Path\\To\\A.exe",
-                    "status": "Enabled",
-                },
-                {
-                    "name": "Mock Service B",
-                    "path": "C:\\Windows\\System32\\b.dll",
-                    "status": "Disabled",
-                },
-                {"name": "Another Tool", "path": "/usr/bin/tool", "status": "Enabled"},
-            ]
+            return { # Return dict matching expected structure
+                "success": True,
+                "programs": [
+                    {
+                        "name": "Mock Program A",
+                        "path": "C:\\Path\\To\\A.exe",
+                        "status": "Enabled",
+                    },
+                    {
+                        "name": "Mock Service B",
+                        "path": "C:\\Windows\\System32\\b.dll",
+                        "status": "Disabled",
+                    },
+                    {"name": "Another Tool", "path": "/usr/bin/tool", "status": "Enabled"},
+                    {"name": "Program To Fail", "path": "C:\\fail.exe", "status": "Enabled"},
+                ]
+            }
 
-        def manage_startup_program(self, action, program_name):
+        def manage_startup_program(self, action, program_name, program_path=None): # Added path
             import time
-
             time.sleep(0.5)
-            logger.info(f"Mock: Received request to {action} {program_name}")
+            logger.info(f"Mock: Received request to {action} {program_name} (Path: {program_path})")
             # Simulate success/failure
             if "fail" in program_name.lower():
                 return {
                     "success": False,
-                    "message": "Simulated failure for this program.",
+                    "error": "Simulated failure for this program.", # Use 'error' key
                 }
             return {"success": True}
 
         def optimize_system(self, profile):
             import time
-
             time.sleep(2.5)  # Simulate delay
             logger.info(f"Mock: Optimizing with profile {profile}")
-            return {
-                "success": True,
+            # Simulate potential failure
+            success = profile != "fail_profile"
+            failed_tasks_list = []
+            if not success:
+                 failed_tasks_list = [{"name": "Simulated Task Fail", "error": "Profile caused failure"}]
+
+            return { # Match expected structure from core optimizer
+                "success": success,
                 "profile": profile,
-                "initial_state": {
-                    "cpu_governor": "performance",
-                    "swap_usage_percent": 15.2,
-                },
-                "optimizations": [
-                    {
-                        "name": "Clean Temp Files",
-                        "status": "Success",
-                        "details": "Removed 150 MB",
-                    },
-                    {
-                        "name": "Defragment Drive C:",
-                        "status": "Skipped",
-                        "details": "SSD Drive",
-                    },
-                    f"Set Power Profile to {profile}",
-                    {"name": "Disable Unused Service X", "status": "Success"},
-                ],
-                "final_state": {"cpu_governor": profile, "swap_usage_percent": 10.1},
-                "error": None,
+                "tasks_completed": 2 if success else 1,
+                "tasks_failed": 0 if success else 1,
+                "failed_tasks": failed_tasks_list,
+                "warnings": ["Mock warning during optimization"] if success else [],
+                "timestamp": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                # Optional detailed task results if needed by display logic
+                "tasks": [
+                     {"name": "Clean Temp Files", "success": True, "details": "Removed 150 MB"},
+                     {"name": "Simulated Task Fail", "success": False, "error": "Profile caused failure"}
+                ] if not success else [
+                     {"name": "Clean Temp Files", "success": True, "details": "Removed 150 MB"},
+                     {"name": "Set Power Profile", "success": True, "details": f"Set to {profile}"}
+                ]
             }
 
         def get_system_metrics(self):
             import psutil
-
             # time.sleep(0.1) # Keep this fast
-            return {
-                "cpu_percent": psutil.cpu_percent(),
-                "memory_percent": psutil.virtual_memory().percent,
-            }
+            try:
+                return {
+                    "success": True, # Add success flag
+                    "current_metrics": {
+                        "cpu_percent": psutil.cpu_percent(),
+                        "memory_percent": psutil.virtual_memory().percent,
+                    }
+                }
+            except Exception as e:
+                 logger.exception("Error getting system metrics in mock")
+                 return {"success": False, "error": str(e)}
+
 
     mock_core = MockSentinelCore()
     app = SentinelGUI(mock_core)

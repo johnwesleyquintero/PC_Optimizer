@@ -18,6 +18,7 @@ except ImportError:
 
 from src.core.sentinel_core import SentinelCore
 from src.gui.sentinel_gui import SentinelGUI
+from src.cli.sentinel_cli import SentinelCLI
 
 
 # --- Logging Configuration ---
