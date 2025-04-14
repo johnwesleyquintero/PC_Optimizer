@@ -36,10 +36,12 @@ class ConfigManager:
         self.logger.info("ConfigManager: Initializing configuration")
         self.system = platform.system()
         self.config_dir = self._get_config_dir()
-        self.logger.info(f"ConfigManager: Config directory is {self.config_dir}")
+        message = f"ConfigManager: Config directory is {self.config_dir}"
+        self.logger.info(message)
         self.config_path = self.config_dir / config_file
         self.config = self._load_config()
-        self.logger.info(f"ConfigManager: Configuration loaded from {self.config_path}")
+        message = f"ConfigManager: Configuration loaded from {self.config_path}"
+        self.logger.info(message)
 
     def _get_config_dir(self) -> Path:
         """Get the configuration directory path.
@@ -144,7 +146,8 @@ class ConfigManager:
         try:
             with open(self.config_path, "w") as configfile:
                 self.config.write(configfile)
-            self.logger.info(f"Configuration saved successfully to {self.config_path}")
+            message = f"Configuration saved successfully to {self.config_path}"
+            self.logger.info(message)
         except Exception as e:
             self.logger.error(
                 f"Failed to save configuration to {self.config_path}: {e}"
@@ -180,8 +183,9 @@ class EnvironmentConfig:
         )
 
     def _get_config_dir(self) -> Path:
-        """
-        Determines the appropriate configuration directory based on the operating system.
+        """Determines the configuration directory.
+
+        Based on the operating system.
 
         Returns:
             Path: The path to the configuration directory.
@@ -253,6 +257,8 @@ class EnvironmentConfig:
         try:
             with open(self.config_path, "w") as configfile:
                 self.config.write(configfile)
-            logging.info(f"Configuration saved successfully to {self.config_path}")
+            message = f"Configuration saved successfully to {self.config_path}"
+            logging.info(message)
         except Exception as e:
-            logging.error(f"Failed to save configuration to {self.config_path}: {e}")
+            message = f"Failed to save configuration to {self.config_path}: {e}"
+            logging.error(message)

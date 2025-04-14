@@ -8,8 +8,9 @@ class AdaptiveCLI:
     """
 
     def __init__(self):
-        """
-        Initializes the AdaptiveCLI with environment configuration and argument parser.
+        """Initializes the AdaptiveCLI.
+
+        Sets up environment configuration and argument parser.
         """
         self.config = EnvironmentConfig()
         self.parser = argparse.ArgumentParser(
@@ -22,7 +23,7 @@ class AdaptiveCLI:
         Formats and returns the current environment information as a string.
 
         Returns:
-            str: A formatted string containing the current environment information.
+            str: Formatted environment information.
         """
         return f"""\nCurrent Environment:
   - OS: {self.config.system}

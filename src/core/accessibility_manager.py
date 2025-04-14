@@ -38,8 +38,9 @@ class AccessibilityManager:
     """
 
     def __init__(self):
-        """
-        Initializes the AccessibilityManager with default preferences and keyboard shortcuts.
+        """Initializes the AccessibilityManager.
+
+        Sets default preferences and keyboard shortcuts.
         """
         self.logger = logging.getLogger(__name__)
         self.preferences = AccessibilityPreferences()
@@ -66,7 +67,8 @@ class AccessibilityManager:
             self.logger.info("Accessibility preferences updated")
             return True
         except Exception as e:
-            self.logger.error(f"Failed to update accessibility preferences: {e}")
+            error_msg = f"Failed to update accessibility preferences: {e}"
+            self.logger.error(error_msg)
             return False
 
     def get_preferences(self) -> AccessibilityPreferences:
@@ -97,7 +99,8 @@ class AccessibilityManager:
         """
         try:
             self.keyboard_shortcuts[action] = shortcut
-            self.logger.info(f"Keyboard shortcut updated for {action}: {shortcut}")
+            message = f"Keyboard shortcut updated for {action}: {shortcut}"
+            self.logger.info(message)
             return True
         except Exception as e:
             self.logger.error(f"Failed to set keyboard shortcut: {e}")
@@ -169,7 +172,11 @@ class AccessibilityManager:
             Dict[str, str]: Font size mappings for different elements
         """
         scales = {
-            "small": {"body": "12px", "heading": "16px", "subheading": "14px"},
+            "small": {
+                "body": "12px",
+                "heading": "16px",
+                "subheading": "14px",
+            },
             "medium": {"body": "14px", "heading": "18px", "subheading": "16px"},
             "large": {"body": "16px", "heading": "20px", "subheading": "18px"},
         }

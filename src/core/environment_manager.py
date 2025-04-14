@@ -4,7 +4,7 @@ from .logging_manager import LoggingManager
 
 
 class EnvironmentManager:
-    """Manages environment-specific configurations and system resources for the SentinelPC application."""
+    """Manages environment-specific configurations and system resources."""
 
     def __init__(self, config_file="config.ini"):
         """Initialize the environment manager with configuration settings.
@@ -13,7 +13,7 @@ class EnvironmentManager:
             config_file (str): Name of the configuration file.
         """
         self.logger = LoggingManager().get_logger(__name__)
-        self.logger.info("EnvironmentManager: Initializing environment manager")
+        self.logger.info("EnvironmentManager: Initializing")
         self._config = EnvironmentConfig(config_file)
         self._validate_config()
         self._ensure_directories()
@@ -32,7 +32,11 @@ class EnvironmentManager:
             },
             "theme": {
                 "required_keys": ["base", "text", "primary"],
-                "default": {"base": "#F0F0F0", "text": "#000000", "primary": "#007ACC"},
+                "default": {
+                    "base": "#F0F0F0",
+                    "text": "#000000",
+                    "primary": "#007ACC",
+                },
             },
         }
 
@@ -46,10 +50,11 @@ class EnvironmentManager:
                 max_threads = self._config.max_threads
                 min_threads = config_ranges["max_threads"]["min"]
                 max_allowed = config_ranges["max_threads"]["max"]
-                if not isinstance(max_threads, int) or not min_threads <= max_threads <= max_allowed:
-                    self.logger.warning(
-                        f"Invalid max_threads value: {max_threads}, using default"
-                    )
+                if not isinstance(max_threads, int) or not (
+                    min_threads <= max_threads <= max_allowed
+                ):
+                    msg = f"Invalid max_threads value: {max_threads}, using default"
+                    self.logger.warning(msg)
                     self._config.max_threads = config_ranges["max_threads"]["default"]
 
             # Validate log_level
@@ -57,24 +62,26 @@ class EnvironmentManager:
                 not hasattr(self._config, "log_level")
                 or self._config.log_level not in config_ranges["log_level"]["values"]
             ):
-                self.logger.warning(
-                    "Invalid or missing log_level in config, using default"
-                )
+                msg = "Invalid or missing log_level in config, using default"
+                self.logger.warning(msg)
                 self._config.log_level = config_ranges["log_level"]["default"]
 
             # Validate theme
-            if not hasattr(self._config, "theme") or not isinstance(self._config.theme, dict):
-                self.logger.warning(
-                    "Theme configuration missing or invalid, using default"
-                )
+            if not hasattr(self._config, "theme") or not isinstance(
+                self._config.theme, dict
+            ):
+                msg = "Theme configuration missing or invalid, using default"
+                self.logger.warning(msg)
                 self._config.theme = config_ranges["theme"]["default"].copy()
             else:
-                missing_keys = [key for key in config_ranges["theme"]["required_keys"]
-                              if key not in self._config.theme]
+                missing_keys = [
+                    key
+                    for key in config_ranges["theme"]["required_keys"]
+                    if key not in self._config.theme
+                ]
                 if missing_keys:
-                    self.logger.warning(
-                        f"Missing theme keys: {missing_keys}, using defaults for those keys"
-                    )
+                    msg = f"Missing theme keys: {missing_keys}, using defaults for those keys"
+                    self.logger.warning(msg)
                     for key in missing_keys:
                         self._config.theme[key] = config_ranges["theme"]["default"][key]
 
@@ -83,7 +90,8 @@ class EnvironmentManager:
             self.logger.info("Configuration validation completed successfully")
 
         except Exception as e:
-            self.logger.error(f"Configuration validation failed: {e}")
+            msg = f"Configuration validation failed: {e}"
+            self.logger.error(msg)
             raise
 
     def initialize(self) -> bool:
@@ -96,7 +104,8 @@ class EnvironmentManager:
             self._ensure_directories()
             return True
         except Exception as e:
-            self.logger.error(f"Failed to initialize environment: {e}")
+            msg = f"Failed to initialize environment: {e}"
+            self.logger.error(msg)
             return False
 
     def _ensure_directories(self):
@@ -123,23 +132,21 @@ class EnvironmentManager:
                     directory.mkdir(parents=True, exist_ok=True)
                     # Verify directory permissions
                     if not os.access(directory, os.W_OK):
-                        self.logger.warning(
-                            f"Directory {directory} exists but is not writable"
-                        )
+                        msg = f"Directory {directory} exists but is not writable"
+                        self.logger.warning(msg)
                 except PermissionError as pe:
-                    self.logger.error(
-                        f"Permission denied creating directory {directory}: {pe}"
-                    )
+                    msg = f"Permission denied creating directory {directory}: {pe}"
+                    self.logger.error(msg)
                     raise
                 except Exception as e:
-                    self.logger.error(f"Failed to create directory {directory}: {e}")
+                    msg = f"Failed to create directory {directory}: {e}"
+                    self.logger.error(msg)
                     raise
 
             self.logger.info("All required directories created successfully")
         except Exception as e:
-            self.logger.error(
-                f"EnvironmentManager: Failed to create required directories: {e}"
-            )
+            msg = f"EnvironmentManager: Failed to create required directories: {e}"
+            self.logger.error(msg)
             raise
 
     @property
@@ -168,7 +175,8 @@ class EnvironmentManager:
             self._config.save_config()
             self.logger.info("EnvironmentManager: Configuration saved successfully")
         except Exception as e:
-            self.logger.error(f"EnvironmentManager: Failed to save configuration: {e}")
+            msg = f"EnvironmentManager: Failed to save configuration: {e}"
+            self.logger.error(msg)
             raise
 
     def cleanup(self):
@@ -177,5 +185,6 @@ class EnvironmentManager:
             self.save_config()
             self.logger.info("EnvironmentManager: Cleanup completed successfully")
         except Exception as e:
-            self.logger.error(f"EnvironmentManager: Cleanup failed: {e}")
+            msg = f"EnvironmentManager: Cleanup failed: {e}"
+            self.logger.error(msg)
             raise

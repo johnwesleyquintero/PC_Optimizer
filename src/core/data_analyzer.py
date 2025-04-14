@@ -34,17 +34,14 @@ class CSVAnalyzer:
         except FileNotFoundError:
             raise FileNotFoundError(f"CSV file not found: {self.file_path}")
         except pd.errors.ParserError as e:
-            raise pd.errors.ParserError(
-                f"Error parsing CSV file: {self.file_path}. Ensure it is a valid CSV format. Details: {e}"
-            )
+            error_msg = f"Error parsing CSV file: {self.file_path}. Ensure it is a valid CSV format. Details: {e}"
+            raise pd.errors.ParserError(error_msg)
         except pd.errors.EmptyDataError:
-            raise pd.errors.EmptyDataError(
-                f"CSV file is empty or contains no data: {self.file_path}"
-            )
+            error_msg = f"CSV file is empty or contains no data: {self.file_path}"
+            raise pd.errors.EmptyDataError(error_msg)
         except Exception as e:
-            raise Exception(
-                f"Unexpected error loading CSV file: {self.file_path}. Details: {e}"
-            )
+            error_msg = f"Unexpected error loading CSV file: {self.file_path}. Details: {e}"
+            raise Exception(error_msg)
 
         if df.empty:
             raise pd.errors.EmptyDataError(
@@ -80,20 +77,20 @@ class CSVAnalyzer:
         Generates descriptive statistics of the DataFrame.
 
         Returns:
-            pd.DataFrame: Descriptive statistics of the DataFrame, including count, mean, std, min, max, and percentiles.
+            pd.DataFrame: Descriptive statistics (count, mean, std, min, max, percentiles).
         """
         return self.df.describe(include="all")
 
     def handle_missing_values(
         self, strategy: str = "mean", columns: list[str] | None = None
     ) -> pd.DataFrame:
-        """Handles missing values in the DataFrame using a specified strategy for specified columns.
+        """Handles missing values using a specified strategy for specified columns.
 
         Args:
             strategy (str, optional): Strategy for handling missing values.
                 Options are 'mean', 'median', 'mode', 'drop'. Defaults to 'mean'.
-            columns (list[str], optional): List of column names to apply the missing value strategy to.
-                If None, apply strategy to columns with missing values. Defaults to None.
+            columns (list[str], optional): Columns to apply the strategy to.
+                If None, apply to columns with missing values. Defaults to None.
 
         Returns:
             pd.DataFrame: DataFrame with handled missing values.
@@ -102,9 +99,8 @@ class CSVAnalyzer:
             ValueError: If invalid strategy or incompatible column data type.
         """
         if strategy not in ["mean", "median", "mode", "drop"]:
-            raise ValueError(
-                f"Invalid strategy: '{strategy}'. Choose from 'mean', 'median', 'mode', 'drop'."
-            )
+            error_msg = f"Invalid strategy: '{strategy}'. Choose from 'mean', 'median', 'mode', 'drop'."
+            raise ValueError(error_msg)
 
         if columns is None:
             columns = self.df.columns[self.df.isnull().any()].tolist()
@@ -124,9 +120,8 @@ class CSVAnalyzer:
                 elif strategy == "drop":
                     self.df.dropna(subset=[col], inplace=True)
                 else:
-                    raise ValueError(
-                        f"Strategy '{strategy}' incompatible with column '{col}' type."
-                    )
+                    error_msg = f"Strategy '{strategy}' incompatible with column '{col}' type."
+                    raise ValueError(error_msg)
         return self.df
 
     def remove_duplicates(
@@ -136,8 +131,8 @@ class CSVAnalyzer:
         Removes duplicate rows from the DataFrame based on specified columns.
 
         Args:
-            columns (list[str], optional): List of column names to consider when identifying duplicate rows.
-                                      If None, all columns are considered. Defaults to None.
+            columns (list[str], optional): Columns to consider when identifying duplicates.
+                If None, all columns are considered. Defaults to None.
             keep (str, optional): Determines which duplicates to keep.
                 - 'first': (default) Drop duplicates except for the first occurrence.
                 - 'last': Drop duplicates except for the last occurrence.
@@ -193,7 +188,7 @@ class CSVAnalyzer:
         Encodes categorical data in specified columns.
 
         Args:
-            columns (list, optional): List of categorical columns to encode. If None, encode all categorical columns.
+            columns (list, optional): Categorical columns to encode. If None, encode all.
             method (str): Encoding method ('one-hot').
 
         Returns:
@@ -254,7 +249,7 @@ class CSVAnalyzer:
             column (str): Name of the column to analyze.
 
         Returns:
-            pd.Series: Value counts for categorical columns or descriptive statistics for numerical columns.
+            pd.Series: Value counts (categorical) or descriptive stats (numerical).
         Raises:
             ValueError: If the specified column is not found in the DataFrame.
         """
@@ -268,9 +263,8 @@ class CSVAnalyzer:
         elif pd.api.types.is_numeric_dtype(self.df[column]):
             return self.df[column].describe()
         else:
-            return pd.Series(
-                f"Column '{column}' is of type {self.df[column].dtype}, analysis not available."
-            )
+            error_msg = f"Column '\{column}' is of type {self.df[column].dtype}, analysis not available."
+            return pd.Series(error_msg)
 
     def detect_outliers(self, column, threshold=3):
         """
@@ -288,9 +282,8 @@ class CSVAnalyzer:
         if column not in self.df.columns:
             raise ValueError(f"Column '{column}' not found in DataFrame.")
         if not pd.api.types.is_numeric_dtype(self.df[column]):
-            raise ValueError(
-                f"Column '{column}' is not numerical and cannot be analyzed for outliers."
-            )
+            error_msg = f"Column '{column}' is not numerical and cannot be analyzed for outliers."
+            raise ValueError(error_msg)
 
         z_scores = (self.df[column] - self.df[column].mean()) / self.df[column].std()
         outliers = self.df[abs(z_scores) > threshold]

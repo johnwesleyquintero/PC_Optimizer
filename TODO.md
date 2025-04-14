@@ -1,6 +1,6 @@
 # SENTINEL PC ROADMAP & TODO
 
-*This document outlines the development roadmap and tracks pending tasks for SentinelPC. It has been updated based on the current project state.*
+*This document outlines the development roadmap and tracks pending tasks for SentinelPC. It has been updated based on the current project state and future brainstorming.*
 
 ## Core Goals
 
@@ -106,13 +106,27 @@
 *   [ ] **Advanced Architectural Refactoring:** Consider Layered Design, Feature Flags, etc., based on needs. (Large)
 *   [ ] **Advanced Dependency Management:** Explore `Pipenv` or `Poetry`. (Medium)
 *   [ ] **Generate API Documentation:** Use `Sphinx` or `MkDocs` from docstrings. (Medium)
-*   [ ] **New Core Features:** AI Auto-Tune, Cloud Sync, Real-Time Stats, Plugin System, etc. (Large)
+*   [ ] **New Core Features:** AI Auto-Tune, Cloud Sync, Real-Time Stats, Plugin System, etc. (Large) - *Note: AI, Cloud Sync, Real-Time, Plugins already listed via feature_flags.py*
 *   [ ] **Enhanced Configuration:** Environment variables, schema validation, dynamic reloading. (Medium)
-*   [ ] **Internationalization (i18n):** Add support for multiple languages. (Medium)
-*   [ ] **Accessibility (a11y):** Improve GUI accessibility. (Medium)
+*   [ ] **Internationalization (i18n):** Add support for multiple languages. (Medium) - *Note: `i18n_manager.py` exists, needs full integration.*
+*   [ ] **Accessibility (a11y):** Improve GUI accessibility. (Medium) - *Note: `accessibility_manager.py` exists, needs full integration.*
 *   [ ] **Packaging:** Prepare for distribution via PyPI. (Small)
 *   [ ] **User Feedback/Error Reporting:** Integrate tools like Sentry. (Medium)
-*   [ ] **Monitoring & Auto-Updates:** Add health checks, performance monitoring, update mechanisms. (Medium)
+*   [ ] **Monitoring & Auto-Updates:** Add health checks, performance monitoring, update mechanisms. (Medium) - *Note: `monitoring_manager.py` exists, needs expansion/integration.*
+*   **--- NEW IDEAS ---**
+*   [ ] **Enhanced Optimization Tasks:** Explore Registry Cleaning (Win), Advanced Startup Mgmt, Defrag (HDD), Network Tweaks, Service Mgmt. (Large, OS-specific)
+*   [ ] **Real-time Monitoring Dashboard (GUI):** Implement live graphs for CPU, RAM, Disk, Network. (Medium, GUI/Monitoring)
+*   [ ] **Hardware Information Display:** Show detailed system hardware specs. (Medium, EnvManager/psutil/wmi)
+*   [ ] **Historical Performance Reports:** Generate graphs/summaries from monitoring data. (Medium, Monitoring/DataAnalyzer/GUI)
+*   [ ] **Alerting System:** Notify user on critical thresholds (CPU temp, disk space). (Medium, Monitoring/GUI/OS)
+*   [ ] **Optimization Profiles:** Implement granular profiles (Gaming, Work, etc.). (Medium, Config/Core)
+*   [ ] **Task Scheduling:** Allow users to schedule optimizations. (Medium, Core/OS-specific)
+*   [ ] **Customizable GUI Themes:** Allow user-created/imported themes. (Medium, GUI/Config)
+*   [ ] **Benchmark Integration:** Allow running/tracking benchmarks pre/post optimization. (Medium, Core/ExternalTools)
+*   [ ] **Publish Case Studies:** Add feature/workflow to generate analysis summaries for website. (Medium, DataAnalyzer/Core)
+*   [ ] **Developer Mode:** Implement distinct mode with advanced options/diagnostics. (Medium, Config/Core/UI)
+*   [ ] **Developer Snippet Runner/Console:** Securely allow developers to run custom code/commands. (Medium, Core/UI, **High Security Risk**)
+*   [ ] **Feature Flag Management UI:** Add interface (dev mode?) to toggle feature flags. (Small, GUI/FeatureFlags)
 
 ---
 

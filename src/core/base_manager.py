@@ -1,7 +1,6 @@
 """Base interface definitions for SentinelPC manager classes.
 
-This module defines the base interfaces that all manager classes must implement,
-ensuring consistent method signatures and behavior across the application.
+This module defines the base interfaces that all manager classes must implement, ensuring consistent method signatures and behavior.
 """
 
 from abc import ABC, abstractmethod

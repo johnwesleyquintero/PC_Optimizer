@@ -18,6 +18,7 @@ ENV/
 .vscode/
 *.swp
 *.swo
+roo-code-settings.json
 
 # Build and Distribution
 build/
