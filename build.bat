@@ -111,6 +111,10 @@ echo.
 
 :: --- Run Build Script ---
 echo Running the build script: %BUILD_PY_SCRIPT%
+if not exist "%BUILD_PY_SCRIPT%" (
+    echo ERROR: Build script not found at "%BUILD_PY_SCRIPT%".
+    goto error_exit
+)
 python "%BUILD_PY_SCRIPT%"
 if !errorlevel! neq 0 (
     echo ERROR: The Python build script ('%BUILD_PY_SCRIPT%') exited with an error.

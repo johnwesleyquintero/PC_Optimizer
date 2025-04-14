@@ -58,7 +58,7 @@
     *   [ ] **Verify Executable Creation:** Manually run the build process (`build_unified.py`) and confirm that the `SentinelPC.exe` is created correctly in the output directory. (Small, `build_unified.py`)
     *   [ ] **Test `SentinelPC.exe`:** Manually run the created `SentinelPC.exe` on a clean Windows machine (without Python or dependencies) to ensure it runs correctly and the CLI/GUI entry points work. (Medium, multiple)
     *   [ ] **Verify GitHub Release Upload:** Confirm that the CI pipeline correctly uploads `SentinelPC.exe` to GitHub Releases on each release. Double check if the correct files are attached to the release. (Small, CI config)
-    *   [ ] **Validate GitHub Release Link:** Test the `https://github.com/johnwesleyquintero/SentinelPC/releases/latest/download/SentinelPC.exe` link after a CI release to ensure it downloads the correct file. (Small)
+    *   [ ] **Validate GitHub Release Link:** Test the `https://github.com/johnwesleyquintero/SentinelPC/releases/tag/v1.0-beta` link after a CI release to ensure it downloads the correct file. (Small)
 
 ### Code Quality & Refactoring
 *   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture. (Medium, `src/core/performance_optimizer.py`)

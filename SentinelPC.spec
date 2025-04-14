@@ -2,15 +2,15 @@
 
 
 a = Analysis(
-    ['src\\main.py'],
+    ['C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\src\\main.py'],
     pathex=[],
     binaries=[],
-    datas=[('config/*.ini', 'config')],
-    hiddenimports=['numpy', 'pandas'],
+    datas=[('C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\config', 'config'), ('C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\locales', 'locales')],
+    hiddenimports=['tkinter', 'PIL'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=[],
+    excludes=['test', 'unittest', 'pytest'],
     noarchive=False,
     optimize=0,
 )
@@ -29,11 +29,11 @@ exe = EXE(
     upx=True,
     upx_exclude=[],
     runtime_tmpdir=None,
-    console=True,
+    console=False,
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['_wwwroot\\Assets\\Branding\\icon.ico'],
+    icon=['C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\src\\gui\\assets\\icon.ico'],
 )

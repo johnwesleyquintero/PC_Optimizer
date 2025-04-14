@@ -77,7 +77,7 @@ If you want to run the latest development code or contribute:
 1.  **Run the application:**
     *   If you downloaded the executable: Double-click `SentinelPC.exe` or run it from your terminal:
         ```bash
-        .\SentinelPC.exe
+        .\dist\SentinelPC.exe 
         ```
     *   If running from source, use the Python commands mentioned in Option 2.
 

@@ -155,13 +155,11 @@ class ConfigManager:
 
 class EnvironmentConfig:
     def __init__(self, config_file='config.ini'):
-        self.logger = LoggingManager().get_logger(__name__)
-        self.logger.info("EnvironmentConfig: Initializing configuration")
         self.system = platform.system()
         self.config_dir = self._get_config_dir()
-        self.logger.info(f"EnvironmentConfig: Config directory is {self.config_dir}")
         self.config_path = self.config_dir / config_file
         self.config = self._load_config()
+        self.logger = LoggingManager().get_logger(__name__)
         self.logger.info(f"EnvironmentConfig: Configuration loaded from {self.config_path}")
 
     def _get_config_dir(self):

@@ -36,7 +36,8 @@ class SentinelCore:
             self.logger.info("Initializing SentinelPC Core v%s", self.version)
             
             # Initialize components in order
-            if not self.config.load_config():
+            # Config is already loaded in __init__
+            if not self.config.get_config():
                 raise RuntimeError("Failed to load configuration")
                 
             if not self.env_manager.initialize(self.config.get_config()):

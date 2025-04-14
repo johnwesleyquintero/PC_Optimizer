@@ -8,14 +8,31 @@ from datetime import datetime
 class LoggingManager:
     """Centralized logging management for the PC Optimizer application."""
 
-    def __init__(self, config_path: str = 'config/config.ini'):
-        self.config = configparser.ConfigParser()
-        self.config.read(config_path)
-        self.log_dir = Path(self.config.get('Logging', 'log_dir', fallback='logs'))
-        self.log_dir.mkdir(parents=True, exist_ok=True)
-        self._setup_logging()
+    _instance = None
 
-    def _setup_logging(self):
+    def __new__(cls, config_path: str = 'config/config.ini'):
+        if cls._instance is None:
+            cls._instance = super(LoggingManager, cls).__new__(cls)
+            cls._instance._setup_basic_logging()
+        return cls._instance
+
+    def __init__(self, config_path: str = 'config/config.ini'):
+        if not hasattr(self, 'initialized'):
+            self.config = configparser.ConfigParser()
+            self.config.read(config_path)
+            self.log_dir = Path(self.config.get('Logging', 'log_dir', fallback='logs'))
+            self.log_dir.mkdir(parents=True, exist_ok=True)
+            self._setup_enhanced_logging()
+            self.initialized = True
+
+    def _setup_basic_logging(self):
+        """Set up basic logging configuration for initial startup."""
+        logging.basicConfig(
+            level=logging.INFO,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        )
+
+    def _setup_enhanced_logging(self):
         """Configure the logging system with file and console handlers based on config."""
         # Get configuration values
         log_level = getattr(logging, self.config.get('Logging', 'log_level', fallback='INFO').upper())

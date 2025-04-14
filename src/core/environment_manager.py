@@ -1,4 +1,5 @@
 from .config_manager import EnvironmentConfig
+from .logging_manager import LoggingManager
 
 class EnvironmentManager:
     """Manages environment-specific configurations and system resources for the SentinelPC application."""
