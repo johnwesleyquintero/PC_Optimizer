@@ -3,10 +3,7 @@ from unittest.mock import patch, MagicMock
 from pathlib import Path
 import psutil
 import os
-from src.core.performance_optimizer import (
-    PerformanceOptimizer,
-    TaskExecutionError
-)
+from src.core.performance_optimizer import PerformanceOptimizer, TaskExecutionError
 
 
 class TestPerformanceOptimizer(unittest.TestCase):

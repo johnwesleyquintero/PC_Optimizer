@@ -54,14 +54,18 @@ class SentinelCore:
                 if not self.env_manager.initialize(self.config.get_config()):
                     raise RuntimeError("Failed to initialize environment manager")
             except Exception as e:
-                self.logger.error("Failed to initialize environment manager: %s", str(e))
+                self.logger.error(
+                    "Failed to initialize environment manager: %s", str(e)
+                )
                 raise
 
             try:
                 if not self.optimizer.initialize(self.config.get_config()):
                     raise RuntimeError("Failed to initialize performance optimizer")
             except Exception as e:
-                self.logger.error("Failed to initialize performance optimizer: %s", str(e))
+                self.logger.error(
+                    "Failed to initialize performance optimizer: %s", str(e)
+                )
                 raise
 
             try:

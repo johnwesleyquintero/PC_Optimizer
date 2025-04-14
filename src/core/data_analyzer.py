@@ -40,22 +40,17 @@ class CSVAnalyzer:
             )
             raise pd.errors.ParserError(error_msg)
         except pd.errors.EmptyDataError:
-            error_msg = (
-                f"CSV file is empty or contains no data: "
-                f"{self.file_path}"
-            )
+            error_msg = f"CSV file is empty or contains no data: " f"{self.file_path}"
             raise pd.errors.EmptyDataError(error_msg)
         except Exception as e:
             error_msg = (
-                f"Unexpected error loading CSV file: "
-                f"{self.file_path}. Details: {e}"
+                f"Unexpected error loading CSV file: " f"{self.file_path}. Details: {e}"
             )
             raise Exception(error_msg)
 
         if df.empty:
             raise pd.errors.EmptyDataError(
-                f"Loaded CSV DataFrame is empty: "
-                f"{self.file_path}"
+                f"Loaded CSV DataFrame is empty: " f"{self.file_path}"
             )
         return df
 
@@ -120,25 +115,13 @@ class CSVAnalyzer:
             if self.df[col].isnull().any():
                 is_numeric = pd.api.types.is_numeric_dtype(self.df[col])
                 if strategy == "mean" and is_numeric:
-                    self.df[col].fillna(
-                        self.df[col].mean(), 
-                        inplace=True
-                    )
+                    self.df[col].fillna(self.df[col].mean(), inplace=True)
                 elif strategy == "median" and is_numeric:
-                    self.df[col].fillna(
-                        self.df[col].median(), 
-                        inplace=True
-                    )
+                    self.df[col].fillna(self.df[col].median(), inplace=True)
                 elif strategy == "mode":
-                    self.df[col].fillna(
-                        self.df[col].mode()[0], 
-                        inplace=True
-                    )
+                    self.df[col].fillna(self.df[col].mode()[0], inplace=True)
                 elif strategy == "drop":
-                    self.df.dropna(
-                        subset=[col], 
-                        inplace=True
-                    )
+                    self.df.dropna(subset=[col], inplace=True)
                 else:
                     error_msg = (
                         f"Strategy '{strategy}' incompatible with "
@@ -199,9 +182,7 @@ class CSVAnalyzer:
                 raise ValueError(f"Invalid normalization method: {method}")
         return self.df
 
-    def encode_categorical_data(
-        self, columns=None, method="one-hot"
-    ) -> pd.DataFrame:
+    def encode_categorical_data(self, columns=None, method="one-hot") -> pd.DataFrame:
         """Encodes categorical data in specified columns.
 
         Args:
@@ -220,9 +201,7 @@ class CSVAnalyzer:
 
         if method == "one-hot":
             for col in columns:
-                dummies = pd.get_dummies(
-                    self.df[col], prefix=col, prefix_sep="_"
-                )
+                dummies = pd.get_dummies(self.df[col], prefix=col, prefix_sep="_")
                 self.df = pd.concat([self.df, dummies], axis=1)
                 self.df.drop(columns=[col], inplace=True)
         else:

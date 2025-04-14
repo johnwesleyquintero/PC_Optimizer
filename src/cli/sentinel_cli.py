@@ -37,7 +37,7 @@ class SentinelCLI:
             results: Dictionary containing optimization results
         """
         if not results["success"]:
-            error_msg = results.get('error', 'Unknown error')
+            error_msg = results.get("error", "Unknown error")
             print(f"\nOptimization failed: {error_msg}")
             return
 
