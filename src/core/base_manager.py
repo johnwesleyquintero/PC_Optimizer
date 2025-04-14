@@ -7,6 +7,7 @@ ensuring consistent method signatures and behavior across the application.
 from abc import ABC, abstractmethod
 from typing import Dict, Any, Optional
 
+
 class BaseManager(ABC):
     """
     Base interface for all manager classes.
@@ -14,6 +15,7 @@ class BaseManager(ABC):
     This abstract base class defines the common methods that all manager
     classes in SentinelPC should implement.
     """
+
     @abstractmethod
     def initialize(self, config: Optional[Dict[str, Any]] = None) -> bool:
         """Initialize the manager with optional configuration.
@@ -35,6 +37,7 @@ class BaseManager(ABC):
         """
         pass
 
+
 class BaseEnvironmentManager(BaseManager):
     """
     Interface for environment management functionality.
@@ -42,6 +45,7 @@ class BaseEnvironmentManager(BaseManager):
     This abstract base class defines the methods for managing the system
     environment.
     """
+
     @abstractmethod
     def get_system_info(self) -> Dict[str, Any]:
         """Get current system information.
@@ -60,6 +64,7 @@ class BaseEnvironmentManager(BaseManager):
         """
         pass
 
+
 class BaseMonitoringManager(BaseManager):
     """
     Interface for system monitoring functionality.
@@ -67,6 +72,7 @@ class BaseMonitoringManager(BaseManager):
     This abstract base class defines the methods for monitoring system
     performance and health.
     """
+
     @abstractmethod
     def get_system_metrics(self) -> Dict[str, Any]:
         """Get current system metrics.
@@ -85,6 +91,7 @@ class BaseMonitoringManager(BaseManager):
         """
         pass
 
+
 class BasePerformanceOptimizer(BaseManager):
     """
     Interface for performance optimization functionality.
@@ -92,6 +99,7 @@ class BasePerformanceOptimizer(BaseManager):
     This abstract base class defines the methods for optimizing system
     performance.
     """
+
     @abstractmethod
     def optimize_system(self, profile: Optional[str] = None) -> Dict[str, Any]:
         """Optimize system performance.

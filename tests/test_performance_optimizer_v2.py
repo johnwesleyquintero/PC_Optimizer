@@ -1,6 +1,7 @@
 import unittest
 from src.core.performance_optimizer_v2 import PerformanceOptimizerV2
 
+
 class TestPerformanceOptimizerV2(unittest.TestCase):
     def setUp(self):
         self.optimizer = PerformanceOptimizerV2()
@@ -12,5 +13,6 @@ class TestPerformanceOptimizerV2(unittest.TestCase):
         except Exception as e:
             self.fail(f"optimize_system raised an exception: {e}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

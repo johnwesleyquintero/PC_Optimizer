@@ -9,6 +9,7 @@ import configparser
 import darkdetect
 import multiprocessing
 
+
 class SentinelPC:
     """
     Main class for SentinelPC application that consolidates configuration and performance management.
@@ -17,9 +18,10 @@ class SentinelPC:
     configuration settings, setting up logging, and performing system
     optimization tasks.
     """
-    VERSION = '1.0.0'
 
-    def __init__(self, config_file='config.ini'):
+    VERSION = "1.0.0"
+
+    def __init__(self, config_file="config.ini"):
         self.system = platform.system()
         self.config_dir = self._get_config_dir()
         self.config_path = self.config_dir / config_file
@@ -29,7 +31,7 @@ class SentinelPC:
     def _get_config_dir(self) -> Path:
         """Get the appropriate configuration directory based on the operating system."""
         if self.system == "Windows":
-            return Path(os.environ['APPDATA']) / "SentinelPC"
+            return Path(os.environ["APPDATA"]) / "SentinelPC"
         elif self.system == "Darwin":
             return Path.home() / "Library/Application Support/SentinelPC"
         else:
@@ -38,38 +40,40 @@ class SentinelPC:
     def _load_config(self) -> configparser.ConfigParser:
         """Load configuration with default values and user overrides."""
         config = configparser.ConfigParser()
-        config.read_dict({
-            'UI': {'theme': 'auto', 'animations': 'true'},
-            'Performance': {'max_threads': 'auto'},
-            'Paths': {'output_dir': 'auto'},
-            'System': {'memory_threshold': str(2 * 1024**3)}
-        })
+        config.read_dict(
+            {
+                "UI": {"theme": "auto", "animations": "true"},
+                "Performance": {"max_threads": "auto"},
+                "Paths": {"output_dir": "auto"},
+                "System": {"memory_threshold": str(2 * 1024**3)},
+            }
+        )
         if self.config_path.exists():
             config.read(self.config_path)
         return config
 
     def _setup_logging(self):
         """Configure logging for SentinelPC."""
-        log_file = self.config_dir / 'sentinel_pc.log'
+        log_file = self.config_dir / "sentinel_pc.log"
         logging.basicConfig(
             filename=str(log_file),
             level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         )
 
     @property
     def theme(self) -> str:
         """Get the current theme setting."""
-        theme_choice = self.config['UI']['theme']
-        if theme_choice == 'auto':
-            return 'dark' if darkdetect.isDark() else 'light'
+        theme_choice = self.config["UI"]["theme"]
+        if theme_choice == "auto":
+            return "dark" if darkdetect.isDark() else "light"
         return theme_choice
 
     @property
     def max_threads(self) -> int:
         """Get the maximum number of threads for optimization tasks."""
-        threads = self.config['Performance']['max_threads']
-        if threads == 'auto':
+        threads = self.config["Performance"]["max_threads"]
+        if threads == "auto":
             return max(1, multiprocessing.cpu_count() - 1)
         return int(threads)
 
@@ -78,7 +82,7 @@ class SentinelPC:
         try:
             logging.info("Starting system optimization")
             tasks = self._get_optimization_tasks()
-            
+
             if not tasks:
                 logging.warning("No optimization tasks found")
                 return True
@@ -86,7 +90,7 @@ class SentinelPC:
             thread_count = min(self.max_threads, len(tasks))
             with ThreadPoolExecutor(max_workers=thread_count) as executor:
                 results = list(executor.map(self._execute_task, tasks))
-            
+
             return all(results)
 
         except Exception as e:
@@ -102,9 +106,9 @@ class SentinelPC:
         """
         tasks = []
         if psutil.virtual_memory().percent > 80:
-            tasks.append(('memory', self._optimize_memory))
+            tasks.append(("memory", self._optimize_memory))
         if psutil.cpu_percent(interval=1) > 70:
-            tasks.append(('cpu', self._optimize_cpu))
+            tasks.append(("cpu", self._optimize_cpu))
         return tasks
 
     def _execute_task(self, task: tuple) -> bool:

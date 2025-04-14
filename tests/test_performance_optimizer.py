@@ -8,14 +8,15 @@ from src.core.performance_optimizer import (
     OptimizationError,
     TaskExecutionError,
     MemoryOptimizationError,
-    FileCleanupError
+    FileCleanupError,
 )
+
 
 class TestPerformanceOptimizer(unittest.TestCase):
     def setUp(self):
         self.optimizer = PerformanceOptimizer()
 
-    @patch('src.core.performance_optimizer.ThreadPoolExecutor')
+    @patch("src.core.performance_optimizer.ThreadPoolExecutor")
     def test_optimize_system_success(self, mock_executor):
         # Mock successful task execution
         mock_context = MagicMock()
@@ -27,7 +28,7 @@ class TestPerformanceOptimizer(unittest.TestCase):
         result = self.optimizer.optimize_system()
         self.assertTrue(result)
 
-    @patch('src.core.performance_optimizer.ThreadPoolExecutor')
+    @patch("src.core.performance_optimizer.ThreadPoolExecutor")
     def test_optimize_system_task_failure(self, mock_executor):
         # Mock failed task execution
         mock_context = MagicMock()
@@ -39,48 +40,43 @@ class TestPerformanceOptimizer(unittest.TestCase):
         with self.assertRaises(TaskExecutionError):
             self.optimizer.optimize_system()
 
-    @patch('psutil.virtual_memory')
+    @patch("psutil.virtual_memory")
     def test_adjust_memory_usage_critical(self, mock_vmem):
         # Mock critical memory condition
         mock_vmem.return_value = MagicMock(
-            available=1 * 1024**3,  # 1GB available
-            percent=90
+            available=1 * 1024**3, percent=90  # 1GB available
         )
 
         self.optimizer.adjust_memory_usage()
         self.assertEqual(
-            self.optimizer.config.config.get('Performance', 'max_threads'),
-            '2'
+            self.optimizer.config.config.get("Performance", "max_threads"), "2"
         )
 
-    @patch('psutil.virtual_memory')
+    @patch("psutil.virtual_memory")
     def test_adjust_memory_usage_warning(self, mock_vmem):
         # Mock warning memory condition
         mock_vmem.return_value = MagicMock(
-            available=3 * 1024**3,  # 3GB available
-            percent=70
+            available=3 * 1024**3, percent=70  # 3GB available
         )
 
         self.optimizer.adjust_memory_usage()
         self.assertEqual(
-            self.optimizer.config.config.get('Performance', 'max_threads'),
-            '4'
+            self.optimizer.config.config.get("Performance", "max_threads"), "4"
         )
 
-    @patch('psutil.virtual_memory')
+    @patch("psutil.virtual_memory")
     def test_adjust_memory_usage_optimal(self, mock_vmem):
         # Mock optimal memory condition
         mock_vmem.return_value = MagicMock(
-            available=8 * 1024**3,  # 8GB available
-            percent=30
+            available=8 * 1024**3, percent=30  # 8GB available
         )
 
         result = self.optimizer.adjust_memory_usage()
         self.assertTrue(result)
 
-    @patch('pathlib.Path.iterdir')
-    @patch('pathlib.Path.is_file')
-    @patch('pathlib.Path.unlink')
+    @patch("pathlib.Path.iterdir")
+    @patch("pathlib.Path.is_file")
+    @patch("pathlib.Path.unlink")
     def test_clean_temp_files_success(self, mock_unlink, mock_is_file, mock_iterdir):
         # Mock successful file cleanup
         mock_file = MagicMock()
@@ -93,7 +89,7 @@ class TestPerformanceOptimizer(unittest.TestCase):
         self.assertTrue(result)
         mock_unlink.assert_called_once()
 
-    @patch('pathlib.Path.iterdir')
+    @patch("pathlib.Path.iterdir")
     def test_clean_temp_files_permission_error(self, mock_iterdir):
         # Mock permission error during cleanup
         mock_file = MagicMock()
@@ -107,7 +103,8 @@ class TestPerformanceOptimizer(unittest.TestCase):
     def test_get_log_path(self):
         log_path = self.optimizer.get_log_path()
         self.assertIsInstance(log_path, Path)
-        self.assertTrue(str(log_path).endswith('.log'))
+        self.assertTrue(str(log_path).endswith(".log"))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

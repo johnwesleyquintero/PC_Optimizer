@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime
 
+
 class LoggingManager:
     """
     Centralized logging management for the PC Optimizer application.
@@ -23,11 +24,11 @@ class LoggingManager:
         return cls._instance
 
     def __init__(self, config_path: Optional[str] = None):
-        if not hasattr(self, 'initialized'):
+        if not hasattr(self, "initialized"):
             self.config = configparser.ConfigParser()
             if config_path:
                 self.config.read(config_path)
-            self.log_dir = Path(self.config.get('Logging', 'log_dir', fallback='logs'))
+            self.log_dir = Path(self.config.get("Logging", "log_dir", fallback="logs"))
             self.log_dir.mkdir(parents=True, exist_ok=True)
             self._setup_enhanced_logging()
             self.initialized = True
@@ -37,18 +38,25 @@ class LoggingManager:
         """Set up basic logging configuration for initial startup."""
         logging.basicConfig(
             level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         )
 
     def _setup_enhanced_logging(self):
         """Configure the logging system with file and console handlers based on config."""
         # Get configuration values
-        log_level = getattr(logging, self.config.get('Logging', 'log_level', fallback='INFO').upper())
-        log_format = self.config.get('Logging', 'log_format', 
-            fallback='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        max_file_size = self.config.getint('Logging', 'max_file_size', fallback=10485760)  # 10MB
-        backup_count = self.config.getint('Logging', 'backup_count', fallback=5)
-        
+        log_level = getattr(
+            logging, self.config.get("Logging", "log_level", fallback="INFO").upper()
+        )
+        log_format = self.config.get(
+            "Logging",
+            "log_format",
+            fallback="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        )
+        max_file_size = self.config.getint(
+            "Logging", "max_file_size", fallback=10485760
+        )  # 10MB
+        backup_count = self.config.getint("Logging", "backup_count", fallback=5)
+
         # Create formatter
         formatter = logging.Formatter(log_format)
 
@@ -61,19 +69,19 @@ class LoggingManager:
             root_logger.removeHandler(handler)
 
         # File handler (if enabled)
-        if self.config.getboolean('Logging', 'file_logging', fallback=True):
-            log_file = self.log_dir / self.config.get('Logging', 'log_file', fallback='SentinelPC.log')
+        if self.config.getboolean("Logging", "file_logging", fallback=True):
+            log_file = self.log_dir / self.config.get(
+                "Logging", "log_file", fallback="SentinelPC.log"
+            )
             file_handler = RotatingFileHandler(
-                log_file,
-                maxBytes=max_file_size,
-                backupCount=backup_count
+                log_file, maxBytes=max_file_size, backupCount=backup_count
             )
             file_handler.setLevel(log_level)
             file_handler.setFormatter(formatter)
             root_logger.addHandler(file_handler)
 
         # Console handler (if enabled)
-        if self.config.getboolean('Logging', 'console_logging', fallback=True):
+        if self.config.getboolean("Logging", "console_logging", fallback=True):
             console_handler = logging.StreamHandler()
             console_handler.setLevel(log_level)
             console_handler.setFormatter(formatter)

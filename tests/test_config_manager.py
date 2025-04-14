@@ -1,6 +1,7 @@
 import unittest
 from src.core.config_manager import EnvironmentConfig
 
+
 class TestEnvironmentConfig(unittest.TestCase):
     def setUp(self):
         self.config = EnvironmentConfig()
@@ -12,5 +13,6 @@ class TestEnvironmentConfig(unittest.TestCase):
         except Exception as e:
             self.fail(f"_load_config raised an exception: {e}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,6 @@
 import pandas as pd
 
+
 class CSVAnalyzer:
     """A class for analyzing CSV files using pandas.
 
@@ -33,14 +34,22 @@ class CSVAnalyzer:
         except FileNotFoundError:
             raise FileNotFoundError(f"CSV file not found: {self.file_path}")
         except pd.errors.ParserError as e:
-            raise pd.errors.ParserError(f"Error parsing CSV file: {self.file_path}. Ensure it is a valid CSV format. Details: {e}")
+            raise pd.errors.ParserError(
+                f"Error parsing CSV file: {self.file_path}. Ensure it is a valid CSV format. Details: {e}"
+            )
         except pd.errors.EmptyDataError:
-            raise pd.errors.EmptyDataError(f"CSV file is empty or contains no data: {self.file_path}")
+            raise pd.errors.EmptyDataError(
+                f"CSV file is empty or contains no data: {self.file_path}"
+            )
         except Exception as e:
-            raise Exception(f"Unexpected error loading CSV file: {self.file_path}. Details: {e}")
+            raise Exception(
+                f"Unexpected error loading CSV file: {self.file_path}. Details: {e}"
+            )
 
         if df.empty:
-            raise pd.errors.EmptyDataError(f"Loaded CSV DataFrame is empty: {self.file_path}")
+            raise pd.errors.EmptyDataError(
+                f"Loaded CSV DataFrame is empty: {self.file_path}"
+            )
         return df
 
     def get_head(self, n: int = 5) -> pd.DataFrame:
@@ -73,10 +82,10 @@ class CSVAnalyzer:
         Returns:
             pd.DataFrame: Descriptive statistics of the DataFrame, including count, mean, std, min, max, and percentiles.
         """
-        return self.df.describe(include='all')
+        return self.df.describe(include="all")
 
     def handle_missing_values(
-        self, strategy: str = 'mean', columns: list[str] | None = None
+        self, strategy: str = "mean", columns: list[str] | None = None
     ) -> pd.DataFrame:
         """Handles missing values in the DataFrame using a specified strategy for specified columns.
 
@@ -92,8 +101,10 @@ class CSVAnalyzer:
         Raises:
             ValueError: If invalid strategy or incompatible column data type.
         """
-        if strategy not in ['mean', 'median', 'mode', 'drop']:
-            raise ValueError(f"Invalid strategy: '{strategy}'. Choose from 'mean', 'median', 'mode', 'drop'.")
+        if strategy not in ["mean", "median", "mode", "drop"]:
+            raise ValueError(
+                f"Invalid strategy: '{strategy}'. Choose from 'mean', 'median', 'mode', 'drop'."
+            )
 
         if columns is None:
             columns = self.df.columns[self.df.isnull().any()].tolist()
@@ -102,19 +113,25 @@ class CSVAnalyzer:
 
         for col in columns:
             if self.df[col].isnull().any():
-                if strategy == 'mean' and pd.api.types.is_numeric_dtype(self.df[col]):
+                if strategy == "mean" and pd.api.types.is_numeric_dtype(self.df[col]):
                     self.df[col].fillna(self.df[col].mean(), inplace=True)
-                elif strategy == 'median' and pd.api.types.is_numeric_dtype(self.df[col]):
+                elif strategy == "median" and pd.api.types.is_numeric_dtype(
+                    self.df[col]
+                ):
                     self.df[col].fillna(self.df[col].median(), inplace=True)
-                elif strategy == 'mode':
+                elif strategy == "mode":
                     self.df[col].fillna(self.df[col].mode()[0], inplace=True)
-                elif strategy == 'drop':
+                elif strategy == "drop":
                     self.df.dropna(subset=[col], inplace=True)
                 else:
-                    raise ValueError(f"Strategy '{strategy}' incompatible with column '{col}' type.")
+                    raise ValueError(
+                        f"Strategy '{strategy}' incompatible with column '{col}' type."
+                    )
         return self.df
 
-    def remove_duplicates(self, columns: list[str] = None, keep: str = 'first') -> pd.DataFrame:
+    def remove_duplicates(
+        self, columns: list[str] = None, keep: str = "first"
+    ) -> pd.DataFrame:
         """
         Removes duplicate rows from the DataFrame based on specified columns.
 
@@ -133,7 +150,9 @@ class CSVAnalyzer:
         self.df.drop_duplicates(subset=columns, keep=keep, inplace=True)
         return self.df
 
-    def normalize_data(self, columns: list[str] = None, method: str = 'min-max') -> pd.DataFrame:
+    def normalize_data(
+        self, columns: list[str] = None, method: str = "min-max"
+    ) -> pd.DataFrame:
         """
         Normalizes numerical data in specified columns using the chosen method.
 
@@ -152,15 +171,15 @@ class CSVAnalyzer:
             ValueError: If an invalid normalization method is provided.
         """
         if columns is None:
-            columns = self.df.select_dtypes(include=['number']).columns.tolist()
+            columns = self.df.select_dtypes(include=["number"]).columns.tolist()
 
         for col in columns:
-            if method == 'min-max':
+            if method == "min-max":
                 min_val = self.df[col].min()
                 max_val = self.df[col].max()
                 if min_val != max_val:  # Avoid division by zero
                     self.df[col] = (self.df[col] - min_val) / (max_val - min_val)
-            elif method == 'z-score':
+            elif method == "z-score":
                 mean_val = self.df[col].mean()
                 std_val = self.df[col].std()
                 if std_val != 0:  # Avoid division by zero
@@ -169,7 +188,7 @@ class CSVAnalyzer:
                 raise ValueError(f"Invalid normalization method: {method}")
         return self.df
 
-    def encode_categorical_data(self, columns=None, method='one-hot'):
+    def encode_categorical_data(self, columns=None, method="one-hot"):
         """
         Encodes categorical data in specified columns.
 
@@ -183,11 +202,15 @@ class CSVAnalyzer:
             ValueError: If an invalid encoding method is provided.
         """
         if columns is None:
-            columns = self.df.select_dtypes(include=['object', 'category']).columns.tolist()
+            columns = self.df.select_dtypes(
+                include=["object", "category"]
+            ).columns.tolist()
 
         for col in columns:
-            if method == 'one-hot':
-                self.df = pd.get_dummies(self.df, columns=[col], prefix=[col], dummy_na=False)  # dummy_na=False to exclude NaN category
+            if method == "one-hot":
+                self.df = pd.get_dummies(
+                    self.df, columns=[col], prefix=[col], dummy_na=False
+                )  # dummy_na=False to exclude NaN category
             else:
                 raise ValueError(f"Invalid encoding method: {method}")
         return self.df
@@ -204,10 +227,10 @@ class CSVAnalyzer:
             pd.DataFrame: Descriptive statistics.
         """
         if columns is None:
-            columns = self.df.select_dtypes(include=['number']).columns.tolist()
+            columns = self.df.select_dtypes(include=["number"]).columns.tolist()
         return self.df[columns].describe()
 
-    def calculate_correlation_matrix(self, method='pearson', columns=None):
+    def calculate_correlation_matrix(self, method="pearson", columns=None):
         """
         Calculates the correlation matrix for numerical columns.
 
@@ -220,7 +243,7 @@ class CSVAnalyzer:
             pd.DataFrame: Correlation matrix.
         """
         if columns is None:
-            columns = self.df.select_dtypes(include=['number']).columns.tolist()
+            columns = self.df.select_dtypes(include=["number"]).columns.tolist()
         return self.df[columns].corr(method=method)
 
     def analyze_column_distribution(self, column):
@@ -238,13 +261,16 @@ class CSVAnalyzer:
         if column not in self.df.columns:
             raise ValueError(f"Column '{column}' not found in DataFrame.")
 
-        if pd.api.types.is_categorical_dtype(self.df[column]) or \
-           pd.api.types.is_object_dtype(self.df[column]):
+        if pd.api.types.is_categorical_dtype(
+            self.df[column]
+        ) or pd.api.types.is_object_dtype(self.df[column]):
             return self.df[column].value_counts()
         elif pd.api.types.is_numeric_dtype(self.df[column]):
             return self.df[column].describe()
         else:
-            return pd.Series(f"Column '{column}' is of type {self.df[column].dtype}, analysis not available.")
+            return pd.Series(
+                f"Column '{column}' is of type {self.df[column].dtype}, analysis not available."
+            )
 
     def detect_outliers(self, column, threshold=3):
         """
@@ -262,7 +288,9 @@ class CSVAnalyzer:
         if column not in self.df.columns:
             raise ValueError(f"Column '{column}' not found in DataFrame.")
         if not pd.api.types.is_numeric_dtype(self.df[column]):
-            raise ValueError(f"Column '{column}' is not numerical and cannot be analyzed for outliers.")
+            raise ValueError(
+                f"Column '{column}' is not numerical and cannot be analyzed for outliers."
+            )
 
         z_scores = (self.df[column] - self.df[column].mean()) / self.df[column].std()
         outliers = self.df[abs(z_scores) > threshold]

@@ -9,27 +9,41 @@ from typing import Optional
 
 # --- Base GUI Exception ---
 
+
 class GuiException(Exception):
     """Base class for exceptions raised by the GUI module."""
+
     def __init__(self, message: str = "An unspecified GUI error occurred."):
         super().__init__(message)
 
+
 # --- Worker Related Exceptions ---
+
 
 class WorkerError(GuiException):
     """Base class for exceptions related to the GUIWorker."""
+
     def __init__(self, message: str = "An error occurred in the GUI worker."):
         super().__init__(message)
 
+
 class WorkerNotRunningError(WorkerError):
     """Exception raised when attempting to use a worker that is not running."""
-    def __init__(self, message: str = "Operation failed: The GUI worker is not running."):
+
+    def __init__(
+        self, message: str = "Operation failed: The GUI worker is not running."
+    ):
         super().__init__(message)
+
 
 class WorkerQueueFullError(WorkerError):
     """Exception raised when the worker's task queue is full."""
-    def __init__(self, message: str = "Operation failed: The GUI worker task queue is full."):
+
+    def __init__(
+        self, message: str = "Operation failed: The GUI worker task queue is full."
+    ):
         super().__init__(message)
+
 
 class CancelledException(WorkerError):
     """Exception raised when a worker task is cancelled.
@@ -37,6 +51,7 @@ class CancelledException(WorkerError):
     This can occur due to worker shutdown or an explicit cancellation request.
     It inherits from WorkerError as it relates to task execution within the worker.
     """
+
     def __init__(self, reason: Optional[str] = None):
         """Initialize the CancelledException.
 
@@ -47,10 +62,13 @@ class CancelledException(WorkerError):
         message = f"Worker task cancelled: {self.reason}"
         super().__init__(message)
 
+
 # --- UI Related Exceptions ---
+
 
 class GuiResourceError(GuiException):
     """Exception raised when a GUI resource (e.g., image, theme) cannot be loaded."""
+
     def __init__(self, resource_name: str, message: Optional[str] = None):
         """Initialize the GuiResourceError.
 
@@ -62,11 +80,13 @@ class GuiResourceError(GuiException):
         if message is None:
             message = f"Failed to load GUI resource: '{resource_name}'."
         else:
-             message = f"Failed to load GUI resource '{resource_name}': {message}"
+            message = f"Failed to load GUI resource '{resource_name}': {message}"
         super().__init__(message)
+
 
 class GuiCallbackError(GuiException):
     """Exception raised when an error occurs within a GUI callback function."""
+
     def __init__(self, callback_name: str, original_exception: Exception):
         """Initialize the GuiCallbackError.
 
@@ -78,4 +98,3 @@ class GuiCallbackError(GuiException):
         self.original_exception = original_exception
         message = f"Error executing GUI callback '{callback_name}': {type(original_exception).__name__}: {original_exception}"
         super().__init__(message)
-

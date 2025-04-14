@@ -10,6 +10,7 @@ from pathlib import Path
 from dataclasses import dataclass
 from enum import Enum
 
+
 class FeatureState(Enum):
     """
     Enum representing possible states of a feature.
@@ -20,10 +21,12 @@ class FeatureState(Enum):
         - BETA: Feature is in beta testing.
         - ALPHA: Feature is in alpha testing.
     """
+
     ENABLED = "enabled"
     DISABLED = "disabled"
     BETA = "beta"
     ALPHA = "alpha"
+
 
 @dataclass
 class Feature:
@@ -37,18 +40,20 @@ class Feature:
         dependencies (list[str], optional): A list of feature names that this feature depends on. Defaults to None.
         config (Dict[str, Any], optional): A dictionary containing configuration settings for the feature. Defaults to None.
     """
+
     name: str
     state: FeatureState
     description: str
     dependencies: list[str] = None
     config: Dict[str, Any] = None
 
+
 class FeatureFlags:
     """Manages feature flags for the application."""
-    
+
     def __init__(self, config_path: Optional[Path] = None):
         """Initialize the feature flags system.
-        
+
         Args:
             config_path: Optional path to feature flags configuration file
         """
@@ -63,15 +68,15 @@ class FeatureFlags:
             return
 
         try:
-            with open(self._config_path, 'r') as f:
+            with open(self._config_path, "r") as f:
                 data = json.load(f)
                 for name, config in data.items():
                     self._features[name] = Feature(
                         name=name,
-                        state=FeatureState(config.get('state', 'disabled')),
-                        description=config.get('description', ''),
-                        dependencies=config.get('dependencies', []),
-                        config=config.get('config', {})
+                        state=FeatureState(config.get("state", "disabled")),
+                        description=config.get("description", ""),
+                        dependencies=config.get("dependencies", []),
+                        config=config.get("config", {}),
                     )
         except Exception as e:
             print(f"Error loading feature flags: {e}")
@@ -80,28 +85,28 @@ class FeatureFlags:
     def _initialize_default_features(self) -> None:
         """Initialize default feature configurations."""
         self._features = {
-            'ai_auto_tune': Feature(
-                name='ai_auto_tune',
+            "ai_auto_tune": Feature(
+                name="ai_auto_tune",
                 state=FeatureState.BETA,
-                description='AI-powered system optimization',
-                config={'model_type': 'light'}
+                description="AI-powered system optimization",
+                config={"model_type": "light"},
             ),
-            'cloud_sync': Feature(
-                name='cloud_sync',
+            "cloud_sync": Feature(
+                name="cloud_sync",
                 state=FeatureState.ALPHA,
-                description='Cloud synchronization of settings and profiles',
-                config={'sync_interval': 3600}
+                description="Cloud synchronization of settings and profiles",
+                config={"sync_interval": 3600},
             ),
-            'real_time_stats': Feature(
-                name='real_time_stats',
+            "real_time_stats": Feature(
+                name="real_time_stats",
                 state=FeatureState.ENABLED,
-                description='Real-time system performance monitoring'
+                description="Real-time system performance monitoring",
             ),
-            'plugin_system': Feature(
-                name='plugin_system',
+            "plugin_system": Feature(
+                name="plugin_system",
                 state=FeatureState.DISABLED,
-                description='Plugin system for extending functionality'
-            )
+                description="Plugin system for extending functionality",
+            ),
         }
         self._save_features()
 
@@ -109,38 +114,47 @@ class FeatureFlags:
         """Save current feature configurations to file."""
         try:
             self._config_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(self._config_path, 'w') as f:
-                json.dump({
-                    name: {
-                        'state': feature.state.value,
-                        'description': feature.description,
-                        'dependencies': feature.dependencies,
-                        'config': feature.config
-                    } for name, feature in self._features.items()
-                }, f, indent=4)
+            with open(self._config_path, "w") as f:
+                json.dump(
+                    {
+                        name: {
+                            "state": feature.state.value,
+                            "description": feature.description,
+                            "dependencies": feature.dependencies,
+                            "config": feature.config,
+                        }
+                        for name, feature in self._features.items()
+                    },
+                    f,
+                    indent=4,
+                )
         except Exception as e:
             print(f"Error saving feature flags: {e}")
 
     def is_enabled(self, feature_name: str) -> bool:
         """Check if a feature is enabled.
-        
+
         Args:
             feature_name: Name of the feature to check
-            
+
         Returns:
             bool: True if feature is enabled or in beta/alpha
         """
         feature = self._features.get(feature_name)
         if not feature:
             return False
-        return feature.state in [FeatureState.ENABLED, FeatureState.BETA, FeatureState.ALPHA]
+        return feature.state in [
+            FeatureState.ENABLED,
+            FeatureState.BETA,
+            FeatureState.ALPHA,
+        ]
 
     def get_feature_config(self, feature_name: str) -> Dict[str, Any]:
         """Get configuration for a specific feature.
-        
+
         Args:
             feature_name: Name of the feature
-            
+
         Returns:
             Dict containing feature configuration
         """
@@ -149,24 +163,24 @@ class FeatureFlags:
 
     def set_feature_state(self, feature_name: str, state: FeatureState) -> bool:
         """Update the state of a feature.
-        
+
         Args:
             feature_name: Name of the feature to update
             state: New state for the feature
-            
+
         Returns:
             bool: True if update successful
         """
         if feature_name not in self._features:
             return False
-        
+
         self._features[feature_name].state = state
         self._save_features()
         return True
 
     def get_all_features(self) -> Dict[str, Feature]:
         """Get all feature configurations.
-        
+
         Returns:
             Dict containing all features and their configurations
         """
