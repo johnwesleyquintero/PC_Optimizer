@@ -15,6 +15,7 @@
 *   [x] Install the required packages
 *   [x] Create a GitHub repository
 *   [x] Create a README.md file (Initial version)
+*   [x] **Configure `.gitignore`:** Created a comprehensive `.gitignore` file to exclude common development artifacts (Python cache, venv, IDE files, logs, most build outputs) while explicitly preserving `dist/SentinelPC.exe` for tracking. (Small, `.gitignore`)
 *   [x] Consolidate configuration management (`config_manager.py`)
 *   [x] Consolidate performance optimization (`performance_optimizer.py`)
 *   [x] Remove redundant `_v2` files (`config_manager_v2.py`, `performance_optimizer_v2.py`, `SentinelPC_cli_v2.py`, `SentinelPC_gui_v2.py`)
