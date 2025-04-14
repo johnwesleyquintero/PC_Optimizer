@@ -632,7 +632,6 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                 "profile": profile,
                 "error_type": type(e).__name__
             }) from e
-        ]
         return sorted(tasks, key=lambda x: x['priority'])
 
     def _optimize_task(self, task: Dict[str, Any]) -> bool:
