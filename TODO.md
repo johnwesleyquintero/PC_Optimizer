@@ -7,6 +7,10 @@
 1.  **Consolidate into `SentinelPC`:** Merge existing functionalities (CLI, GUI, Core) into a single, unified application named `SentinelPC`. This involves architectural changes, renaming, and updating entry points/build processes. *(Status: Largely Complete)*
 2.  **Implement Semantic Versioning:** Adopt SemVer (e.g., `v1.0.0`) across the project for clear version tracking, remove informal version suffixes, and use Git tags. *(Status: Complete)*
 
+## Command Used
+
+`.\run_tasks.bat`
+
 ---
 
 ## Completed (Verified based on current structure/files or user report)
