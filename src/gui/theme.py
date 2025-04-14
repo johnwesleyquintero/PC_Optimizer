@@ -21,17 +21,22 @@ def apply_modern_theme(root: tk.Tk) -> ttk.Style:
     # Using a slightly adjusted palette for better contrast and modern feel
     COLOR_PRIMARY = "#007ACC"        # A standard, accessible blue
     COLOR_PRIMARY_ACTIVE = "#005F9E" # Darker blue for active/hover states
+    COLOR_PRIMARY_HOVER = "#0098FF"  # Lighter blue for hover effects
     COLOR_BG = "#F0F0F0"             # Light gray background (less stark than white)
+    COLOR_BG_HOVER = "#E5E5E5"       # Slightly darker background for hover
     COLOR_CONTENT_BG = "#FFFFFF"     # White background for content areas like Text, Treeview
     COLOR_TEXT = "#212121"           # Dark gray for main text (good contrast)
     COLOR_TEXT_SECONDARY = "#757575" # Lighter gray for less important text
     COLOR_TEXT_ON_PRIMARY = "#FFFFFF" # White text for use on primary color backgrounds
     COLOR_SIDEBAR = "#E0E0E0"         # Slightly darker gray for sidebar differentiation
+    COLOR_SIDEBAR_HOVER = "#D0D0D0"   # Hover effect for sidebar items
     COLOR_BORDER = "#BDBDBD"         # Subtle border color
+    COLOR_BORDER_HOVER = "#9E9E9E"   # Darker border for hover states
     COLOR_DISABLED_FG = "#A0A0A0"    # Gray for disabled text
     COLOR_DISABLED_BG = "#D0D0D0"    # Lighter gray for disabled background elements
     COLOR_TREE_SELECT_BG = COLOR_PRIMARY # Use primary color for Treeview selection
     COLOR_TREE_SELECT_FG = COLOR_TEXT_ON_PRIMARY
+    COLOR_TREE_HOVER_BG = COLOR_PRIMARY_HOVER # Hover effect for tree items
 
     # --- Base Font ---
     # Using Segoe UI as primary, with fallbacks for other systems
@@ -94,9 +99,44 @@ def apply_modern_theme(root: tk.Tk) -> ttk.Style:
                     padding=(10, 8),
                     borderwidth=0)
     style.map('Sidebar.TButton',
-              background=[('active', COLOR_BORDER), # Subtle gray on hover/press
-                          ('!disabled', 'hover', COLOR_BORDER)], # Explicit hover
-              foreground=[('active', COLOR_TEXT)])
+              background=[('active', COLOR_SIDEBAR_HOVER),
+                         ('!disabled', 'hover', COLOR_SIDEBAR_HOVER)],
+              foreground=[('active', COLOR_TEXT),
+                         ('hover', COLOR_TEXT)],
+              bordercolor=[('hover', COLOR_BORDER_HOVER)])
+
+    # --- Button Style ---
+    style.configure('TButton',
+                    background=COLOR_PRIMARY,
+                    foreground=COLOR_TEXT_ON_PRIMARY,
+                    padding=(10, 5),
+                    font=BASE_FONT)
+    style.map('TButton',
+              background=[('active', COLOR_PRIMARY_ACTIVE),
+                         ('!disabled', 'hover', COLOR_PRIMARY_HOVER)],
+              foreground=[('active', COLOR_TEXT_ON_PRIMARY),
+                         ('hover', COLOR_TEXT_ON_PRIMARY)])
+
+    # --- Entry Style ---
+    style.configure('TEntry',
+                    fieldbackground=COLOR_CONTENT_BG,
+                    foreground=COLOR_TEXT,
+                    borderwidth=1,
+                    bordercolor=COLOR_BORDER)
+    style.map('TEntry',
+              bordercolor=[('focus', COLOR_PRIMARY),
+                          ('hover', COLOR_BORDER_HOVER)],
+              fieldbackground=[('hover', COLOR_BG_HOVER)])
+
+    # --- Treeview Style ---
+    style.configure('Treeview',
+                    background=COLOR_CONTENT_BG,
+                    foreground=COLOR_TEXT,
+                    fieldbackground=COLOR_CONTENT_BG)
+    style.map('Treeview',
+              background=[('selected', COLOR_TREE_SELECT_BG),
+                         ('!selected', 'hover', COLOR_TREE_HOVER_BG)],
+              foreground=[('selected', COLOR_TREE_SELECT_FG)])
 
     # --- Content Area Style ---
     style.configure('Content.TFrame', background=COLOR_CONTENT_BG) # White background for main content

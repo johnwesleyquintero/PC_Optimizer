@@ -298,45 +298,42 @@ class AdaptiveGUI:
             raise GuiException(f"Cleaning temp files failed: {e}") # Raise custom exception
 
     def _check_disk_usage_task(self) -> str:
-        """Task to check disk usage."""
+        """Task to check disk usage using the core performance optimizer."""
         logger.info("Worker: Running check_disk_usage task...")
         log_messages = []
         try:
-            partitions = psutil.disk_partitions(all=False) # Only physical drives
-            if not partitions:
+            optimizer = PerformanceOptimizer()
+            disk_info = optimizer.get_disk_usage()
+            
+            if not disk_info:
                 return "No physical disk partitions found."
 
-            for partition in partitions:
-                 # Check if mountpoint exists and is accessible
-                 # Add try-except for cases like removable drives ejected during scan
-                 try:
-                    if os.path.exists(partition.mountpoint):
-                        usage = shutil.disk_usage(partition.mountpoint)
-                        total_gb = usage.total / (1024**3)
-                        used_gb = usage.used / (1024**3)
-                        free_gb = usage.free / (1024**3)
-                        percent_used = (usage.used / usage.total * 100) if usage.total > 0 else 0
+            for device, info in disk_info.items():
+                try:
+                    total_gb = info['total'] / (1024**3)
+                    used_gb = info['used'] / (1024**3)
+                    free_gb = info['free'] / (1024**3)
+                    percent_used = info['percent']
 
-                        msg = f"Drive {partition.device} ({partition.mountpoint}): "
-                        msg += f"Total: {total_gb:.1f} GB, "
-                        msg += f"Used: {used_gb:.1f} GB ({percent_used:.1f}%), "
-                        msg += f"Free: {free_gb:.1f} GB"
-                        log_messages.append(msg)
+                    msg = f"Drive {device}: "
+                    msg += f"Total: {total_gb:.1f} GB, "
+                    msg += f"Used: {used_gb:.1f} GB ({percent_used:.1f}%), "
+                    msg += f"Free: {free_gb:.1f} GB"
+                    log_messages.append(msg)
 
-                        if percent_used > 90:
-                            log_messages.append(f"  WARNING: Drive {partition.mountpoint} is over 90% full!")
-                        elif percent_used > 80:
-                            log_messages.append(f"  INFO: Drive {partition.mountpoint} is over 80% full.")
-                 except OSError as e:
-                     log_messages.append(f"Could not access {partition.mountpoint}: {e}")
-                 except Exception as e:
-                     log_messages.append(f"Error processing partition {partition.device}: {e}")
+                    if percent_used > 90:
+                        log_messages.append(f"  WARNING: Drive {device} is over 90% full!")
+                    elif percent_used > 80:
+                        log_messages.append(f"  INFO: Drive {device} is over 80% full.")
+                except Exception as e:
+                    log_messages.append(f"Error processing drive {device}: {e}")
 
             logger.info("Worker: check_disk_usage task finished.")
             return "\n".join(log_messages) if log_messages else "Could not retrieve disk usage."
         except Exception as e:
             logger.exception("Worker: Error in check_disk_usage task")
             raise GuiException(f"Checking disk usage failed: {e}")
+
 
     def _get_startup_programs_task(self) -> str:
         """Task to list startup programs (Windows only)."""
@@ -385,7 +382,7 @@ class AdaptiveGUI:
         return "\n".join(log_messages)
 
     def _optimize_power_settings_task(self) -> dict:
-        """Task to optimize power settings (Windows only)."""
+        """Task to optimize power settings using the core performance optimizer."""
         logger.info("Worker: Running optimize_power_settings task...")
         if platform.system() != "Windows":
             logger.warning("Worker: optimize_power_settings task skipped (Not on Windows).")
@@ -393,79 +390,59 @@ class AdaptiveGUI:
 
         messages = []
         try:
-            # Check current scheme (optional, but informative)
-            result = subprocess.run(['powercfg', '/getactivescheme'], capture_output=True, text=True, check=True, creationflags=subprocess.CREATE_NO_WINDOW)
-            messages.append(f"Current active scheme: {result.stdout.strip()}")
+            optimizer = PerformanceOptimizer()
+            result = optimizer.optimize_system('power_settings')
+            
+            if result['success']:
+                messages.append("Power settings optimization completed successfully.")
+                messages.append(f"Tasks completed: {result['tasks_completed']}")
+                if result.get('power_profile'):
+                    messages.append(f"Active power profile: {result['power_profile']}")
+            else:
+                if result.get('failed_tasks'):
+                    messages.append(f"Failed tasks: {', '.join(result['failed_tasks'])}")
+                messages.append("Some power optimization tasks failed.")
 
-            # High Performance GUID (usually constant, but could be queried)
-            high_perf_guid = "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
-            messages.append(f"Attempting to set scheme to High Performance ({high_perf_guid})...")
-            subprocess.run(['powercfg', '/setactive', high_perf_guid], check=True, creationflags=subprocess.CREATE_NO_WINDOW)
-            messages.append("Successfully set active scheme to High Performance.")
+            logger.info("Worker: optimize_power_settings task finished.")
+            return {'success': result['success'], 'message': "\n".join(messages)}
 
-            # Example: Adjust specific settings (optional)
-            # Turn off monitor after 15 mins on AC power
-            # subprocess.run(['powercfg', '/change', 'monitor-timeout-ac', '15'], check=True, creationflags=subprocess.CREATE_NO_WINDOW)
-            # messages.append("Set monitor timeout (AC) to 15 minutes.")
-            # Never turn off hard disk on AC power
-            # subprocess.run(['powercfg', '/change', 'disk-timeout-ac', '0'], check=True, creationflags=subprocess.CREATE_NO_WINDOW)
-            # messages.append("Set disk timeout (AC) to Never.")
-
-            logger.info("Worker: optimize_power_settings task finished successfully.")
-            return {'success': True, 'message': "\n".join(messages)}
-
-        except subprocess.CalledProcessError as e:
-            error_msg = f"Command failed: {' '.join(e.cmd)}. Output: {e.stderr or e.stdout}"
-            messages.append(f"Error: {error_msg}")
-            logger.error(f"Worker: optimize_power_settings task failed: {error_msg}")
-            return {'success': False, 'message': "\n".join(messages)}
-        except FileNotFoundError:
-             error_msg = "Error: 'powercfg' command not found. Is it in the system PATH?"
-             messages.append(error_msg)
-             logger.error(f"Worker: optimize_power_settings task failed: {error_msg}")
-             return {'success': False, 'message': "\n".join(messages)}
         except Exception as e:
-            error_msg = f"An unexpected error occurred: {e}"
+            error_msg = f"An unexpected error occurred during power optimization: {e}"
             messages.append(error_msg)
             logger.exception("Worker: Error in optimize_power_settings task")
             return {'success': False, 'message': "\n".join(messages)}
 
 
     def _run_disk_cleanup_task(self) -> dict:
-        """Task to run Windows Disk Cleanup (cleanmgr)."""
+        """Task to run disk cleanup using the core performance optimizer."""
         logger.info("Worker: Running run_disk_cleanup task...")
         if platform.system() != "Windows":
             logger.warning("Worker: run_disk_cleanup task skipped (Not on Windows).")
-            return {'success': False, 'message': "Disk Cleanup (cleanmgr) is only available on Windows."}
+            return {'success': False, 'message': "Disk Cleanup is only available on Windows."}
 
         messages = []
         try:
-            # Note: cleanmgr /sagerun:1 requires prior setup with /sageset:1
-            # It runs based on previously saved settings.
-            # It also often runs in the background, making it hard to track completion accurately.
-            messages.append("Attempting to start Windows Disk Cleanup (cleanmgr /sagerun:1)...")
-            messages.append("This uses settings previously saved via 'cleanmgr /sageset:1'.")
-            messages.append("The cleanup process may run in the background and take time.")
+            optimizer = PerformanceOptimizer()
+            cleanup_result = optimizer.clean_temp_files()
 
-            # Using Popen allows the GUI to remain responsive, but we can't easily wait for completion.
-            process = subprocess.Popen(['cleanmgr', '/sagerun:1'],
-                                         stdout=subprocess.PIPE,
-                                         stderr=subprocess.PIPE,
-                                         creationflags=subprocess.CREATE_NO_WINDOW)
+            if cleanup_result.get('success', False):
+                messages.append("Disk cleanup completed successfully.")
+                if 'files_removed' in cleanup_result:
+                    messages.append(f"Files removed: {cleanup_result['files_removed']}")
+                if 'space_freed' in cleanup_result:
+                    space_freed_gb = cleanup_result['space_freed'] / (1024**3)
+                    messages.append(f"Space freed: {space_freed_gb:.2f} GB")
+            else:
+                if 'error' in cleanup_result:
+                    messages.append(f"Cleanup failed: {cleanup_result['error']}")
+                else:
+                    messages.append("Cleanup completed with no changes.")
 
-            # We won't wait for process.wait() as it might return immediately while cleanup continues.
-            # Just log that it was started.
-            messages.append("Disk Cleanup process initiated. Check system notifications for progress/completion.")
-            logger.info("Worker: Disk Cleanup (cleanmgr /sagerun:1) process started.")
-            return {'success': True, 'message': "\n".join(messages)}
+            logger.info("Worker: Disk cleanup task finished.")
+            return {'success': cleanup_result.get('success', False), 'message': "\n".join(messages)}
 
-        except FileNotFoundError:
-             error_msg = "Error: 'cleanmgr' command not found. Is it in the system PATH?"
-             messages.append(error_msg)
-             logger.error(f"Worker: run_disk_cleanup task failed: {error_msg}")
-             return {'success': False, 'message': "\n".join(messages)}
         except Exception as e:
-            error_msg = f"An unexpected error occurred while trying to start Disk Cleanup: {e}"
+            error_msg = f"An unexpected error occurred during disk cleanup: {e}"
             messages.append(error_msg)
             logger.exception("Worker: Error in run_disk_cleanup task")
             return {'success': False, 'message': "\n".join(messages)}

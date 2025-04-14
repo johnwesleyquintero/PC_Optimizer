@@ -13,8 +13,54 @@ class EnvironmentManager:
         self.logger = LoggingManager().get_logger(__name__)
         self.logger.info("EnvironmentManager: Initializing environment manager")
         self._config = EnvironmentConfig(config_file)
+        self._validate_config()
         self._ensure_directories()
         self.logger.info("EnvironmentManager: Environment manager initialized successfully")
+
+    def _validate_config(self):
+        """Validate configuration values and set defaults if missing."""
+        # Define acceptable ranges and default values
+        config_ranges = {
+            'max_threads': {'min': 1, 'max': 32, 'default': 4},
+            'log_level': {'values': ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'], 'default': 'INFO'},
+            'theme': {'required_keys': ['base', 'text', 'primary'], 'default': {'base': '#F0F0F0', 'text': '#000000', 'primary': '#007ACC'}}
+        }
+
+        # Validate and fix configuration values
+        try:
+            # Validate max_threads
+            if not hasattr(self._config, 'max_threads'):
+                self.logger.warning("max_threads not found in config, using default")
+                self._config.max_threads = config_ranges['max_threads']['default']
+            else:
+                max_threads = self._config.max_threads
+                if not isinstance(max_threads, int) or max_threads < config_ranges['max_threads']['min'] or max_threads > config_ranges['max_threads']['max']:
+                    self.logger.warning(f"Invalid max_threads value: {max_threads}, using default")
+                    self._config.max_threads = config_ranges['max_threads']['default']
+
+            # Validate log_level
+            if not hasattr(self._config, 'log_level') or self._config.log_level not in config_ranges['log_level']['values']:
+                self.logger.warning("Invalid or missing log_level in config, using default")
+                self._config.log_level = config_ranges['log_level']['default']
+
+            # Validate theme
+            if not hasattr(self._config, 'theme') or not isinstance(self._config.theme, dict):
+                self.logger.warning("Theme configuration missing or invalid, using default")
+                self._config.theme = config_ranges['theme']['default'].copy()
+            else:
+                missing_keys = [key for key in config_ranges['theme']['required_keys'] if key not in self._config.theme]
+                if missing_keys:
+                    self.logger.warning(f"Missing theme keys: {missing_keys}, using defaults for those keys")
+                    for key in missing_keys:
+                        self._config.theme[key] = config_ranges['theme']['default'][key]
+
+            # Save validated configuration
+            self._config.save_config()
+            self.logger.info("Configuration validation completed successfully")
+
+        except Exception as e:
+            self.logger.error(f"Configuration validation failed: {e}")
+            raise
 
     def initialize(self) -> bool:
         """Initialize the environment manager.
@@ -30,13 +76,40 @@ class EnvironmentManager:
             return False
 
     def _ensure_directories(self):
-        """Ensure all required directories exist."""
+        """Ensure all required directories exist.
+
+        Creates the following directories if they don't exist:
+        - Output directory for logs and data
+        - Cache directory for temporary data
+        - Config directory for settings
+        - Backup directory for system backups
+        - Temp directory for processing
+        """
         try:
-            output_dir = self._config.output_dir
-            output_dir.mkdir(parents=True, exist_ok=True)
-            self.logger.info(f"EnvironmentManager: Created output directory at {output_dir}")
+            required_dirs = [
+                self._config.output_dir,  # Main output directory
+                self._config.output_dir / 'cache',  # Cache directory
+                self._config.output_dir / 'config',  # Configuration directory
+                self._config.output_dir / 'backups',  # Backup directory
+                self._config.output_dir / 'temp'  # Temporary processing directory
+            ]
+
+            for directory in required_dirs:
+                try:
+                    directory.mkdir(parents=True, exist_ok=True)
+                    # Verify directory permissions
+                    if not os.access(directory, os.W_OK):
+                        self.logger.warning(f"Directory {directory} exists but is not writable")
+                except PermissionError as pe:
+                    self.logger.error(f"Permission denied creating directory {directory}: {pe}")
+                    raise
+                except Exception as e:
+                    self.logger.error(f"Failed to create directory {directory}: {e}")
+                    raise
+
+            self.logger.info("All required directories created successfully")
         except Exception as e:
-            self.logger.error(f"EnvironmentManager: Failed to create output directory: {e}")
+            self.logger.error(f"EnvironmentManager: Failed to create required directories: {e}")
             raise
 
     @property

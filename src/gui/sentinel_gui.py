@@ -143,6 +143,11 @@ class SentinelGUI:
         self.content_frame.configure(style='Content.TFrame', padding="15")
         self.content_frame.grid_columnconfigure(0, weight=1) # Allow content to expand horizontally
 
+        # Create log text widget
+        self.log_text = scrolledtext.ScrolledText(self.content_frame, height=10, wrap=tk.WORD)
+        self.log_text.grid(row=5, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=5, pady=5)
+        self.log_text.configure(state='disabled')  # Make read-only
+
         # --- System Info Section ---
         info_frame = ttk.LabelFrame(self.content_frame, text="System Information", padding="10")
         info_frame.grid(row=0, column=0, sticky=(tk.W, tk.E), padx=5, pady=5)

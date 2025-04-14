@@ -50,6 +50,22 @@
 *   [x] **Update `README.md`:** Ensure it fully reflects the consolidated `SentinelPC` application, new structure, features, and usage. (Small, `README.md`) - *User reported complete.*
 *   [x] **Add Docstrings (Core):** Write comprehensive docstrings for public modules, classes, and functions in `src/core/`. (Medium, `src/core/`) - *User reported complete for core modules. GUI/other components might still need review.*
 *   [x] **Add Basic User Guides:** Create simple guides for using `SentinelPC` (CLI and GUI modes) in the `docs/` folder. (Medium, `docs/`) - *User reported complete.*
+*   [x] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/pc_optimizer_gui.py`. *(Verified complete based on code analysis)*
+*   [x] **Improve GUI Theme Application:** Implement a more comprehensive theme system in `src/gui/pc_optimizer_gui.py` that allows for customization of all UI elements. Implement actual color adjustment logic for hover effects. *(Completed based on user report: Enhanced theme system in theme.py with hover effects and customization)*
+*   [x] **Use `shutil.disk_usage` in `clean_temp_files`:** Use `shutil.disk_usage` to check disk space before cleaning temp files in `src/core/performance_optimizer.py`. *(Completed based on user report: Added disk space checking functionality)*
+*   [x] **Validate Configuration Values:** Validate the configuration values loaded from the `config.ini` file in `src/core/environment_manager.py` to ensure they are within acceptable ranges. *(Completed based on user report: Implemented configuration validation)*
+*   [x] **Handle Missing Configuration Values:** Implement a mechanism to handle missing configuration values in `src/core/environment_manager.py`. *(Completed based on user report: Implemented handling for missing values)*
+*   [x] **Implement Windows Theme Performance Adjustments:** Implement actual performance adjustments for dark mode on Windows in `src/core/performance_optimizer.py`. *(Completed based on user report: Added Windows theme performance optimization)*
+*   [x] **Log to GUI:** Implement logging to the `log_text` widget in the GUI in `src/gui/sentinel_gui.py`. *(Completed based on user report: Integrated logging functionality with the GUI via ScrolledText widget)*
+*   [x] **Consider More Robust Temp File Cleaning:** Consider using a more targeted approach for temporary file cleaning in `src/core/performance_optimizer.py`. *(Completed based on user report: Implemented targeted cleaning with patterns, age/disk usage thresholds, preservation, and stats)*
+*   [x] **Refactor `adjust_memory_usage`:** Refactor the `adjust_memory_usage` function in `src/core/performance_optimizer.py` to use a more centralized configuration management approach. *(Completed based on user report: Implemented centralized config with thresholds, thread/priority adjustments, and cache clearing)*
+*   [x] **Consider More Robust Directory Creation:** Ensure the existence of other required directories in `src/core/environment_manager.py`. *(Completed based on user report: Implemented creation of comprehensive directories like cache, config, backups, temp with permission checks and error handling)*
+*   [x] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture, beyond the recent error handling improvements. (Medium, `src/core/performance_optimizer.py`) *(Completed based on user report: Enhanced error handling, resource validation, thread management, logging, disk monitoring, startup management)*
+*   [x] **Enforce Code Style:** Run `flake8` and `black` across the codebase and fix violations. Integrate into CI (if not already done in Phase 1). (Small, Multiple files) - *Note: CI now runs checks, but manual fixes might still be needed.* *(Completed based on user report: Applied PEP 8, formatting, logging config, restructuring, type hints, docstrings)*
+*   [x] **Increase Test Coverage:** Write more unit tests for core logic, aiming for measurable coverage, especially for the new error handling paths and GUI interactions. (Medium, `tests/`) *(Completed via test_gui_components.py, test_cli_components.py)*
+*   [x] **Set up Test Coverage Reporting:** Integrate `coverage.py` into the test suite and CI. (Small, `tests/`, CI config) *(Completed via coverage.yml, .coveragerc)*
+*   [x] **Add Integration Tests:** Develop tests for CLI and GUI interactions (basic workflows). (Medium, `tests/`) *(Completed via enhancements/additions to test files)*
+*   [x] **Add Docstrings (Remaining):** Write comprehensive docstrings for remaining public modules, classes, and functions (e.g., GUI components, CLI, scripts). (Medium, Multiple files) - *Note: Core modules reported complete.* *(Completed for GUI components)*
 
 ---
 
@@ -70,21 +86,16 @@
     *   [x] **Validate GitHub Release Link Strategy:** Test the GitHub Releases link (e.g., latest release link or specific tag link like `v1.0-beta`) points to a downloadable asset. *(Note: Assumes manual release testing confirmed the linking strategy works. Ensure this holds true once CI automation resumes).* (Small)
 
 ### Code Quality & Refactoring
-*   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture, beyond the recent error handling improvements. (Medium, `src/core/performance_optimizer.py`)
-*   [ ] **Enforce Code Style:** Run `flake8` and `black` across the codebase and fix violations. Integrate into CI (if not already done in Phase 1). (Small, Multiple files) - *Note: CI now runs checks, but manual fixes might still be needed.*
-*   [x] **Improve Error Handling:** Define custom exceptions, catch specific errors, provide user-friendly GUI error messages. (Medium, Multiple files) *(Marked complete based on core logic improvements and GUI error handling implementation).*
+*(No pending items in this sub-section for Phase 2 currently)*
 
 ### Testing Expansion
-*   [ ] **Increase Test Coverage:** Write more unit tests for core logic, aiming for measurable coverage, especially for the new error handling paths and GUI interactions. (Medium, `tests/`)
-*   [ ] **Set up Test Coverage Reporting:** Integrate `coverage.py` into the test suite and CI. (Small, `tests/`, CI config)
-*   [ ] **Add Integration Tests:** Develop tests for CLI and GUI interactions (basic workflows). (Medium, `tests/`)
+*(All tasks moved to Completed section)*
 
 ### Documentation
-*   [ ] **Add Docstrings (Remaining):** Write comprehensive docstrings for remaining public modules, classes, and functions (e.g., GUI components, CLI, scripts). (Medium, Multiple files) - *Note: Core modules reported complete.*
+*(All tasks moved to Completed section)*
 
 ### Features & Enhancements
-*   [ ] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/sentinel_gui.py`. *(Note: filename might be different after rename)* *(Revisiting this - while threading is done, ensure the core *logic* hooks are fully implemented if they weren't already)*
-*   [ ] **Improve GUI Theme Application:** Implement a more comprehensive theme system in `src/gui/sentinel_gui.py` that allows for customization of all UI elements. Implement actual color adjustment logic for hover effects.
+*(No pending items in this sub-section for Phase 2 currently)*
 
 ---
 
@@ -110,17 +121,10 @@
 *These are more granular tasks identified for improvement.*
 
 ### High Priority
-*   [ ] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/sentinel_gui.py`. *(Note: filename might be different after rename)* *(Confirming this remains relevant - ensure the core logic called by the threaded GUI functions is fully implemented)*
+*(No pending items in this sub-section currently)*
 
 ### Medium Priority
-*   [ ] **Improve GUI Theme Application:** Implement a more comprehensive theme system in `src/gui/sentinel_gui.py` that allows for customization of all UI elements. Implement actual color adjustment logic for hover effects.
-*   [ ] **Use `shutil.disk_usage` in `clean_temp_files`:** Use `shutil.disk_usage` to check disk space before cleaning temp files in `src/core/performance_optimizer.py`.
-*   [ ] **Validate Configuration Values:** Validate the configuration values loaded from the `config.ini` file in `src/core/environment_manager.py` to ensure they are within acceptable ranges.
-*   [ ] **Handle Missing Configuration Values:** Implement a mechanism to handle missing configuration values in `src/core/environment_manager.py`.
-*   [ ] **Implement Windows Theme Performance Adjustments:** Implement actual performance adjustments for dark mode on Windows in `src/core/performance_optimizer.py`.
-*   [ ] **Log to GUI:** Implement logging to the `log_text` widget in the GUI in `src/gui/sentinel_gui.py`. *(Confirm if the "enhanced logging throughout the GUI" covered logging to the widget specifically)*
+*(No pending items in this sub-section currently)*
 
 ### Low Priority
-*   [ ] **Consider More Robust Temp File Cleaning:** Consider using a more targeted approach for temporary file cleaning in `src/core/performance_optimizer.py`. *(Error handling is more robust, but the cleaning strategy itself might warrant review).*
-*   [ ] **Refactor `adjust_memory_usage`:** Refactor the `adjust_memory_usage` function in `src/core/performance_optimizer.py` to use a more centralized configuration management approach.
-*   [ ] **Consider More Robust Directory Creation:** Ensure the existence of other required directories in `src/core/environment_manager.py`.
+*(No pending items in this sub-section currently)*

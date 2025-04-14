@@ -18,18 +18,19 @@ from src.core.sentinel_core import SentinelCore
 from src.gui.sentinel_gui import SentinelGUI
 
 # --- Logging Configuration ---
-def setup_logging():
-    """Configures basic logging for the application."""
+def setup_logging(debug=False):
+    level = logging.DEBUG if debug else logging.INFO
     logging.basicConfig(
-        level=logging.INFO, # Set to logging.DEBUG for more verbose output
-        format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
+        level=level,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
-            logging.StreamHandler(sys.stdout), # Log to console
-            # Optionally add a FileHandler here:
-            # logging.FileHandler("sentinelpc.log")
+            logging.FileHandler('logs/SentinelPC.log'),
+            logging.StreamHandler()
         ]
     )
-    logging.info("Logging configured.")
+    logger = logging.getLogger(__name__)
+    logger.debug('Logging initialized')
+    return logger
 
 # --- Platform Specific Enhancements ---
 def set_dpi_awareness():
@@ -54,44 +55,28 @@ def set_dpi_awareness():
 
 # --- Main Application Logic ---
 def main():
-    """Main entry point for SentinelPC application."""
-    setup_logging()
-    set_dpi_awareness()
-
-    logging.info("Starting SentinelPC application...")
-    core = None
-    gui = None
-
+    args = parse_args()
+    # Setup logging based on debug flag
+    logger = setup_logging(args.debug)
+    
     try:
-        # Initialize core components
-        logging.info("Initializing SentinelCore...")
-        core = SentinelCore()
-        logging.info(f"SentinelCore initialized (Version: {core.version}).")
-
-        # Create GUI
-        logging.info("Initializing SentinelGUI...")
-        gui = SentinelGUI(core)
-        logging.info("SentinelGUI initialized.")
-
-        # Run the GUI main loop
-        logging.info("Starting GUI main loop...")
-        gui.run() # gui.run() now contains the mainloop call and worker cleanup
-
+        # Launch GUI mode if specified
+        if args.gui:
+            logger.info('Starting GUI mode')
+            app = SentinelGUI()
+            app.mainloop()
+        # Launch CLI mode if specified
+        elif args.cli:
+            logger.info('Starting CLI mode')
+            cli = SentinelCLI()
+            cli.run()
+        else:
+            logger.info('No mode specified, defaulting to GUI')
+            app = SentinelGUI()
+            app.mainloop()
     except Exception as e:
-        logging.exception("An unhandled exception occurred during application startup or execution.")
-        # Optionally show a simple error dialog if tkinter is partially available
-        try:
-            import tkinter.messagebox
-            tkinter.messagebox.showerror("Fatal Error", f"An unexpected error occurred:\n{e}\nPlease check the logs for details.")
-        except Exception:
-            pass # If tkinter itself failed, just rely on console/log output
-        sys.exit(1) # Exit with error code
-
-    finally:
-        # Ensure resources are cleaned up, although gui.run() should handle the worker
-        logging.info("SentinelPC application shutting down.")
-        # The worker stop is now handled within gui.run()'s finally block,
-        # but adding a log message here confirms shutdown sequence.
+        logger.error(f'Critical error occurred: {str(e)}')
+        raise
 
 if __name__ == "__main__":
     main()
