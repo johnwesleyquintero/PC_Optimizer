@@ -8,6 +8,7 @@ import sys
 import logging
 import platform
 import tkinter as tk
+import argparse
 
 # Conditional import for Windows DPI awareness
 try:
@@ -81,6 +82,18 @@ def main():
         logger.error(f"Critical error occurred: {str(e)}")
         raise
 
+
+def parse_args():
+    """Parse command line arguments.
+
+    Returns:
+        argparse.Namespace: Parsed command line arguments
+    """
+    parser = argparse.ArgumentParser(description='SentinelPC - System Performance Optimization Tool')
+    parser.add_argument('--gui', action='store_true', help='Run in GUI mode')
+    parser.add_argument('--cli', action='store_true', help='Run in CLI mode')
+    parser.add_argument('--debug', action='store_true', help='Enable debug logging')
+    return parser.parse_args()
 
 if __name__ == "__main__":
     main()

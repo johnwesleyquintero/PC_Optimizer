@@ -67,6 +67,9 @@
 *   [x] **Set up Test Coverage Reporting:** Integrate `coverage.py` into the test suite and CI. (Small, `tests/`, CI config) *(Completed via coverage.yml, .coveragerc)*
 *   [x] **Add Integration Tests:** Develop tests for CLI and GUI interactions (basic workflows). (Medium, `tests/`) *(Completed via enhancements/additions to test files)*
 *   [x] **Add Docstrings (Remaining):** Write comprehensive docstrings for remaining public modules, classes, and functions (e.g., GUI components, CLI, scripts). (Medium, Multiple files) - *Note: Core modules reported complete.* *(Completed for GUI components)*
+*   [x] **Verify Build Output Directory:** Confirm the `scripts/build_unified.py` script creates the designated `dist/` directory. *(Note: `README.md` confirms `dist/` is the intended location. Verification needed that the script consistently creates/uses it, especially post-CI fix).* (Small, `scripts/build_unified.py`)
+*   [x] **Verify Executable Creation:** Manually run the build process (`scripts/build_unified.py`) and confirm `SentinelPC.exe` is created correctly in `dist/`. *(Note: Currently a required manual step per `WORKAROUND.md` due to CI issues. Needs verification once CI is automated).* (Small, `scripts/build_unified.py`)
+*   [x] **Validate GitHub Release Link Strategy:** Test the GitHub Releases link (e.g., latest release link or specific tag link like `v1.0-beta`) points to a downloadable asset. *(Note: Assumes manual release testing confirmed the linking strategy works. Ensure this holds true once CI automation resumes).* (Small)
 
 ---
 
@@ -79,12 +82,8 @@
 ## Phase 2: Refinement & Feature Development
 
 ### Deployment & Distribution
-*   **Executable Distribution Verification:**
-    *   [ ] **Verify Build Output Directory:** Confirm the `scripts/build_unified.py` script creates the designated `dist/` directory. *(Note: `README.md` confirms `dist/` is the intended location. Verification needed that the script consistently creates/uses it, especially post-CI fix).* (Small, `scripts/build_unified.py`)
-    *   [ ] **Verify Executable Creation:** Manually run the build process (`scripts/build_unified.py`) and confirm `SentinelPC.exe` is created correctly in `dist/`. *(Note: Currently a required manual step per `WORKAROUND.md` due to CI issues. Needs verification once CI is automated).* (Small, `scripts/build_unified.py`)
-    *   [ ] **Test `SentinelPC.exe`:** Manually run the created `SentinelPC.exe` on a clean Windows machine (without Python/dependencies) to ensure it runs correctly (CLI/GUI). *(Note: Currently a required manual step per `WORKAROUND.md` before any release. Essential for validation).* (Medium, multiple)
-    *   [ ] **Verify GitHub Release Upload (CI):** Confirm the CI pipeline correctly *automates* the upload of `SentinelPC.exe` to GitHub Releases. *(Note: Blocked by CI issue. Manual upload required per `WORKAROUND.md`. Needs verification after CI is fixed).* (Small, CI config)
-    *   [x] **Validate GitHub Release Link Strategy:** Test the GitHub Releases link (e.g., latest release link or specific tag link like `v1.0-beta`) points to a downloadable asset. *(Note: Assumes manual release testing confirmed the linking strategy works. Ensure this holds true once CI automation resumes).* (Small)
+*   [ ] **Test `SentinelPC.exe`:** Manually run the created `SentinelPC.exe` on a clean Windows machine (without Python/dependencies) to ensure it runs correctly (CLI/GUI). *(Note: Build process verified, but user reports ongoing UI traceback errors require investigation before this can be fully checked off. Essential for validation).* (Medium, multiple)
+*   [ ] **Verify GitHub Release Upload (CI):** Confirm the CI pipeline correctly *automates* the upload of `SentinelPC.exe` to GitHub Releases. *(Note: Blocked by CI issue. Manual upload required per `WORKAROUND.md`. Needs verification after CI is fixed).* (Small, CI config)
 
 ### Code Quality & Refactoring
 *(No pending items in this sub-section for Phase 2 currently)*
@@ -122,7 +121,7 @@
 *These are more granular tasks identified for improvement.*
 
 ### High Priority
-*(No pending items in this sub-section currently)*
+*   [ ] **Investigate and Fix UI Traceback Errors:** Address the runtime errors occurring in the UI of the built executable, as reported by the user. (Medium, `src/gui/`, potentially `main.py`)
 
 ### Medium Priority
 *(No pending items in this sub-section currently)*

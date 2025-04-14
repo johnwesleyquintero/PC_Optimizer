@@ -3,10 +3,10 @@
 
 a = Analysis(
     ['C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\src\\main.py'],
-    pathex=['C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC', 'C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\src'],
+    pathex=[],
     binaries=[],
     datas=[('C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\config', 'config'), ('C:\\Users\\johnw\\OneDrive\\Desktop\\SentinelPC\\locales', 'locales')],
-    hiddenimports=['tkinter', 'PIL', 'core.performance_optimizer', 'core.sentinel_core', 'core.config_manager', 'core.environment_manager', 'core.monitoring_manager', 'core.logging_manager'],
+    hiddenimports=['tkinter', 'PIL'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
