@@ -119,6 +119,74 @@ class SentinelGUI:
         self.memory_label.pack(side=tk.LEFT)
 
     def _create_sidebar(self) -> None:
+        """Create the sidebar navigation panel.
+        
+        Creates a vertical sidebar containing navigation buttons and controls
+        for different sections of the application. Includes buttons for:
+        - Dashboard view
+        - System optimization
+        - Settings configuration
+        - Help/About section
+        """
+
+    def _create_content_area(self) -> None:
+        """Create the main content area with multiple frames.
+        
+        Sets up the main content area with multiple frames for different views:
+        - Dashboard with system metrics and charts
+        - Optimization controls and progress
+        - Settings panel
+        - Help documentation
+        
+        Only one frame is visible at a time, controlled by navigation.
+        """
+
+    def _create_status_bar(self) -> None:
+        """Create the status bar at the bottom of the window.
+        
+        Displays current application status, ongoing operations,
+        and important system messages to the user.
+        """
+
+    def _schedule_initial_updates(self) -> None:
+        """Schedule initial data loading and updates.
+        
+        Triggers the first load of system metrics and schedules
+        periodic updates for real-time monitoring.
+        """
+
+    def _schedule_metrics_update(self) -> None:
+        """Schedule periodic updates of system metrics.
+        
+        Sets up a recurring timer to fetch and display updated
+        system metrics at regular intervals defined by
+        METRICS_UPDATE_INTERVAL.
+        """
+
+    def handle_metrics_update(self, metrics: Dict[str, Any]) -> None:
+        """Handle updated system metrics data.
+        
+        Args:
+            metrics: Dictionary containing updated system metrics
+                    including CPU usage, memory usage, etc.
+        """
+
+    def show_about(self) -> None:
+        """Display the about dialog with application information.
+        
+        Shows version information, credits, and other relevant
+        details about the application.
+        """
+
+    def toggle_theme(self) -> None:
+        """Toggle between light and dark application themes.
+        
+        Switches the application's visual theme and updates
+        all widgets to reflect the new theme.
+        """
+
+
+    def _create_sidebar(self) -> None:
         """Create the sidebar navigation."""
         sidebar_frame = ttk.Frame(self.root, style='Sidebar.TFrame', width=180)
         sidebar_frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
