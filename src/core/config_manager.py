@@ -5,6 +5,7 @@ This module handles loading, saving, and managing configuration settings.
 
 import os
 import platform
+import logging
 from pathlib import Path
 import configparser
 import darkdetect
@@ -19,8 +20,7 @@ MEMORY_THRESHOLD_2GB = 2 * 1024**3
 
 
 class ConfigManager:
-    """
-    Manages configuration settings for SentinelPC.
+    """Manages configuration settings for SentinelPC.
 
     This class handles loading, saving, and updating configuration settings
     from a configuration file.

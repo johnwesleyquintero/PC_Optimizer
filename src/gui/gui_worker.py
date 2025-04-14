@@ -200,7 +200,7 @@ class GUIWorker:
             try:
                 # Use a timeout to allow checking stop_requested periodically
                 task, callback, args, kwargs = self.task_queue.get(timeout=0.5)
-                
+
                 try:
                     # Execute the task
                     result = task(*args, **kwargs)
@@ -209,15 +209,17 @@ class GUIWorker:
                     logger.exception(f"{self._thread_name}: Task execution failed: {e}")
                     result = None
                     error = str(e)
-                
+
                 # Queue the result/error for processing in the main thread
                 self.result_queue.put((callback, (result, error)))
-                
+
             except Empty:
                 # Queue.get timeout - normal, just continue the loop
                 continue
             except Exception as e:
-                logger.exception(f"{self._thread_name}: Unexpected error in worker loop: {e}")
+                logger.exception(
+                    f"{self._thread_name}: Unexpected error in worker loop: {e}"
+                )
                 # Don't break the loop on unexpected errors
                 # Wait indefinitely for a task, but check stop_requested periodically
                 task, callback, args, kwargs = self.task_queue.get(

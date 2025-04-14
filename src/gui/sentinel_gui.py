@@ -182,8 +182,8 @@ class SentinelGUI:
             def update_metrics():
                 try:
                     metrics = self.core.get_system_metrics()
-                    if metrics.get('success'):
-                        return metrics['current_metrics']
+                    if metrics.get("success"):
+                        return metrics["current_metrics"]
                     return None
                 except Exception as e:
                     logger.error(f"Error fetching metrics: {e}")

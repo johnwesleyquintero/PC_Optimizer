@@ -67,7 +67,8 @@ def main():
         # Launch GUI mode if specified
         if args.gui:
             logger.info("Starting GUI mode")
-            app = SentinelGUI()
+            core = SentinelCore()
+            app = SentinelGUI(core)
             app.mainloop()
         # Launch CLI mode if specified
         elif args.cli:
@@ -76,7 +77,8 @@ def main():
             cli.run()
         else:
             logger.info("No mode specified, defaulting to GUI")
-            app = SentinelGUI()
+            core = SentinelCore()
+            app = SentinelGUI(core)
             app.mainloop()
     except Exception as e:
         logger.error(f"Critical error occurred: {str(e)}")
@@ -89,11 +91,14 @@ def parse_args():
     Returns:
         argparse.Namespace: Parsed command line arguments
     """
-    parser = argparse.ArgumentParser(description='SentinelPC - System Performance Optimization Tool')
-    parser.add_argument('--gui', action='store_true', help='Run in GUI mode')
-    parser.add_argument('--cli', action='store_true', help='Run in CLI mode')
-    parser.add_argument('--debug', action='store_true', help='Enable debug logging')
+    parser = argparse.ArgumentParser(
+        description="SentinelPC - System Performance Optimization Tool"
+    )
+    parser.add_argument("--gui", action="store_true", help="Run in GUI mode")
+    parser.add_argument("--cli", action="store_true", help="Run in CLI mode")
+    parser.add_argument("--debug", action="store_true", help="Enable debug logging")
     return parser.parse_args()
+
 
 if __name__ == "__main__":
     main()
