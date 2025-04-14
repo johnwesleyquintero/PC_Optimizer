@@ -10,20 +10,22 @@ class LoggingManager:
 
     _instance = None
 
-    def __new__(cls, config_path: str = 'config/config.ini'):
+    def __new__(cls, config_path: Optional[str] = None):
         if cls._instance is None:
             cls._instance = super(LoggingManager, cls).__new__(cls)
             cls._instance._setup_basic_logging()
         return cls._instance
 
-    def __init__(self, config_path: str = 'config/config.ini'):
+    def __init__(self, config_path: Optional[str] = None):
         if not hasattr(self, 'initialized'):
             self.config = configparser.ConfigParser()
-            self.config.read(config_path)
+            if config_path:
+                self.config.read(config_path)
             self.log_dir = Path(self.config.get('Logging', 'log_dir', fallback='logs'))
             self.log_dir.mkdir(parents=True, exist_ok=True)
             self._setup_enhanced_logging()
             self.initialized = True
+            self.logger = self.get_logger(__name__)
 
     def _setup_basic_logging(self):
         """Set up basic logging configuration for initial startup."""

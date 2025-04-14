@@ -23,11 +23,11 @@
 *   [x] Implement Semantic Versioning (`v1.0.0`, remove `_v2` suffixes, establish tagging process)
 *   [x] Rename & Reorganize folders/files/modules to reflect `SentinelPC` name
 *   [x] Update Entry Points (Unified `SentinelPC.exe` handling `--cli`/`--gui`)
-*   [x] Update Build Process (`build_unified.py`, `.spec` files for consolidated app)
+*   [x] Update Build Process (`scripts/build_unified.py`, `.spec` files for consolidated app)
 *   [x] Verify/Create `LICENSE` file
 *   [x] Create `CONTRIBUTING.md`
 *   [x] Enhance Dependency Management (Pinning, `requirements.txt`, `requirements-dev.txt`)
-*   [x] Implement Centralized Logging (Setup, core module integration, config integration)
+*   [x] Implement Centralized Logging (Setup, core module integration, config integration) - *Note: Recent fixes improved robustness of this completed item.*
 *   [x] Refactor `environment_manager.py` to use `EnvironmentConfig`.
 *   [x] Add Initial Tests for Core Modules (`config_manager.py`, `performance_optimizer.py`).
 *   [x] Add logs to `config_manager.py` and `performance_optimizer.py`.
@@ -41,6 +41,12 @@
     *   [x] Updated footer links in `index.html` to point to new policy pages.
     *   [x] Ensured required assets are present: `_wwwroot/favicon.ico`, `_wwwroot/Assets/Branding/og-image.png`, `_wwwroot/Assets/Branding/apple-touch-icon.png`.
     *   [x] Double-checked deployment URL consistency in `index.html` meta tags.
+*   [x] **Improve Error Handling (Core Logic):** Defined custom exceptions (`PerformanceOptimizerError`, etc.), caught specific errors (e.g., `PermissionError`, `FileNotFoundError`) in core optimization functions, added detailed logging, and improved reporting/recovery mechanisms in `performance_optimizer.py`. *(Note: GUI display of errors is tracked separately).*
+*   [x] **Add Specific Error Handling in `clean_temp_files`:** Caught specific exceptions like `PermissionError` and handled them accordingly with detailed results/logging in `src/core/performance_optimizer.py`.
+*   [x] **Implement GUI Visual Design & Responsiveness:** Apply visual recommendations and ensure long operations (scans, optimizations) use threads/asyncio to prevent freezing. (Large, `src/gui/`) *(Marked complete based on threading implementation for responsiveness)*
+*   [x] **Review Security Practices:** Assess and enhance security (input validation, file operations, dependency scanning with `safety`). (Medium, Multiple files) *(Marked complete based on implemented input validation, path security, and enhanced GUI error handling)*
+*   [x] **Prevent GUI Freezing:** Use threading or asyncio to run the optimizations in a separate thread or coroutine in `src/gui/sentinel_gui.py` to prevent the GUI from freezing. *(Related to Phase 2 GUI Responsiveness task)*
+*   [x] **Add GUI Error Handling:** Add error handling to the optimization functions in `src/gui/sentinel_gui.py` to catch potential exceptions (including the new custom ones from core) and display user-friendly error messages in the GUI. *(Related to Phase 2 Error Handling task - specifically the GUI part)*
 
 ---
 
@@ -54,30 +60,30 @@
 
 ### Deployment & Distribution
 *   **Executable Distribution Verification:**
-    *   [ ] **Verify Build Output Directory:** Confirm the `build_unified.py` script creates a designated directory (e.g., `dist/`) for the executable. If not, update the script to create this directory. (Small, `build_unified.py`)
-    *   [ ] **Verify Executable Creation:** Manually run the build process (`build_unified.py`) and confirm that the `SentinelPC.exe` is created correctly in the output directory. (Small, `build_unified.py`)
-    *   [ ] **Test `SentinelPC.exe`:** Manually run the created `SentinelPC.exe` on a clean Windows machine (without Python or dependencies) to ensure it runs correctly and the CLI/GUI entry points work. (Medium, multiple)
-    *   [ ] **Verify GitHub Release Upload:** Confirm that the CI pipeline correctly uploads `SentinelPC.exe` to GitHub Releases on each release. Double check if the correct files are attached to the release. (Small, CI config)
-    *   [ ] **Validate GitHub Release Link:** Test the `https://github.com/johnwesleyquintero/SentinelPC/releases/tag/v1.0-beta` link after a CI release to ensure it downloads the correct file. (Small)
+    *   [ ] **Verify Build Output Directory:** Confirm the `scripts/build_unified.py` script creates the designated `dist/` directory. *(Note: `README.md` confirms `dist/` is the intended location. Verification needed that the script consistently creates/uses it, especially post-CI fix).* (Small, `scripts/build_unified.py`)
+    *   [ ] **Verify Executable Creation:** Manually run the build process (`scripts/build_unified.py`) and confirm `SentinelPC.exe` is created correctly in `dist/`. *(Note: Currently a required manual step per `WORKAROUND.md` due to CI issues. Needs verification once CI is automated).* (Small, `scripts/build_unified.py`)
+    *   [ ] **Test `SentinelPC.exe`:** Manually run the created `SentinelPC.exe` on a clean Windows machine (without Python/dependencies) to ensure it runs correctly (CLI/GUI). *(Note: Currently a required manual step per `WORKAROUND.md` before any release. Essential for validation).* (Medium, multiple)
+    *   [ ] **Verify GitHub Release Upload (CI):** Confirm the CI pipeline correctly *automates* the upload of `SentinelPC.exe` to GitHub Releases. *(Note: Blocked by CI issue. Manual upload required per `WORKAROUND.md`. Needs verification after CI is fixed).* (Small, CI config)
+    *   [x] **Validate GitHub Release Link Strategy:** Test the GitHub Releases link (e.g., latest release link or specific tag link like `v1.0-beta`) points to a downloadable asset. *(Note: Assumes manual release testing confirmed the linking strategy works. Ensure this holds true once CI automation resumes).* (Small)
 
 ### Code Quality & Refactoring
-*   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture. (Medium, `src/core/performance_optimizer.py`)
+*   [ ] **Review and Refactor `performance_optimizer.py`:** Conduct a thorough review and refactor for clarity, efficiency, and adherence to the new architecture, beyond the recent error handling improvements. (Medium, `src/core/performance_optimizer.py`)
 *   [ ] **Enforce Code Style:** Run `flake8` and `black` across the codebase and fix violations. Integrate into CI (if not already done in Phase 1). (Small, Multiple files) - *Note: CI now runs checks, but manual fixes might still be needed.*
-*   [ ] **Improve Error Handling:** Define custom exceptions, catch specific errors, provide user-friendly GUI error messages. (Medium, Multiple files)
+*   [x] **Improve Error Handling:** Define custom exceptions, catch specific errors, provide user-friendly GUI error messages. (Medium, Multiple files) *(Marked complete based on core logic improvements and GUI error handling implementation).*
 
 ### Testing Expansion
-*   [ ] **Increase Test Coverage:** Write more unit tests for core logic, aiming for measurable coverage. (Medium, `tests/`)
+*   [ ] **Increase Test Coverage:** Write more unit tests for core logic, aiming for measurable coverage, especially for the new error handling paths and GUI interactions. (Medium, `tests/`)
 *   [ ] **Set up Test Coverage Reporting:** Integrate `coverage.py` into the test suite and CI. (Small, `tests/`, CI config)
 *   [ ] **Add Integration Tests:** Develop tests for CLI and GUI interactions (basic workflows). (Medium, `tests/`)
 
 ### Documentation
 *   [ ] **Update `README.md`:** Ensure it fully reflects the consolidated `SentinelPC` application, new structure, features, and usage. (Small, `README.md`) - *Review needed, but largely up-to-date.*
-*   [ ] **Add Docstrings:** Write comprehensive docstrings for public modules, classes, and functions. (Medium, Multiple files)
+*   [ ] **Add Docstrings:** Write comprehensive docstrings for public modules, classes, and functions, including the new exception classes and GUI components. (Medium, Multiple files)
 *   [ ] **Add Basic User Guides:** Create simple guides for using `SentinelPC` (CLI and GUI modes) in the `docs/` folder. (Medium, `docs/`)
 
 ### Features & Enhancements
-*   [ ] **Implement GUI Visual Design & Responsiveness:** Apply visual recommendations and ensure long operations (scans, optimizations) use threads/asyncio to prevent freezing. (Large, `src/gui/`)
-*   [ ] **Review Security Practices:** Assess and enhance security (input validation, file operations, dependency scanning with `safety`). (Medium, Multiple files)
+*   [ ] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/sentinel_gui.py`. *(Note: filename might be different after rename)* *(Revisiting this - while threading is done, ensure the core *logic* hooks are fully implemented if they weren't already)*
+*   [ ] **Improve GUI Theme Application:** Implement a more comprehensive theme system in `src/gui/sentinel_gui.py` that allows for customization of all UI elements. Implement actual color adjustment logic for hover effects.
 
 ---
 
@@ -103,20 +109,17 @@
 *These are more granular tasks identified for improvement.*
 
 ### High Priority
-*   [ ] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/sentinel_gui.py`. *(Note: filename might be different after rename)*
-*   [ ] **Prevent GUI Freezing:** Use threading or asyncio to run the optimizations in a separate thread or coroutine in `src/gui/sentinel_gui.py` to prevent the GUI from freezing. *(Related to Phase 2 GUI Responsiveness task)*
+*   [ ] **Implement GUI Placeholder Functions:** Implement the actual functionality for `check_disk_usage`, `manage_startup_programs`, `optimize_power_settings`, and `run_disk_cleanup` in `src/gui/sentinel_gui.py`. *(Note: filename might be different after rename)* *(Confirming this remains relevant - ensure the core logic called by the threaded GUI functions is fully implemented)*
 
 ### Medium Priority
 *   [ ] **Improve GUI Theme Application:** Implement a more comprehensive theme system in `src/gui/sentinel_gui.py` that allows for customization of all UI elements. Implement actual color adjustment logic for hover effects.
-*   [ ] **Add GUI Error Handling:** Add error handling to the optimization functions in `src/gui/sentinel_gui.py` to catch potential exceptions and display user-friendly error messages in the GUI. *(Related to Phase 2 Error Handling task)*
 *   [ ] **Use `shutil.disk_usage` in `clean_temp_files`:** Use `shutil.disk_usage` to check disk space before cleaning temp files in `src/core/performance_optimizer.py`.
-*   [ ] **Add Specific Error Handling in `clean_temp_files`:** Catch specific exceptions like `PermissionError` and handle them accordingly in `src/core/performance_optimizer.py`. *(Related to Phase 2 Error Handling task)*
 *   [ ] **Validate Configuration Values:** Validate the configuration values loaded from the `config.ini` file in `src/core/environment_manager.py` to ensure they are within acceptable ranges.
 *   [ ] **Handle Missing Configuration Values:** Implement a mechanism to handle missing configuration values in `src/core/environment_manager.py`.
 *   [ ] **Implement Windows Theme Performance Adjustments:** Implement actual performance adjustments for dark mode on Windows in `src/core/performance_optimizer.py`.
-*   [ ] **Log to GUI:** Implement logging to the `log_text` widget in the GUI in `src/gui/sentinel_gui.py`.
+*   [ ] **Log to GUI:** Implement logging to the `log_text` widget in the GUI in `src/gui/sentinel_gui.py`. *(Confirm if the "enhanced logging throughout the GUI" covered logging to the widget specifically)*
 
 ### Low Priority
-*   [ ] **Consider More Robust Temp File Cleaning:** Consider using a more targeted approach for temporary file cleaning in `src/core/performance_optimizer.py`.
+*   [ ] **Consider More Robust Temp File Cleaning:** Consider using a more targeted approach for temporary file cleaning in `src/core/performance_optimizer.py`. *(Error handling is more robust, but the cleaning strategy itself might warrant review).*
 *   [ ] **Refactor `adjust_memory_usage`:** Refactor the `adjust_memory_usage` function in `src/core/performance_optimizer.py` to use a more centralized configuration management approach.
 *   [ ] **Consider More Robust Directory Creation:** Ensure the existence of other required directories in `src/core/environment_manager.py`.

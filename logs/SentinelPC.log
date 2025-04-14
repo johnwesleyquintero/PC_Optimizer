@@ -22,3 +22,17 @@ Traceback (most recent call last):
   File "core\environment_manager.py", line 12, in __init__
 NameError: name 'LoggingManager' is not defined
 2025-04-14 09:05:51,767 - root - INFO - SentinelPC application shutting down.
+2025-04-14 09:09:37,220 - src.core.config_manager - INFO - ConfigManager: Initializing configuration
+2025-04-14 09:09:37,220 - src.core.config_manager - INFO - ConfigManager: Config directory is C:\Users\johnw\AppData\Roaming\SentinelPC
+2025-04-14 09:09:37,220 - src.core.config_manager - INFO - ConfigManager: Loading configuration
+2025-04-14 09:09:37,221 - src.core.config_manager - INFO - ConfigManager: Configuration loading completed
+2025-04-14 09:09:37,222 - src.core.config_manager - INFO - ConfigManager: Configuration loaded from C:\Users\johnw\AppData\Roaming\SentinelPC\config.ini
+2025-04-14 09:09:37,223 - root - ERROR - An unhandled exception occurred during application startup or execution.
+Traceback (most recent call last):
+  File "main.py", line 68, in main
+  File "core\sentinel_core.py", line 23, in __init__
+  File "core\performance_optimizer.py", line 31, in __init__
+  File "core\config_manager.py", line 161, in __init__
+  File "core\config_manager.py", line 174, in _load_config
+AttributeError: 'EnvironmentConfig' object has no attribute 'logger'
+2025-04-14 09:09:44,041 - root - INFO - SentinelPC application shutting down.

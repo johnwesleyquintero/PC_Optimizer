@@ -33,7 +33,7 @@ Downside: You have to repeat this manual step every time you want to release a n
 Option 2: Use GitHub Releases (Recommended for Executables)
 
 Modify your GitHub Actions workflow: Instead of just uploading an artifact, add steps to create a GitHub Release and attach the _wwwroot/publish/SentinelPC.exe file to that release. (You can use actions like actions/create-release and actions/upload-release-asset).
-Modify your index.html: Change the download link (href) to point directly to the download URL of the asset in your latest GitHub Release. GitHub provides stable URLs for this (e.g., https://github.com/johnwesleyquintero/SentinelPC/releases/latest/download/SentinelPC.exe).
+Modify your index.html: Change the download link (href) to point directly to the download URL of the asset in your latest GitHub Release. GitHub provides stable URLs for this (e.g., https://github.com/johnwesleyquintero/SentinelPC/releases/tag/v1.0-beta).
 Benefit: This is the standard way to distribute executables built via CI. Your Netlify site stays lightweight (just the landing page), and the download comes directly from GitHub Releases. No need to commit the .exe to your main branch.
 Option 3: Commit Built File via Workflow (Complex)
 

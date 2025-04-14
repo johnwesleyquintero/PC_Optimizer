@@ -11,20 +11,34 @@ from .environment_manager import EnvironmentConfig
 from .logging_manager import LoggingManager
 
 class OptimizationError(Exception):
-    """Custom exception for optimization-related errors."""
-    pass
+    """Base exception for optimization-related errors."""
+    def __init__(self, message: str = "An optimization error occurred.", details: Optional[Dict[str, Any]] = None):
+        self.details = details or {}
+        super().__init__(message)
 
 class TaskExecutionError(OptimizationError):
     """Exception raised when a specific optimization task fails."""
-    pass
+    def __init__(self, task_name: str, reason: str, details: Optional[Dict[str, Any]] = None):
+        self.task_name = task_name
+        self.reason = reason
+        message = f"Task '{task_name}' failed: {reason}"
+        super().__init__(message, details)
 
 class MemoryOptimizationError(OptimizationError):
     """Exception raised when memory optimization fails."""
-    pass
+    def __init__(self, current_usage: float, target_usage: float, details: Optional[Dict[str, Any]] = None):
+        self.current_usage = current_usage
+        self.target_usage = target_usage
+        message = f"Memory optimization failed: Current usage {current_usage}% exceeds target {target_usage}%"
+        super().__init__(message, details)
 
 class FileCleanupError(OptimizationError):
     """Exception raised when temporary file cleanup fails."""
-    pass
+    def __init__(self, path: str, error_type: str, details: Optional[Dict[str, Any]] = None):
+        self.path = path
+        self.error_type = error_type
+        message = f"Failed to cleanup files at '{path}': {error_type}"
+        super().__init__(message, details)
 
 class PerformanceOptimizer(BasePerformanceOptimizer):
     def __init__(self):
@@ -73,7 +87,7 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             - success: Overall operation status
             - tasks_completed: Number of successful tasks
             - tasks_failed: Number of failed tasks
-            - failed_tasks: List of failed task names
+            - failed_tasks: List of failed task names with error details
             
         Raises:
             OptimizationError: If initialization fails
@@ -90,9 +104,17 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             
             return self._generate_optimization_report(results)
             
+        except ValueError as ve:
+            error_msg = f"Invalid optimization configuration: {str(ve)}"
+            self.logger.error(error_msg)
+            raise OptimizationError(error_msg, {"error_type": "configuration"}) from ve
+        except TaskExecutionError as te:
+            self.logger.error(f"Task execution failed: {te}")
+            raise
         except Exception as error:
-            self.logger.error(f"Optimization failed: {error}")
-            raise OptimizationError(f"System optimization failed: {error}") from error
+            error_msg = f"Unexpected error during optimization: {str(error)}"
+            self.logger.error(error_msg)
+            raise OptimizationError(error_msg, {"error_type": "unexpected"}) from error
 
     def _validate_optimization_ready(self):
         """Verify system meets optimization requirements"""
@@ -186,18 +208,35 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
 
         Returns:
             Dict[str, Any]: Dictionary containing disk usage information
+            
+        Raises:
+            OptimizationError: If disk information cannot be retrieved
         """
         try:
             disk_info = {}
             for partition in psutil.disk_partitions(all=False):
-                if partition.fstype:
-                    usage = psutil.disk_usage(partition.mountpoint)
-                    disk_info[partition.device] = {
-                        'total': usage.total,
-                        'used': usage.used,
-                        'free': usage.free,
-                        'percent': usage.percent
-                    }
+                try:
+                    if partition.fstype:
+                        usage = psutil.disk_usage(partition.mountpoint)
+                        disk_info[partition.device] = {
+                            'total': usage.total,
+                            'used': usage.used,
+                            'free': usage.free,
+                            'percent': usage.percent
+                        }
+                except PermissionError:
+                    self.logger.warning(f"Permission denied accessing {partition.mountpoint}")
+                    continue
+                except OSError as e:
+                    self.logger.warning(f"OS error accessing {partition.mountpoint}: {e}")
+                    continue
+            if not disk_info:
+                raise OptimizationError("No accessible disk partitions found")
+            return disk_info
+        except Exception as e:
+            error_msg = f"Failed to get disk usage information: {str(e)}"
+            self.logger.error(error_msg)
+            raise OptimizationError(error_msg) from e
             return {'success': True, 'data': disk_info}
         except Exception as e:
             self.logger.error(f"Failed to get disk usage: {str(e)}")
@@ -317,18 +356,19 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
         log_path.parent.mkdir(parents=True, exist_ok=True)
         return log_path
 
-    def clean_temp_files(self) -> bool:
+    def clean_temp_files(self) -> Dict[str, Any]:
         """Clean temporary files from system temporary directories.
 
         Returns:
-            bool: True if cleanup was successful, False otherwise.
+            Dict[str, Any]: Cleanup operation results including success status,
+                          files removed count and any errors encountered
 
         Raises:
             FileCleanupError: If cleanup process encounters critical errors.
         """
         self.logger.info("Starting temporary files cleanup")
         temp_dirs = []
-
+        
         # Get all possible temp directories
         for env_var in ["TEMP", "TMP"]:
             if path := os.environ.get(env_var):
@@ -355,21 +395,21 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                             shutil.rmtree(item, ignore_errors=True)
                             cleaned_files_count += 1
                     except PermissionError as e:
+                        errors.append({"path": str(item), "error": f"Permission denied: {str(e)}"})
                         self.logger.debug(f"Permission denied for {item}: {str(e)}")
                     except OSError as e:
-                        errors.append(f"Error processing {item}: {str(e)}")
+                        errors.append({"path": str(item), "error": str(e)})
                         self.logger.warning(f"Failed to remove {item}: {str(e)}")
             except Exception as e:
                 error_msg = f"Critical error while cleaning {temp_dir}: {str(e)}"
                 self.logger.error(error_msg)
-                raise FileCleanupError(error_msg)
+                raise FileCleanupError(str(temp_dir), error_msg)
 
-        if errors:
-            self.logger.warning(f"Completed with {len(errors)} non-critical errors")
-            return False
-
-        self.logger.info(f"Successfully cleaned {cleaned_files_count} temporary items")
-        return True
+        return {
+            "success": len(errors) == 0,
+            "files_removed": cleaned_files_count,
+            "errors": errors
+        }
 
     def cleanup(self) -> bool:
         """Clean up resources and perform graceful shutdown.

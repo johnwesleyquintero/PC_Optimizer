@@ -304,117 +304,124 @@ class SentinelGUI:
         self.worker.add_task(self.core.get_system_info, on_complete)
 
     def update_disk_usage(self) -> None:
-        """Update disk usage information display using the worker."""
-        self.status_var.set("Fetching disk usage...")
-        logger.debug("Requesting disk usage update.")
-        def on_complete(result: Optional[Dict[str, Any]], error: Optional[str] = None) -> None:
+        """Update disk usage information display."""
+        def disk_usage_task():
+            return self.core.get_disk_usage()
+            
+        def disk_usage_callback(disk_info: Optional[Any], error: Optional[str]) -> None:
+            if error:
+                self.logger.error(f"Error updating disk usage: {error}")
+                messagebox.showerror("Error", f"Failed to update disk usage: {error}")
+                return
+                
             try:
-                if not self.root.winfo_exists(): return # Check if window closed
-                self.disk_text.configure(state=tk.NORMAL)
-                self.disk_text.delete(1.0, tk.END)
-                if error:
-                    self.disk_text.insert(tk.END, f"Error fetching disk usage: {error}")
-                    logger.error(f"Error fetching disk usage: {error}")
-                elif result and 'data' in result:
-                    if not result['data']:
-                         self.disk_text.insert(tk.END, "No disk partitions found or accessible.")
-                    else:
-                        for device, info in result['data'].items():
-                            try:
-                                total_gb = info['total'] / (1024**3)
-                                # used_gb = info['used'] / (1024**3) # Not used in current format
-                                free_gb = info['free'] / (1024**3)
-                                percent = info.get('percent', 'N/A') # Handle missing percent key
-                                self.disk_text.insert(tk.END,
-                                    f"{device}: {free_gb:.1f} GB free of {total_gb:.1f} GB ({percent}% used)\n")
-                            except (KeyError, TypeError, ZeroDivisionError) as e:
-                                logger.warning(f"Could not parse disk info for {device}: {e} - Data: {info}")
-                                self.disk_text.insert(tk.END, f"{device}: Error parsing data\n")
-                    logger.debug("Disk usage updated.")
-                else:
-                    self.disk_text.insert(tk.END, "No disk usage information available.")
-                    logger.warning("Received no data or error from get_disk_usage.")
-                self.disk_text.configure(state=tk.DISABLED)
-                self.status_var.set("Ready")
-            except tk.TclError:
-                 logger.warning("Disk usage update aborted: Window closed.")
+                # Clear existing content
+                self.disk_text.delete('1.0', tk.END)
+                
+                # Format and display disk information
+                for disk, usage in disk_info.items():
+                    used_percent = usage.get('percent', 0)
+                    total = usage.get('total', 0)
+                    free = usage.get('free', 0)
+                    
+                    # Convert bytes to GB for display
+                    total_gb = total / (1024**3)
+                    free_gb = free / (1024**3)
+                    
+                    disk_line = f"Disk {disk}:\n"
+                    disk_line += f"  Used: {used_percent:.1f}%\n"
+                    disk_line += f"  Total: {total_gb:.1f} GB\n"
+                    disk_line += f"  Free: {free_gb:.1f} GB\n\n"
+                    
+                    self.disk_text.insert(tk.END, disk_line)
+                    
             except Exception as e:
-                 logger.exception(f"Error updating disk usage text widget: {e}")
-                 self.status_var.set("Error updating UI")
-
-        # Assuming core.get_disk_usage returns {'data': {'C:': {...}, ...}} or {'error': '...'}
-        self.worker.add_task(self.core.get_disk_usage, on_complete)
+                self.logger.error(f"Error displaying disk usage: {e}", exc_info=True)
+                messagebox.showerror("Error", f"Failed to display disk usage: {str(e)}")
+        
+        try:
+            # Run disk usage check in worker thread
+            self.worker.add_task(disk_usage_task, disk_usage_callback)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to start disk usage check: {str(e)}")
+            self.logger.error(f"Failed to start disk usage check: {e}", exc_info=True)
 
     def update_startup_list(self) -> None:
-        """Update the startup programs list using the worker."""
-        self.status_var.set("Fetching startup programs...")
-        logger.debug("Requesting startup list update.")
-        def on_complete(result: Optional[List[Dict[str, Any]]], error: Optional[str] = None) -> None:
+        """Update startup programs list."""
+        def startup_list_task():
+            return self.core.get_startup_programs()
+            
+        def startup_list_callback(startup_items: Optional[Any], error: Optional[str]) -> None:
+            if error:
+                self.logger.error(f"Error updating startup list: {error}")
+                messagebox.showerror("Error", f"Failed to update startup programs: {error}")
+                return
+                
             try:
-                if not self.root.winfo_exists(): return # Check if window closed
                 # Clear existing items
                 for item in self.startup_list.get_children():
                     self.startup_list.delete(item)
-
-                if error:
-                    logger.error(f"Failed to get startup programs: {error}")
-                    # Optionally display error in the list or a message box
-                    messagebox.showerror("Startup Programs Error", f"Could not load startup programs:\n{error}")
-                elif result:
-                    if not result:
-                        # Insert a placeholder if the list is empty
-                         self.startup_list.insert("", tk.END, values=("(No startup programs found)", "", ""))
-                    else:
-                        for item in result:
-                            # Ensure keys exist, provide defaults if not
-                            name = item.get('name', 'Unknown Program')
-                            path = item.get('path', 'N/A')
-                            status = item.get('status', 'Unknown')
-                            self.startup_list.insert("", tk.END, values=(name, path, status))
-                    logger.debug(f"Startup list updated with {len(result or [])} items.")
-                else:
-                     logger.warning("Received no data or error from get_startup_programs.")
-                     self.startup_list.insert("", tk.END, values=("(Could not load data)", "", ""))
-
-                self.status_var.set("Ready")
-            except tk.TclError:
-                 logger.warning("Startup list update aborted: Window closed.")
+                    
+                # Add items to treeview
+                for item in startup_items:
+                    self.startup_list.insert(
+                        "",
+                        tk.END,
+                        values=(
+                            item.get('name', 'Unknown'),
+                            item.get('path', 'Unknown'),
+                            item.get('status', 'Unknown')
+                        )
+                    )
+                    
             except Exception as e:
-                 logger.exception(f"Error updating startup list treeview: {e}")
-                 self.status_var.set("Error updating UI")
-
-        # Assuming core has get_startup_programs returning List[Dict[str, Any]]
-        # where each dict has 'name', 'path', 'status' keys
-        if hasattr(self.core, 'get_startup_programs'):
-            self.worker.add_task(self.core.get_startup_programs, on_complete)
-        else:
-            logger.error("SentinelCore does not have 'get_startup_programs' method.")
-            messagebox.showerror("Error", "Core function to get startup programs is missing.")
-            self.status_var.set("Error: Core function missing")
+                self.logger.error(f"Error displaying startup list: {e}", exc_info=True)
+                messagebox.showerror("Error", f"Failed to display startup programs: {str(e)}")
+        
+        try:
+            # Run startup list check in worker thread
+            self.worker.add_task(startup_list_task, startup_list_callback)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to start startup list check: {str(e)}")
+            self.logger.error(f"Failed to start startup list check: {e}", exc_info=True)
 
 
     # --- Actions ---
 
     def manage_startup(self, action: str) -> None:
-        """Manage startup programs (enable/disable) using the worker.
+        """Enable or disable selected startup program with security validation."""
+        # Validate action parameter
+        if action not in ["enable", "disable"]:
+            logger.error(f"Invalid startup management action: {action}")
+            return
 
-        Args:
-            action: Either 'enable' or 'disable'.
-        """
         selection = self.startup_list.selection()
         if not selection:
-            messagebox.showwarning("No Selection", "Please select a program from the list first.")
+            messagebox.showwarning("No Selection", "Please select a startup program to manage.")
             return
 
         item_id = selection[0]
         item_values = self.startup_list.item(item_id)['values']
 
-        if not item_values or len(item_values) < 1:
-             messagebox.showerror("Error", "Invalid item selected.")
-             return
+        if not item_values or len(item_values) < 2:
+            logger.error("Invalid startup item selected")
+            messagebox.showerror("Error", "Invalid startup item selected")
+            return
 
-        program_name = item_values[0] # Assuming name is the first column
-        # program_path = item_values[1] # Path might also be needed by core function
+        program_name = str(item_values[0]).strip()
+        program_path = str(item_values[1]).strip()
+
+        # Validate program name and path
+        if not program_name or not program_path:
+            logger.error("Empty program name or path")
+            messagebox.showerror("Error", "Invalid program details")
+            return
+
+        # Validate path security
+        if not self._is_safe_path(program_path):
+            logger.error(f"Unsafe program path detected: {program_path}")
+            messagebox.showerror("Security Error", "Invalid or unsafe program path detected")
+            return
 
         # Optional: Add confirmation dialog
         if not messagebox.askyesno("Confirm Action", f"Are you sure you want to {action} '{program_name}'?"):
@@ -442,74 +449,76 @@ class SentinelGUI:
 
                 self.status_var.set("Ready")
             except tk.TclError:
-                 logger.warning(f"Startup management ({action}) update aborted: Window closed.")
+                logger.warning(f"Startup management ({action}) update aborted: Window closed.")
             except Exception as e:
-                 logger.exception(f"Error processing startup management result: {e}")
-                 self.status_var.set("Error updating UI")
+                logger.exception(f"Error processing startup management result: {e}")
+                self.status_var.set("Error updating UI")
 
-
-        # Assuming core.manage_startup_program takes action and program identifier (e.g., name or path)
-        # And returns {'success': True/False, 'message': 'Optional details'}
         if hasattr(self.core, 'manage_startup_program'):
-             # Pass necessary identifiers, e.g., name and maybe path if needed for uniqueness
-             self.worker.add_task(
-                 lambda: self.core.manage_startup_program(action=action, program_name=program_name), # Adjust args as needed by core
-                 on_complete
-             )
+            self.worker.add_task(
+                lambda: self.core.manage_startup_program(action=action, program_name=program_name, program_path=program_path),
+                on_complete
+            )
         else:
-             logger.error("SentinelCore does not have 'manage_startup_program' method.")
-             messagebox.showerror("Error", "Core function to manage startup programs is missing.")
-             self.status_var.set("Error: Core function missing")
+            logger.error("SentinelCore does not have 'manage_startup_program' method.")
+            messagebox.showerror("Error", "Core function to manage startup programs is missing.")
+            self.status_var.set("Error: Core function missing")
+
+    def _is_safe_path(self, path: str) -> bool:
+        """Validate if a file path is safe.
+
+        Args:
+            path: The file path to validate
+
+        Returns:
+            bool: True if path is safe, False otherwise
+        """
+        try:
+            # Basic path security checks
+            if not path or len(path) > 260:  # Windows MAX_PATH
+                return False
+
+            # Check for suspicious patterns
+            suspicious_patterns = ['..', '&&', '|', ';', '>', '<', '$', '`', '*', '?']
+            if any(pattern in path for pattern in suspicious_patterns):
+                return False
+
+            # Validate path exists and is a file
+            return os.path.isfile(path)
+        except Exception as e:
+            logger.error(f"Path validation error: {e}")
+            return False
 
 
     def run_optimization(self) -> None:
-        """Run system optimization with selected profile using the worker."""
-        selected_profile = self.profile_var.get()
-        logger.info(f"Starting optimization with profile: {selected_profile}")
-        self.status_var.set(f"Optimizing ({selected_profile})...")
-        self.optimize_button.state(['disabled'])
-        self.results_text.configure(state=tk.NORMAL)
-        self.results_text.delete(1.0, tk.END)
-        self.results_text.insert(tk.END, f"Starting optimization using '{selected_profile}' profile...\n\n")
-        self.results_text.configure(state=tk.DISABLED)
-
-
-        def on_optimization_complete(results: Optional[Dict[str, Any]], error: Optional[str] = None) -> None:
-            try:
-                if not self.root.winfo_exists(): return # Check if window closed
-                self.results_text.configure(state=tk.NORMAL) # Enable writing
-                if error:
-                    messagebox.showerror("Optimization Error", f"Failed to optimize system:\n{error}")
-                    self.results_text.insert(tk.END, f"\n--- Optimization Failed ---\nError: {error}")
-                    logger.error(f"Optimization failed: {error}")
-                elif results:
-                    self.display_optimization_results(results)
-                    logger.info(f"Optimization completed. Success: {results.get('success')}")
-                    if results.get('success'):
-                         messagebox.showinfo("Optimization Complete", "System optimization finished successfully.")
-                    else:
-                         messagebox.showwarning("Optimization Issues", f"Optimization finished, but reported issues:\n{results.get('error', 'Unknown issue')}")
-
-                else:
-                     messagebox.showerror("Optimization Error", "Optimization process did not return any results.")
-                     self.results_text.insert(tk.END, "\n--- Optimization Failed ---\nError: No results returned.")
-                     logger.error("Optimization failed: No results returned from core.")
-
-                self.results_text.configure(state=tk.DISABLED) # Make read-only again
-                self.status_var.set("Ready")
-                self.optimize_button.state(['!disabled']) # Re-enable button
-            except tk.TclError:
-                 logger.warning("Optimization result display aborted: Window closed.")
-            except Exception as e:
-                 logger.exception(f"Error displaying optimization results: {e}")
-                 self.status_var.set("Error updating UI")
-                 self.optimize_button.state(['!disabled']) # Ensure button is re-enabled on error
-
-
-        self.worker.add_task(
-            lambda: self.core.optimize_system(selected_profile),
-            on_optimization_complete
-        )
+        """Run system optimization with selected profile."""
+        profile = self.profile_var.get()
+        
+        def optimization_task():
+            return self.core.optimize_system(profile)
+            
+        def optimization_callback(result: Optional[Any], error: Optional[str]) -> None:
+            if error:
+                messagebox.showerror("Error", f"Optimization failed: {error}")
+                self.logger.error(f"Optimization error: {error}")
+                return
+                
+            if result.get('success'):
+                messagebox.showinfo("Success", "Optimization completed successfully!")
+                self.update_system_info()  # Refresh system info
+            else:
+                failed = result.get('failed_tasks', [])
+                messagebox.showerror(
+                    "Error",
+                    f"Optimization failed for tasks: {', '.join(failed)}"
+                )
+        
+        try:
+            # Run optimization in worker thread
+            self.worker.add_task(optimization_task, optimization_callback)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to start optimization: {str(e)}")
+            self.logger.error(f"Failed to start optimization: {e}", exc_info=True)
 
     def display_optimization_results(self, results: Dict[str, Any]) -> None:
         """Formats and displays optimization results in the text widget.
