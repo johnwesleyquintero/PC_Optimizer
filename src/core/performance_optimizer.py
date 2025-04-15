@@ -1,7 +1,16 @@
 # c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\core\performance_optimizer.py
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Callable
-from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
+from typing import (
+    List,
+    Dict,
+    Any,
+    Optional,
+    Callable
+)
+from concurrent.futures import (
+    ThreadPoolExecutor,
+    TimeoutError as FuturesTimeoutError
+)
 import concurrent.futures
 import multiprocessing
 import psutil
@@ -34,7 +43,11 @@ from .logging_manager import LoggingManager
 class OptimizationError(Exception):
     """Base exception for optimization-related errors."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[Dict[str, Any]] = None
+    ):
         self.details = details or {}
         super().__init__(f"{message} Details: {self.details}")
 
@@ -42,7 +55,11 @@ class OptimizationError(Exception):
 class ConfigurationError(OptimizationError):
     """Exception raised for configuration-related issues."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[Dict[str, Any]] = None
+    ):
         super().__init__(f"Configuration Error: {message}", details)
 
 
@@ -50,7 +67,10 @@ class TaskExecutionError(OptimizationError):
     """Exception raised when a specific optimization task fails."""
 
     def __init__(
-        self, task_name: str, reason: str, details: Optional[Dict[str, Any]] = None
+        self,
+        task_name: str,
+        reason: str,
+        details: Optional[Dict[str, Any]] = None
     ):
         self.task_name = task_name
         self.reason = reason
@@ -61,28 +81,44 @@ class TaskExecutionError(OptimizationError):
 class MemoryOptimizationError(OptimizationError):
     """Exception raised when memory optimization fails."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[Dict[str, Any]] = None
+    ):
         super().__init__(f"Memory Optimization Error: {message}", details)
 
 
 class FileCleanupError(OptimizationError):
     """Exception raised when temporary file cleanup fails."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[Dict[str, Any]] = None
+    ):
         super().__init__(f"File Cleanup Error: {message}", details)
 
 
 class DiskOperationError(OptimizationError):
     """Exception raised for disk-related operation failures."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[Dict[str, Any]] = None
+    ):
         super().__init__(f"Disk Operation Error: {message}", details)
 
 
 class StartupManagementError(OptimizationError):
     """Exception raised for startup program management failures."""
 
-    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
+    def __init__(
+        self,
+        message: str,
+        details: Optional[Dict[str, Any]] = None
+    ):
         super().__init__(f"Startup Management Error: {message}", details)
 
 
@@ -245,20 +281,32 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             theme_keys = {
                 "SystemUsesLightTheme": (
                     winreg.HKEY_CURRENT_USER,
-                    r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    (
+                        r"Software\Microsoft\Windows\CurrentVersion"
+                        r"\Themes\Personalize"
+                    ),
                 ),
                 "AppsUseLightTheme": (
                     winreg.HKEY_CURRENT_USER,
-                    r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    (
+                        r"Software\Microsoft\Windows\CurrentVersion"
+                        r"\Themes\Personalize"
+                    ),
                 ),
                 "EnableTransparency": (
                     winreg.HKEY_CURRENT_USER,
-                    r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    (
+                        r"Software\Microsoft\Windows\CurrentVersion"
+                        r"\Themes\Personalize"
+                    ),
                 ),
                 # Add other relevant keys like visual effects if needed
                 "VisualFXSetting": (
                     winreg.HKEY_CURRENT_USER,
-                    r"Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects",
+                    (
+                        r"Software\Microsoft\Windows\CurrentVersion"
+                        r"\Explorer\VisualEffects"
+                    ),
                 ),
             }
 
@@ -332,10 +380,10 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                 result["details"] = "Restored original theme settings."
 
             theme_key_path = (
-                r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+                r"Software\Microsoft\Windows\CurrentVersion" r"\Themes\Personalize"
             )
             visual_fx_key_path = (
-                r"Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects"
+                r"Software\Microsoft\Windows\CurrentVersion" r"\Explorer\VisualEffects"
             )
 
             for setting, value in target_settings.items():
@@ -1205,19 +1253,24 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             if self.config.has_section(config_section):
                 cfg_key = "critical_disk_usage_percent"
                 cleanup_cfg[cfg_key] = self.config.getfloat(
-                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key]
+                )
                 cfg_key = "high_disk_usage_percent"
                 cleanup_cfg[cfg_key] = self.config.getfloat(
-                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key]
+                )
                 cfg_key = "critical_age_threshold_days"
                 cleanup_cfg[cfg_key] = self.config.getint(
-                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key]
+                )
                 cfg_key = "high_age_threshold_days"
                 cleanup_cfg[cfg_key] = self.config.getint(
-                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key]
+                )
                 cfg_key = "normal_age_threshold_days"
                 cleanup_cfg[cfg_key] = self.config.getint(
-                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key]
+                )
                 # Load patterns (assuming JSON or comma-separated in config)
                 try:
                     patterns_str = self.config.get(
