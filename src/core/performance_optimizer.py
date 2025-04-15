@@ -1,16 +1,7 @@
 # c:\Users\johnw\OneDrive\Desktop\SentinelPC\src\core\performance_optimizer.py
 from pathlib import Path
-from typing import (
-    List,
-    Dict,
-    Any,
-    Optional,
-    Callable
-)
-from concurrent.futures import (
-    ThreadPoolExecutor,
-    TimeoutError as FuturesTimeoutError
-)
+from typing import List, Dict, Any, Optional, Callable
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 import concurrent.futures
 import multiprocessing
 import psutil
@@ -43,11 +34,7 @@ from .logging_manager import LoggingManager
 class OptimizationError(Exception):
     """Base exception for optimization-related errors."""
 
-    def __init__(
-        self,
-        message: str,
-        details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         self.details = details or {}
         super().__init__(f"{message} Details: {self.details}")
 
@@ -55,11 +42,7 @@ class OptimizationError(Exception):
 class ConfigurationError(OptimizationError):
     """Exception raised for configuration-related issues."""
 
-    def __init__(
-        self,
-        message: str,
-        details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(f"Configuration Error: {message}", details)
 
 
@@ -67,10 +50,7 @@ class TaskExecutionError(OptimizationError):
     """Exception raised when a specific optimization task fails."""
 
     def __init__(
-        self,
-        task_name: str,
-        reason: str,
-        details: Optional[Dict[str, Any]] = None
+        self, task_name: str, reason: str, details: Optional[Dict[str, Any]] = None
     ):
         self.task_name = task_name
         self.reason = reason
@@ -81,44 +61,28 @@ class TaskExecutionError(OptimizationError):
 class MemoryOptimizationError(OptimizationError):
     """Exception raised when memory optimization fails."""
 
-    def __init__(
-        self,
-        message: str,
-        details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(f"Memory Optimization Error: {message}", details)
 
 
 class FileCleanupError(OptimizationError):
     """Exception raised when temporary file cleanup fails."""
 
-    def __init__(
-        self,
-        message: str,
-        details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(f"File Cleanup Error: {message}", details)
 
 
 class DiskOperationError(OptimizationError):
     """Exception raised for disk-related operation failures."""
 
-    def __init__(
-        self,
-        message: str,
-        details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(f"Disk Operation Error: {message}", details)
 
 
 class StartupManagementError(OptimizationError):
     """Exception raised for startup program management failures."""
 
-    def __init__(
-        self,
-        message: str,
-        details: Optional[Dict[str, Any]] = None
-    ):
+    def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(f"Startup Management Error: {message}", details)
 
 
@@ -483,7 +447,8 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             self._last_run_result = report
             self._status = "completed" if report["success"] else "failed"
             self.logger.info(
-                f"Optimization finished. Success: {report['success']}. Duration: {report['duration_seconds']}s"
+                f"Optimization finished. Success: {report['success']}. "
+                f"Duration: {report['duration_seconds']}s"
             )
             return report
 
@@ -510,7 +475,7 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
         self.logger.debug("Validating optimization readiness.")
         # Basic check: Ensure config is loaded (ConfigManager handles actual loading errors)
         if not self.config or not isinstance(self.config, configparser.ConfigParser):
-            raise ConfigurationError("Configuration is not loaded or invalid.")
+            raise ConfigurationError("Invalid config.")
 
         # Check system resources (optional, can be made configurable)
         try:
@@ -554,7 +519,8 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                 self.logger.warning(
                     f"Resource check: CPU={cpu_percent:.1f}% (Threshold={cpu_threshold}%), "
                     f"Mem={memory.percent:.1f}% (Threshold={mem_threshold}%), "
-                    f"AvailMem={memory.available / (1024*1024):.0f}MB (Min={min_mem_mb}MB)"
+                    f"AvailMem={memory.available / (1024*1024):.0f}MB "
+                    f"(Min={min_mem_mb}MB)"
                 )
             return sufficient
         except Exception as e:
@@ -654,7 +620,8 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
 
                     except (ValueError, IndexError) as e:
                         self.logger.warning(
-                            f"Invalid format for task '{task_name}' in profile '{profile_name}': '{profile_setting}'. Using defaults. Error: {e}"
+                            f"Invalid format for task '{task_name}' in profile "
+                            f"'{profile_name}': '{profile_setting}'. Using defaults. Error: {e}"
                         )
                         # Keep default enabled/priority/timeout if parsing fails
                         task_config["enabled"] = default_config.get(
@@ -672,7 +639,8 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                     task_config["name"] = task_name
                     if task_config["function"] not in self._tasks:
                         self.logger.error(
-                            f"Task function '{task_config['function']}' for task '{task_name}' is not implemented."
+                            f"Task function '{task_config['function']}' for "
+                            f"task '{task_name}' is not implemented."
                         )
                         continue  # Skip unimplemented tasks
                     tasks_to_run.append(task_config)
@@ -760,7 +728,7 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                 )
             except FuturesTimeoutError:
                 error_msg = (
-                    f"Task '{task_name}' timed out after {task_timeout} seconds."
+                    f"Task '{task_name}' timed out after " f"{task_timeout} seconds."
                 )
                 self.logger.error(error_msg)
                 results.append(
@@ -830,7 +798,8 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             result_dict["name"] = task_name
             result_dict["duration_seconds"] = round(time.monotonic() - start_time, 2)
             self.logger.info(
-                f"Finished task: {task_name} in {result_dict['duration_seconds']:.2f}s. Success: {result_dict['success']}"
+                f"Finished task: {task_name} in {result_dict['duration_seconds']:.2f}s. "
+                f"Success: {result_dict['success']}"
             )
             return result_dict
 
@@ -1003,7 +972,8 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                         )
             else:
                 self.logger.warning(
-                    f"Configuration section '[{config_section}]' not found. Using default memory settings."
+                    f"Configuration section '[{config_section}]' not found. "
+                    f"Using default memory settings."
                 )
 
             # Determine current memory state based on AVAILABLE memory (more reliable than percentage)

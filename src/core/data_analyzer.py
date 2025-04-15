@@ -35,23 +35,26 @@ class CSVAnalyzer:
             raise FileNotFoundError(f"CSV file not found: {self.file_path}")
         except pd.errors.ParserError as e:
             error_msg = (
-                f"Error parsing CSV file: {self.file_path}. "
-                f"Ensure it is a valid CSV format. Details: {e}"
+                "Error parsing CSV file: "
+                f"{self.file_path}. "
+                "Ensure it is a valid CSV format. "
+                f"Details: {e}"
             )
             raise pd.errors.ParserError(error_msg)
         except pd.errors.EmptyDataError:
-            error_msg = f"CSV file is empty or contains no data: " f"{self.file_path}"
+            error_msg = "CSV file is empty or contains no data: " f"{self.file_path}"
             raise pd.errors.EmptyDataError(error_msg)
         except Exception as e:
             error_msg = (
-                f"Unexpected error loading CSV file: " f"{self.file_path}. Details: {e}"
+                "Unexpected error loading CSV file: "
+                f"{self.file_path}. "
+                f"Details: {e}"
             )
             raise Exception(error_msg)
 
         if df.empty:
-            raise pd.errors.EmptyDataError(
-                f"Loaded CSV DataFrame is empty: " f"{self.file_path}"
-            )
+            error_msg = "Loaded CSV DataFrame is empty: " f"{self.file_path}"
+            raise pd.errors.EmptyDataError(error_msg)
         return df
 
     def get_head(self, n: int = 5) -> pd.DataFrame:
@@ -99,10 +102,11 @@ class CSVAnalyzer:
         Raises:
             ValueError: If invalid strategy or incompatible column data type.
         """
-        if strategy not in ["mean", "median", "mode", "drop"]:
+        valid_strategies = ["mean", "median", "mode", "drop"]
+        if strategy not in valid_strategies:
+            strategies_str = "', '".join(valid_strategies)
             error_msg = (
-                f"Invalid strategy: '{strategy}'. "
-                "Choose from 'mean', 'median', 'mode', 'drop'."
+                f"Invalid strategy: '{strategy}'. " f"Choose from '{strategies_str}'."
             )
             raise ValueError(error_msg)
 
@@ -124,8 +128,8 @@ class CSVAnalyzer:
                     self.df.dropna(subset=[col], inplace=True)
                 else:
                     error_msg = (
-                        f"Strategy '{strategy}' incompatible with "
-                        f"column '{col}' type."
+                        f"Strategy '{strategy}' incompatible "
+                        f"with column '{col}' type."
                     )
                     raise ValueError(error_msg)
         return self.df

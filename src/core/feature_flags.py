@@ -30,15 +30,14 @@ class FeatureState(Enum):
 
 @dataclass
 class Feature:
-    """
-    Represents a feature with its configuration.
+    """Represents a feature with its configuration.
 
     Attributes:
-        name (str): The name of the feature.
-        state (FeatureState): The current state of the feature.
-        description (str): A description of the feature.
-        dependencies (list[str], optional): A list of feature names that this feature depends on. Defaults to None.
-        config (Dict[str, Any], optional): A dictionary containing configuration settings for the feature. Defaults to None.
+        name: The name of the feature.
+        state: The current state of the feature.
+        description: A description of the feature.
+        dependencies: A list of feature names that this feature depends on.
+        config: A dictionary containing configuration settings.
     """
 
     name: str
@@ -71,12 +70,17 @@ class FeatureFlags:
             with open(self._config_path, "r") as f:
                 data = json.load(f)
                 for name, config in data.items():
+                    state = FeatureState(config.get("state", "disabled"))
+                    desc = config.get("description", "")
+                    deps = config.get("dependencies", [])
+                    feat_config = config.get("config", {})
+
                     self._features[name] = Feature(
                         name=name,
-                        state=FeatureState(config.get("state", "disabled")),
-                        description=config.get("description", ""),
-                        dependencies=config.get("dependencies", []),
-                        config=config.get("config", {}),
+                        state=state,
+                        description=desc,
+                        dependencies=deps,
+                        config=feat_config,
                     )
         except Exception as e:
             print(f"Error loading feature flags: {e}")
