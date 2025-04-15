@@ -9,7 +9,8 @@ from tkinter import ttk, messagebox
 import os
 import logging
 from typing import Dict, Any, Optional
-import time  # Added for time.sleep in mock class
+
+# Note: Sleep functionality is handled by the worker classes
 
 # Attempt to import PIL for image handling, provide fallback/warning if missing
 try:

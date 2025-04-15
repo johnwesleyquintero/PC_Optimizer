@@ -22,9 +22,9 @@ except ImportError:
     _HAS_WINREG = False
 
 from .base_manager import BasePerformanceOptimizer
-from .config_manager import (
-    ConfigManager,
-)  # Using ConfigManager for consistency with SentinelCore
+
+# Using ConfigManager for consistency with SentinelCore
+from .config_manager import ConfigManager
 from .logging_manager import LoggingManager
 
 
@@ -134,14 +134,18 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
 
     # Define default memory optimization settings
     DEFAULT_MEMORY_CONFIG = {
+        # Memory thresholds
         "critical_threshold_gb": 2,
         "warning_threshold_gb": 4,
+        # Thread limits
         "critical_max_threads": 2,
         "warning_max_threads": 4,
         "normal_max_threads": 8,  # Default if above warning
+        # Process priorities
         "critical_priority": "high",  # Maps to psutil constants
         "warning_priority": "above_normal",
         "normal_priority": "normal",
+        # Cache clearing settings
         "clear_cache_critical": True,
         "clear_cache_warning": True,
         "clear_cache_normal": False,
@@ -149,17 +153,21 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
 
     # Define default temp file cleanup settings
     DEFAULT_CLEANUP_CONFIG = {
+        # Disk usage thresholds
         "critical_disk_usage_percent": 90,
         "high_disk_usage_percent": 75,
+        # Age thresholds for file cleanup
         "critical_age_threshold_days": 1,
         "high_age_threshold_days": 7,
         "normal_age_threshold_days": 30,
+        # File patterns for cleanup
         "patterns": {
             "temp_files": ["*.tmp", "*.temp", "~*", "*.bak", "*.old"],
             "log_files": ["*.log", "*.log.*", "*.dmp"],
             "cache_files": ["*.cache", "*.chk", "*.nch"],
             "download_artifacts": ["*.crdownload", "*.part", "*.download"],
         },
+        # Prefixes to skip during cleanup
         "skip_prefixes": ["sys", "config", "important"],  # Example prefixes to skip
     }
 
@@ -1301,7 +1309,6 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             try:
                 usage = psutil.disk_usage(str(temp_dirs_to_clean[0]))
                 used_percent = usage.percent
-                total_space_before = usage.used  # Rough estimate
             except (FileNotFoundError, psutil.Error) as e:
                 self.logger.warning(
                     f"Could not get disk usage for {temp_dirs_to_clean[0]}: {e}. Using normal age threshold."
@@ -1770,7 +1777,6 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
                 self.logger.error(
                     f"Failed to {action} startup program '{program_name}'. Error: {result['error']}"
                 )
-
             return result
 
         except ValueError as ve:
