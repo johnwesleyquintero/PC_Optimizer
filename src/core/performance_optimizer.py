@@ -1197,38 +1197,27 @@ class PerformanceOptimizer(BasePerformanceOptimizer):
             "details": "",
         }
         temp_dirs_to_clean = []
-        total_space_before = 0
         config_section = "TempFileCleanup"
 
         try:
             # Load cleanup config with defaults
             cleanup_cfg = self.DEFAULT_CLEANUP_CONFIG.copy()
             if self.config.has_section(config_section):
-                cleanup_cfg["critical_disk_usage_percent"] = self.config.getfloat(
-                    config_section,
-                    "critical_disk_usage_percent",
-                    fallback=cleanup_cfg["critical_disk_usage_percent"],
-                )
-                cleanup_cfg["high_disk_usage_percent"] = self.config.getfloat(
-                    config_section,
-                    "high_disk_usage_percent",
-                    fallback=cleanup_cfg["high_disk_usage_percent"],
-                )
-                cleanup_cfg["critical_age_threshold_days"] = self.config.getint(
-                    config_section,
-                    "critical_age_threshold_days",
-                    fallback=cleanup_cfg["critical_age_threshold_days"],
-                )
-                cleanup_cfg["high_age_threshold_days"] = self.config.getint(
-                    config_section,
-                    "high_age_threshold_days",
-                    fallback=cleanup_cfg["high_age_threshold_days"],
-                )
-                cleanup_cfg["normal_age_threshold_days"] = self.config.getint(
-                    config_section,
-                    "normal_age_threshold_days",
-                    fallback=cleanup_cfg["normal_age_threshold_days"],
-                )
+                cfg_key = "critical_disk_usage_percent"
+                cleanup_cfg[cfg_key] = self.config.getfloat(
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                cfg_key = "high_disk_usage_percent"
+                cleanup_cfg[cfg_key] = self.config.getfloat(
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                cfg_key = "critical_age_threshold_days"
+                cleanup_cfg[cfg_key] = self.config.getint(
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                cfg_key = "high_age_threshold_days"
+                cleanup_cfg[cfg_key] = self.config.getint(
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
+                cfg_key = "normal_age_threshold_days"
+                cleanup_cfg[cfg_key] = self.config.getint(
+                    config_section, cfg_key, fallback=cleanup_cfg[cfg_key])
                 # Load patterns (assuming JSON or comma-separated in config)
                 try:
                     patterns_str = self.config.get(
